@@ -100,7 +100,10 @@
     gap: 4px;
     border-top: 1px solid rgba(255,255,255,0.15);
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
+  .nav-tabs::-webkit-scrollbar { display: none; }
   .nav-tab {
     padding: 11px 18px;
     background: none;
@@ -151,7 +154,7 @@
     justify-content: center;
     gap: 4px;
     direction: ltr;
-    min-width: 64px;
+    min-width: 60px;
   }
   .alpha-chip.active {
     background: linear-gradient(135deg, #0d2e42 0%, #0a4d3f 100%);
@@ -211,7 +214,7 @@
   }
   .word-main { flex: 1; }
   .word-english {
-    font-size: 22px;
+    font-size: 21px;
     font-weight: 700;
     color: var(--primary);
     letter-spacing: 0.3px;
@@ -261,18 +264,51 @@
     margin-bottom: 14px;
   }
   .example-en {
-    font-size: 14px;
+    font-size: 14.5px;
     direction: ltr;
     text-align: left;
     color: var(--text);
     font-weight: 500;
-    line-height: 1.7;
+    line-height: 1.75;
   }
   .example-fa {
-    font-size: 13px;
+    font-size: 13.5px;
     color: var(--text-secondary);
     margin-top: 6px;
-    line-height: 1.7;
+    line-height: 1.75;
+  }
+
+  /* Leitner Action Bar */
+  .leitner-action-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding-top: 10px;
+    margin-top: 8px;
+    border-top: 1px dashed var(--border);
+  }
+  .btn-leitner {
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .btn-leitner-fail { background: #fdedec; color: #c0392b; }
+  .btn-leitner-pass { background: #eafaf1; color: #1e8449; }
+  .leitner-box-tag {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 12px;
+    background: var(--bg-tertiary);
+    color: var(--primary);
   }
 
   /* Quiz section */
@@ -334,7 +370,8 @@
   .sent-en { font-size: 15px; direction: ltr; text-align: left; line-height: 1.7; color: var(--text); flex: 1; }
   .sent-btn-audio { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 16px; padding: 2px 6px; }
   .sent-fa { font-size: 14px; color: var(--text-secondary); padding-right: 30px; line-height: 1.7; }
-  .keyword-tag { display: inline-block; background: var(--primary-pale); color: var(--primary); padding: 2px 8px; border-radius: 10px; font-size: 11.5px; font-weight: 600; margin: 2px; direction: ltr; }
+  .keyword-tag { display: inline-block; background: var(--primary-pale); color: var(--primary); padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: 600; margin: 2px; direction: ltr; cursor: pointer; }
+  .keyword-tag:hover { background: #bfe2f7; }
 
   /* CONTROLS */
   .page-controls { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; border-top: 1px solid var(--border); margin-top: 8px; }
@@ -350,7 +387,6 @@
 
   /* TRAPS */
   .trap-toolbar { display: flex; align-items: center; justify-content: center; gap: 16px; margin: 4px 0 18px; }
-  .trap-counter { font-size: 13px; color: var(--text-secondary); font-weight: 600; }
   .trap-stage { display: flex; flex-direction: column; align-items: center; gap: 10px; }
   .trap-card { width: 100%; max-width: 620px; height: 260px; perspective: 1400px; cursor: pointer; }
   .trap-flip-inner { position: relative; width: 100%; height: 100%; transition: transform 0.55s cubic-bezier(.4,.2,.2,1); transform-style: preserve-3d; }
@@ -427,7 +463,7 @@
   </div>
   <div class="nav-tabs">
     <button class="nav-tab active" data-tab="vocab" onclick="switchTab('vocab')">📚 واژگان مرجع</button>
-    <button class="nav-tab" data-tab="ossareh" onclick="switchTab('ossareh')">🧪 عصاره لغات (شیت)</button>
+    <button class="nav-tab" data-tab="ossareh" onclick="switchTab('ossareh')">🧪 عصاره لغات و لایتنر</button>
     <button class="nav-tab" data-tab="passage" onclick="switchTab('passage')">📄 Passage</button>
     <button class="nav-tab" data-tab="bookmarks" onclick="switchTab('bookmarks')">⭐ مارک‌شده‌ها</button>
     <button class="nav-tab" data-tab="traps" onclick="switchTab('traps')">🧠 تله‌های کنکوری</button>
@@ -466,19 +502,34 @@
       </div>
     </div>
 
-    <!-- 2. OSSAREH TAB (عصاره لغات از گوگل شیت) -->
+    <!-- 2. OSSAREH TAB (عصاره لغات + سیستم لایتنر اختصاصی) -->
     <div id="tab-ossareh" class="tab-content">
       <div class="section-heading">
-        <h2>🧪 عصاره لغات و دسته‌بندی مترادف‌ها</h2>
+        <h2>🧪 عصاره لغات و سیستم لایتنر هوشمند</h2>
         <div class="page-info" id="ossareh-count">در حال بارگذاری زنده از شیت...</div>
       </div>
 
-      <div class="alpha-bar-wrapper">
+      <!-- نوار فیلتر جعبه‌های لایتنر -->
+      <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:10px 14px; margin-bottom:14px; box-shadow:var(--shadow);">
+        <div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:8px;">📦 جعبه‌های مرور لایتنر:</div>
+        <div style="display:flex; flex-wrap:wrap; gap:6px;" id="leitnerBoxesBar">
+          <button class="alpha-chip active" onclick="filterLeitnerBox('all')" id="btn-box-all" style="background:var(--primary); color:white;">همه خانه‌ها <span class="count" id="cnt-box-all">۰</span></button>
+          <button class="alpha-chip" onclick="filterLeitnerBox(1)" id="btn-box-1" style="color:var(--text);">خانه ۱ <span class="count" id="cnt-box-1">۰</span></button>
+          <button class="alpha-chip" onclick="filterLeitnerBox(2)" id="btn-box-2" style="color:var(--text);">خانه ۲ <span class="count" id="cnt-box-2">۰</span></button>
+          <button class="alpha-chip" onclick="filterLeitnerBox(3)" id="btn-box-3" style="color:var(--text);">خانه ۳ <span class="count" id="cnt-box-3">۰</span></button>
+          <button class="alpha-chip" onclick="filterLeitnerBox(4)" id="btn-box-4" style="color:var(--text);">خانه ۴ <span class="count" id="cnt-box-4">۰</span></button>
+          <button class="alpha-chip" onclick="filterLeitnerBox(5)" id="btn-box-5" style="color:var(--text);">خانه ۵ <span class="count" id="cnt-box-5">۰</span></button>
+          <button class="alpha-chip" onclick="filterLeitnerBox('star')" id="btn-box-star" style="color:#d97706;">⭐ ستاره‌دارها <span class="count" id="cnt-box-star">۰</span></button>
+        </div>
+      </div>
+
+      <!-- فیلتر روز و جستجو -->
+      <div class="alpha-bar-wrapper" style="margin-bottom: 16px;">
         <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;" id="ossarehDayFilters">
           <button class="alpha-chip active">همه روزها</button>
         </div>
         <div style="display:flex; justify-content:center; margin-top: 12px;">
-          <input type="text" class="search-box" id="ossarehSearch" placeholder="جستجو در عصاره لغات یا ترجمه..." oninput="filterOssareh()" style="max-width:320px;" />
+          <input type="text" class="search-box" id="ossarehSearch" placeholder="جستجو در عصاره لغات، مترادف‌ها یا ترجمه..." oninput="filterOssareh()" style="max-width:320px;" />
         </div>
       </div>
 
@@ -498,7 +549,7 @@
 
     <!-- 4. BOOKMARKS TAB -->
     <div id="tab-bookmarks" class="tab-content">
-      <div class="section-heading"><h2>⭐ واژگان مارک‌شده برای مرور</h2></div>
+      <div class="section-heading"><h2>⭐ واژگان مرجع مارک‌شده</h2></div>
       <div id="bookmarkGrid" class="word-grid"></div>
     </div>
 
@@ -589,16 +640,15 @@
   </div>
   <div class="subscreen-body">
     <div class="about-text">
-      <p>این سامانه توسط Learning Lab Academy با هدف تسلط کامل داوطلبان و دانشجویان علوم آزمایشگاهی بر واژگان و متون تخصصی پزشکی طراحی شده است.</p>
+      <p>این سامانه توسط Learning Lab Academy با هدف تسلط کامل داوطلبان و دانشجویان علوم آزمایشگاهی بر واژگان، متون تخصصی پزشکی و سیستم لایتنر هوشمند طراحی شده است.</p>
     </div>
   </div>
 </div>
 
 <div id="appToast" class="app-toast"></div>
 
-<!-- ================= JAVASCRIPT LOGIC ================= -->
+<!-- ================= JAVASCRIPT ================= -->
 <script>
-// ۱. آدرس شیت عصاره لغات
 const OSSAREH_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQsotmNaQnk65bd3Kgw_cAYwSztRDdnIlOVsLDkkuij8x6jdo6EUQ9zNgXNWNtiZfpgHYG778IE7rsu/pub?gid=2&single=true&output=csv";
 
 let WORDS = [];
@@ -608,7 +658,6 @@ const pageSize = 15;
 let filteredWordsList = [];
 let activeAlpha = 'all';
 
-// مدیریت جابه‌جایی صفحات منو و اپ
 function startLearning() {
   document.getElementById('screen-menu').style.display = 'none';
   document.getElementById('screen-about').style.display = 'none';
@@ -626,7 +675,6 @@ function showAbout() {
   document.getElementById('screen-about').style.display = 'block';
 }
 
-// سوئیچ بین تب‌ها
 function switchTab(tabId) {
   document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
   document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
@@ -639,7 +687,7 @@ function switchTab(tabId) {
   if (tabId === 'bookmarks') renderBookmarks();
 }
 
-// بارگذاری واژگان مرجع از فایل جیسون مخزن
+// واژگان مرجع ۱۰۰۰ تایی
 async function loadMainWords() {
   try {
     const res = await fetch('medical_vocab_data.json');
@@ -813,20 +861,44 @@ function answerCardQuiz(wId, qIdx, oIdx, correctIdx, btn) {
   }
 }
 
-// تلفظ صوتی متن
+// تلفظ صوتی واژه منفرد
 function playAudio(text) {
   if ('speechSynthesis' in window) {
     window.speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
     u.lang = 'en-US';
-    u.rate = 0.9;
+    u.rate = 0.88;
     window.speechSynthesis.speak(u);
   }
 }
 
-// ================= ۲. بخش اختصاصی عصاره لغات (گوگل شیت) =================
+// تلفظ ترتیبی و پیوسته کل واژگان مترادف یک دسته
+function playAllSynonyms(wordsList) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  
+  wordsList.forEach((word, index) => {
+    const cleanWord = word.trim();
+    if (!cleanWord) return;
+    const utterance = new SpeechSynthesisUtterance(cleanWord);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.85;
+    if (index < wordsList.length - 1) {
+      utterance.onend = () => {
+        window.speechSynthesis.pause();
+        setTimeout(() => window.speechSynthesis.resume(), 250);
+      };
+    }
+    window.speechSynthesis.speak(utterance);
+  });
+}
+
+// ================= عصاره لغات + سیستم لایتنر هوشمند =================
 let ossarehData = [];
 let activeOssarehDay = 'all';
+let activeLeitnerBox = 'all';
+let ossarehBookmarks = JSON.parse(localStorage.getItem('oss_bookmarks') || '[]');
+let ossarehLeitner = JSON.parse(localStorage.getItem('oss_leitner_boxes') || '{}');
 
 function parseCSV(text) {
   const p = [];
@@ -872,16 +944,78 @@ async function loadOssarehData() {
 
       if (words) {
         if (day) daysSet.add(day);
-        ossarehData.push({ day, words, meaning, exEn, exFa });
+        const itemKey = `k_${day}_${words.slice(0, 15)}`;
+        if (!ossarehLeitner[itemKey]) {
+          ossarehLeitner[itemKey] = 1; // شروع از جعبه ۱
+        }
+        ossarehData.push({ key: itemKey, day, words, meaning, exEn, exFa });
       }
     }
 
+    saveLeitnerData();
     renderOssarehDayFilters(Array.from(daysSet));
-    renderOssarehCards(ossarehData);
+    updateLeitnerCounters();
+    filterOssareh();
   } catch (err) {
     console.error("خطا در بارگذاری عصاره لغات:", err);
-    document.getElementById("ossareh-count").innerText = "خطا در برقراری ارتباط";
+    const countEl = document.getElementById("ossareh-count");
+    if (countEl) countEl.innerText = "خطا در برقراری ارتباط با شیت";
   }
+}
+
+function saveLeitnerData() {
+  localStorage.setItem('oss_leitner_boxes', JSON.stringify(ossarehLeitner));
+}
+
+function toggleOssarehBookmark(key) {
+  if (ossarehBookmarks.includes(key)) {
+    ossarehBookmarks = ossarehBookmarks.filter(k => k !== key);
+  } else {
+    ossarehBookmarks.push(key);
+  }
+  localStorage.setItem('oss_bookmarks', JSON.stringify(ossarehBookmarks));
+  updateLeitnerCounters();
+  filterOssareh();
+}
+
+function handleLeitnerAnswer(key, passed) {
+  let box = ossarehLeitner[key] || 1;
+  if (passed) {
+    if (box < 5) box++;
+  } else {
+    box = 1; // در صورت فراموشی بازگشت به جعبه ۱
+  }
+  ossarehLeitner[key] = box;
+  saveLeitnerData();
+  updateLeitnerCounters();
+  filterOssareh();
+}
+
+function filterLeitnerBox(box) {
+  activeLeitnerBox = box;
+  const buttons = document.querySelectorAll('#leitnerBoxesBar .alpha-chip');
+  buttons.forEach(b => {
+    b.style.background = 'rgba(255,255,255,0.12)';
+    b.style.color = 'var(--text)';
+  });
+  const activeBtn = document.getElementById(`btn-box-${box}`);
+  if (activeBtn) {
+    activeBtn.style.background = 'var(--primary)';
+    activeBtn.style.color = '#fff';
+  }
+  filterOssareh();
+}
+
+function updateLeitnerCounters() {
+  document.getElementById('cnt-box-all').innerText = ossarehData.length;
+  for (let i = 1; i <= 5; i++) {
+    const count = ossarehData.filter(x => (ossarehLeitner[x.key] || 1) === i).length;
+    const el = document.getElementById(`cnt-box-${i}`);
+    if (el) el.innerText = count;
+  }
+  const starCount = ossarehData.filter(x => ossarehBookmarks.includes(x.key)).length;
+  const starEl = document.getElementById('cnt-box-star');
+  if (starEl) starEl.innerText = starCount;
 }
 
 function renderOssarehDayFilters(days) {
@@ -907,9 +1041,19 @@ function filterOssareh() {
   const q = (document.getElementById("ossarehSearch")?.value || "").toLowerCase().trim();
   let filtered = ossarehData;
 
+  // فیلتر جعبه لایتنر
+  if (activeLeitnerBox === 'star') {
+    filtered = filtered.filter(item => ossarehBookmarks.includes(item.key));
+  } else if (activeLeitnerBox !== 'all') {
+    filtered = filtered.filter(item => (ossarehLeitner[item.key] || 1) === Number(activeLeitnerBox));
+  }
+
+  // فیلتر روز
   if (activeOssarehDay !== 'all') {
     filtered = filtered.filter(item => item.day === activeOssarehDay);
   }
+
+  // جستجو
   if (q) {
     filtered = filtered.filter(item => 
       item.words.toLowerCase().includes(q) || 
@@ -929,41 +1073,63 @@ function renderOssarehCards(list) {
   if (countEl) countEl.innerText = `${list.length} دسته واژه`;
 
   if (list.length === 0) {
-    grid.innerHTML = `<div class="empty-state"><div class="icon">🔍</div><h3>واژه‌ای در این روز یا جستجو یافت نشد</h3></div>`;
+    grid.innerHTML = `<div class="empty-state"><div class="icon">🔍</div><h3>واژه‌ای در این بخش یافت نشد</h3></div>`;
     return;
   }
 
-  grid.innerHTML = list.map((item) => {
+  grid.innerHTML = list.map((item, idx) => {
     const synonyms = item.words.split('/').map(w => w.trim()).filter(Boolean);
-    const mainWord = synonyms[0] || item.words;
+    const isBookmarked = ossarehBookmarks.includes(item.key);
+    const boxNum = ossarehLeitner[item.key] || 1;
     const formattedExEn = item.exEn.replace(/\n/g, '<br>');
     const formattedExFa = item.exFa.replace(/\n/g, '<br>');
+    const safeSynonymsJson = JSON.stringify(synonyms).replace(/"/g, '&quot;');
 
     return `
-      <div class="word-card">
+      <div class="word-card ${isBookmarked ? 'bookmarked' : ''}">
         <div class="card-header">
           <div class="word-main">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <span class="word-english" style="font-size:20px;">${mainWord}</span>
-              ${item.day ? `<span class="badge" style="background:#117a65; font-size:11px;">روز ${item.day}</span>` : ''}
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <div>
+                ${item.day ? `<span class="badge" style="background:#117a65; font-size:11px; margin-left:6px;">روز ${item.day}</span>` : ''}
+                <span class="leitner-box-tag">جعبه ${boxNum}</span>
+              </div>
             </div>
             
-            <div style="margin-top: 6px; display:flex; flex-wrap:wrap; gap:5px;">
-              ${synonyms.map(s => `<span class="keyword-tag" style="font-size:12px;">${s}</span>`).join('')}
+            <!-- تمام لغات کنار هم به صورت پیوسته -->
+            <div class="word-english" style="font-size:20px; line-height:1.6; color:var(--primary); direction:ltr; text-align:left;">
+              ${synonyms.map(s => `<span class="keyword-tag" title="کلیک برای پخش تلفظ" onclick="playAudio('${s.replace(/'/g, "\\'")}')">${s}</span>`).join(' <span style="color:#b0bec5; font-weight:400; padding:0 3px;">/</span> ')}
             </div>
             
-            <div class="word-meaning" style="font-size:16px; margin-top:8px;">${item.meaning}</div>
+            <div class="word-meaning" style="font-size:16.5px; font-weight:700; color:var(--text); margin-top:10px;">
+              ${item.meaning}
+            </div>
           </div>
+
           <div class="card-actions">
-            <button class="btn-icon" title="پخش تلفظ" onclick="playAudio('${mainWord.replace(/'/g, "\\'")}')">🔊</button>
+            <button class="btn-icon ${isBookmarked ? 'active' : ''}" title="نشان کردن این دسته" onclick="toggleOssarehBookmark('${item.key}')">⭐</button>
+            <button class="btn-icon" title="پخش تلفظ همه لغات این دسته" onclick='playAllSynonyms(${safeSynonymsJson})'>🔊</button>
           </div>
         </div>
         
         ${item.exEn ? `
           <div class="card-body" style="padding-top:10px;">
             <div class="example-block">
-              <div class="example-en" style="line-height:1.8;">${formattedExEn}</div>
-              <div class="example-fa" style="line-height:1.8; margin-top:6px;">${formattedExFa}</div>
+              <div class="example-en">${formattedExEn}</div>
+              <div class="example-fa">${formattedExFa}</div>
+            </div>
+            
+            <!-- کنترل لایتنر -->
+            <div class="leitner-action-bar">
+              <span style="font-size:12px; color:var(--text-muted);">وضعیت پاسخ شما:</span>
+              <div style="display:flex; gap:6px;">
+                <button class="btn-leitner btn-leitner-fail" onclick="handleLeitnerAnswer('${item.key}', false)">
+                  ❌ بلد نبودم (جعبه ۱)
+                </button>
+                <button class="btn-leitner btn-leitner-pass" onclick="handleLeitnerAnswer('${item.key}', true)">
+                  ✔️ بلد بودم (${boxNum < 5 ? `انتقال به ${boxNum + 1}` : 'تکمیل شده'})
+                </button>
+              </div>
             </div>
           </div>
         ` : ''}
@@ -972,7 +1138,7 @@ function renderOssarehCards(list) {
   }).join('');
 }
 
-// راه‌اندازی اولیه در زمان لود سایت
+// ================= ۳. بخش‌های ریدینگ، تله‌ها و چالش =================
 window.addEventListener("DOMContentLoaded", () => {
   loadMainWords();
   loadOssarehData();
