@@ -1236,10 +1236,6 @@
       <span>درباره اپلیکیشن</span>
       <span class="menu-btn-icon">ℹ️</span>
     </button>
-    <button class="menu-btn" onclick="showContact()">
-      <span>ارتباط با ما</span>
-      <span class="menu-btn-icon">📞</span>
-    </button>
   </div>
 </div>
 
@@ -1255,38 +1251,6 @@
       <p style="background:var(--primary-pale); border-right:3px solid var(--primary); padding:10px 14px; border-radius:6px; font-weight:600; color:var(--primary); margin:12px 0;">جهت پشتیبانی به <a href="https://t.me/iamsaber_azr" target="_blank" style="color:var(--primary); text-decoration:underline; direction:ltr; display:inline-block;">@iamsaber_azr</a> در تلگرام پیام دهید.</p>
       <p>از اعتماد و همراهی شما صمیمانه سپاسگزاریم و برایتان آرزوی موفقیت در تمامی آزمون‌های پیش رو داریم.</p>
     </div>
-  </div>
-</div>
-
-<!-- ===== CONTACT SCREEN ===== -->
-<div id="screen-contact" class="subscreen" style="display:none;">
-  <div class="subscreen-topbar">
-    <button class="btn-back" onclick="goToMenu()">→ بازگشت</button>
-    <div class="subscreen-title">ارتباط با ما</div>
-  </div>
-  <div class="subscreen-body">
-    <div class="contact-list">
-      <div class="contact-item" onclick="window.open('https://t.me/learninglab_urm', '_blank')">
-        <div class="contact-item-main">
-          <div class="contact-item-icon">📢</div>
-          <div class="contact-item-info">
-            <div class="contact-item-label">کانال تلگرام</div>
-            <div class="contact-item-value">@learninglab_urm</div>
-          </div>
-        </div>
-        <div class="contact-item-action">ورود ↗</div>
-      </div>
-      <div class="contact-item" onclick="window.open('https://t.me/iamsaber_azr', '_blank')">
-        <div class="contact-item-main">
-          <div class="contact-item-icon">💬</div>
-          <div class="contact-item-info">
-            <div class="contact-item-label">ارتباط مستقیم و پشتیبانی</div>
-            <div class="contact-item-value">@iamsaber_azr</div>
-          </div>
-        </div>
-        <div class="contact-item-action">پیام ↗</div>
-      </div>
-    </div></div>
   </div>
 </div>
 
@@ -2544,7 +2508,7 @@ function switchTab(tab) {
 }
 
 // ========== مدیریت صفحات و منو ==========
-var SCREENS = ['menu', 'app', 'about', 'contact'];
+var SCREENS = ['menu', 'app', 'about'];
 
 function renderScreen(name) {
   SCREENS.forEach(function(s) {
