@@ -44,6 +44,7 @@
   .challenge-option, .word-card, .trap-list-item, .stat-pill, a, [onclick] {
     touch-action: manipulation;
   }
+  /* Apply Calibri to every LTR (English) element across the app */
   [dir="ltr"], .word-english, .word-phonetic, .example-en, .quiz-q,
   .quiz-q-en, .quiz-option-en, .sent-en, .quiz-exp-body .exp-en,
   .keyword-tag, #audioText, .passage-title {
@@ -99,31 +100,48 @@
     padding: 0 24px;
     gap: 4px;
     border-top: 1px solid rgba(255,255,255,0.15);
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
   }
-  .nav-tabs::-webkit-scrollbar { display: none; }
   .nav-tab {
-    padding: 11px 18px;
+    padding: 11px 20px;
     background: none;
     border: none;
     color: rgba(255,255,255,0.75);
     cursor: pointer;
-    font-size: 13.5px;
+    font-size: 14px;
     font-weight: 500;
     border-bottom: 3px solid transparent;
     transition: all 0.2s;
     display: flex; align-items: center; gap: 6px;
     font-family: inherit;
-    white-space: nowrap;
-    flex-shrink: 0;
   }
   .nav-tab.active { color: white; border-bottom-color: #1abc9c; font-weight: 700; }
 
   /* MAIN LAYOUT */
   .main-wrapper { display: flex; min-height: calc(100vh - 110px); }
   
+  /* SIDEBAR */
+  .sidebar {
+    width: 240px;
+    min-width: 240px;
+    background: var(--bg);
+    border-left: 1px solid var(--border);
+    padding: 16px 12px;
+    overflow-y: auto;
+    max-height: calc(100vh - 110px);
+    position: sticky;
+    top: 110px;
+  }
+  .sidebar-section { margin-bottom: 20px; }
+  .sidebar-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 0 8px;
+    margin-bottom: 8px;
+  }
+  /* ALPHA BAR - prominent horizontal category bar at top of vocab tab */
   .alpha-bar-wrapper {
     background: linear-gradient(135deg, #2e6d92 0%, #1f5c4f 100%);
     border: 1px solid var(--border);
@@ -154,8 +172,9 @@
     justify-content: center;
     gap: 4px;
     direction: ltr;
-    min-width: 60px;
+    min-width: 64px;
   }
+  
   .alpha-chip.active {
     background: linear-gradient(135deg, #0d2e42 0%, #0a4d3f 100%);
     border-color: rgba(255,255,255,0.5);
@@ -170,13 +189,21 @@
     color: rgba(255,255,255,0.85);
     direction: ltr;
   }
+  .alpha-chip.active .count {
+    background: rgba(255,255,255,0.25);
+    color: white;
+  }
+  @media (max-width: 768px) {
+    .alpha-bar-wrapper { padding: 10px 12px; }
+    .alpha-chip { padding: 4px 10px; font-size: 10px; min-width: 52px; }
+  }
   
   .search-box {
     width: 100%;
     padding: 10px 12px;
     border: 1.5px solid var(--border);
     border-radius: var(--radius-sm);
-    font-size: 15px;
+    font-size: 16px;
     font-family: inherit;
     direction: rtl;
     text-align: right;
@@ -187,12 +214,14 @@
   }
   .search-box:focus { border-color: var(--primary-light); }
 
+  /* CONTENT AREA */
   .content-area {
     flex: 1;
     padding: 20px 24px;
     overflow-y: auto;
   }
 
+  /* WORD CARDS */
   .word-grid { display: flex; flex-direction: column; gap: 16px; }
   
   .word-card {
@@ -214,7 +243,7 @@
   }
   .word-main { flex: 1; }
   .word-english {
-    font-size: 21px;
+    font-size: 22px;
     font-weight: 700;
     color: var(--primary);
     letter-spacing: 0.3px;
@@ -229,7 +258,7 @@
     font-style: italic;
   }
   .word-meaning {
-    font-size: 17px;
+    font-size: 18px;
     font-weight: 600;
     color: var(--text);
     margin-top: 6px;
@@ -264,51 +293,18 @@
     margin-bottom: 14px;
   }
   .example-en {
-    font-size: 14.5px;
+    font-size: 14px;
     direction: ltr;
     text-align: left;
     color: var(--text);
     font-weight: 500;
-    line-height: 1.75;
+    line-height: 1.6;
   }
   .example-fa {
-    font-size: 13.5px;
+    font-size: 13px;
     color: var(--text-secondary);
-    margin-top: 6px;
-    line-height: 1.75;
-  }
-
-  /* Leitner Action Bar */
-  .leitner-action-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    padding-top: 10px;
-    margin-top: 8px;
-    border-top: 1px dashed var(--border);
-  }
-  .btn-leitner {
-    padding: 6px 12px;
-    border-radius: var(--radius-sm);
-    font-size: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    border: none;
-    transition: all 0.15s;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-  .btn-leitner-fail { background: #fdedec; color: #c0392b; }
-  .btn-leitner-pass { background: #eafaf1; color: #1e8449; }
-  .leitner-box-tag {
-    font-size: 11px;
-    font-weight: 700;
-    padding: 3px 8px;
-    border-radius: 12px;
-    background: var(--bg-tertiary);
-    color: var(--primary);
+    margin-top: 5px;
+    line-height: 1.6;
   }
 
   /* Quiz section */
@@ -325,8 +321,10 @@
     display: flex; align-items: center; gap: 6px;
     transition: all 0.15s;
   }
+  
   .quiz-container { display: none; margin-top: 12px; }
   .quiz-container.open { display: block; }
+  
   .quiz-item {
     background: var(--bg-secondary);
     border: 1px solid var(--border);
@@ -334,117 +332,654 @@
     padding: 14px 16px;
     margin-bottom: 10px;
   }
-  .quiz-q-en { font-size: 13px; font-weight: 600; direction: ltr; text-align: left; color: var(--text); line-height: 1.6; }
-  .quiz-q-fa { font-size: 12px; color: var(--text-muted); margin-top: 4px; margin-bottom: 10px; direction: rtl; text-align: right; line-height: 1.5; padding-right: 4px; border-right: 2px solid var(--border); }
+  .quiz-q {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    direction: ltr;
+    text-align: left;
+    color: var(--text);
+    line-height: 1.6;
+  }
   .quiz-options { display: flex; flex-direction: column; gap: 6px; }
   .quiz-option {
-    padding: 8px 14px;
+    padding: 9px 14px;
     border: 1.5px solid var(--border);
     border-radius: var(--radius-sm);
     cursor: pointer;
+    font-size: 13px;
+    direction: ltr;
+    text-align: left;
     color: var(--text);
     background: var(--bg);
     transition: all 0.15s;
+    font-family: inherit;
     width: 100%;
   }
-  .quiz-option-en { display: block; font-size: 13px; direction: ltr; text-align: left; }
-  .quiz-option-fa { display: block; font-size: 11px; color: var(--text-muted); margin-top: 2px; direction: rtl; text-align: right; }
   .quiz-option.correct { border-color: #27ae60; background: #eafaf1; color: #1e8449; font-weight: 600; }
   .quiz-option.wrong { border-color: #e74c3c; background: #fdedec; color: #c0392b; }
-  .quiz-explanation { display: none; margin-top: 10px; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border); }
-  .quiz-explanation.show { display: block; }
-  .quiz-exp-header { padding: 8px 14px; font-size: 12px; font-weight: 700; }
-  .quiz-exp-header.correct-exp { background: #eafaf1; color: #1e8449; }
-  .quiz-exp-header.wrong-exp { background: #fdedec; color: #c0392b; }
-  .quiz-exp-body { padding: 10px 14px; font-size: 13px; color: var(--text-secondary); background: var(--bg); line-height: 1.7; }
+  .quiz-option:disabled { cursor: default; }
 
-  /* PASSAGE */
-  .passage-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
-  .passage-header { background: linear-gradient(135deg, #0d2e42 0%, #14507a 55%, #0a4d3f 100%); color: white; padding: 18px 24px; }
+  .quiz-explanation {
+    display: none;
+    margin-top: 10px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .quiz-explanation.show { display: block; }
+  .quiz-exp-header {
+    display: flex; align-items: center; gap: 8px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+  }
+  .quiz-exp-header.correct-exp { background: #eafaf1; color: #1e8449; border-bottom: 1px solid #a9dfbf; }
+  .quiz-exp-header.wrong-exp { background: #fdedec; color: #c0392b; border-bottom: 1px solid #f5b7b1; }
+  .quiz-exp-body {
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    background: var(--bg);
+    line-height: 1.7;
+    direction: rtl;
+    text-align: right;
+  }
+  .quiz-exp-body .exp-fa {
+    direction: rtl;
+    text-align: right;
+    color: var(--primary);
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1.8;
+    display: block;
+    font-family: var(--font-fa);
+  }
+  .quiz-exp-body .exp-en {
+    direction: ltr;
+    text-align: left;
+    color: var(--primary);
+    font-weight: 500;
+    font-size: 13px;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  /* Question + option translation styles */
+  .quiz-q-en {
+    font-size: 13px;
+    font-weight: 600;
+    direction: ltr;
+    text-align: left;
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .quiz-q-fa {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+    margin-bottom: 10px;
+    direction: rtl;
+    text-align: right;
+    line-height: 1.5;
+    padding-right: 4px;
+    border-right: 2px solid var(--border);
+  }
+  .quiz-option-en {
+    display: block;
+    font-size: 13px;
+    direction: ltr;
+    text-align: left;
+  }
+  .quiz-option-fa {
+    display: block;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 2px;
+    direction: rtl;
+    text-align: right;
+  }
+  .quiz-option.correct .quiz-option-fa,
+  .quiz-option.wrong .quiz-option-fa { color: inherit; opacity: 0.8; }
+  .quiz-option { padding: 8px 14px; }
+
+  /* PASSAGE TAB */
+  .passage-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .passage-header {
+    background: linear-gradient(135deg, #0d2e42 0%, #14507a 55%, #0a4d3f 100%);
+    color: white;
+    padding: 18px 24px;
+  }
   .passage-title { font-size: 18px; font-weight: 700; }
   .passage-meta { font-size: 12px; opacity: 0.8; margin-top: 4px; }
   .passage-body { padding: 24px; }
-  .passage-sentence { margin-bottom: 20px; padding: 14px 16px; border: 1px solid var(--border); border-radius: var(--radius-sm); }
-  .sent-number { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: var(--primary); color: white; border-radius: 50%; font-size: 11px; font-weight: 700; margin-left: 8px; flex-shrink: 0; }
-  .sent-header { display: flex; align-items: flex-start; margin-bottom: 8px; }
-  .sent-en { font-size: 15px; direction: ltr; text-align: left; line-height: 1.7; color: var(--text); flex: 1; }
-  .sent-btn-audio { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 16px; padding: 2px 6px; }
-  .sent-fa { font-size: 14px; color: var(--text-secondary); padding-right: 30px; line-height: 1.7; }
-  .keyword-tag { display: inline-block; background: var(--primary-pale); color: var(--primary); padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: 600; margin: 2px; direction: ltr; cursor: pointer; }
-  .keyword-tag:hover { background: #bfe2f7; }
+  .passage-sentence {
+    margin-bottom: 20px;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    transition: background 0.15s;
+    cursor: default;
+  }
+  .passage-sentence.highlighted { background: var(--primary-pale); border-color: var(--primary-light); }
+  
+  .sent-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px; height: 22px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    margin-left: 8px;
+    flex-shrink: 0;
+  }
+  .sent-header { display: flex; align-items: flex-start; gap: 0; margin-bottom: 8px; }
+  .sent-en {
+    font-size: 15px;
+    direction: ltr;
+    text-align: left;
+    line-height: 1.7;
+    color: var(--text);
+    flex: 1;
+  }
+  .sent-btn-audio {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 16px;
+    padding: 2px 6px;
+    flex-shrink: 0;
+  }
+  .sent-fa {
+    font-size: 14px;
+    color: var(--text-secondary);
+    padding-right: 30px;
+    line-height: 1.7;
+  }
+  .sent-analysis {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: #fffde7;
+    border-right: 3px solid #f39c12;
+    border-radius: 0 4px 4px 0;
+    font-size: 12px;
+    color: #7d6608;
+    line-height: 1.6;
+  }
+  .keyword-tag {
+    display: inline-block;
+    background: var(--primary-pale);
+    color: var(--primary);
+    padding: 1px 7px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    margin: 1px;
+    direction: ltr;
+  }
 
-  /* CONTROLS */
-  .page-controls { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; border-top: 1px solid var(--border); margin-top: 8px; }
-  .btn-page { padding: 8px 18px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); cursor: pointer; font-size: 13px; color: var(--text); font-family: inherit; }
+  /* PAGE CONTROLS */
+  .page-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 0;
+    border-top: 1px solid var(--border);
+    margin-top: 8px;
+  }
+  .btn-page {
+    padding: 8px 20px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg);
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text);
+    font-family: inherit;
+    transition: all 0.15s;
+    display: flex; align-items: center; gap: 6px;
+  }
   .btn-page:disabled { opacity: 0.4; cursor: default; }
   .page-info { font-size: 13px; color: var(--text-secondary); }
 
-  .empty-state { text-align: center; padding: 60px 20px; color: var(--text-muted); }
-  .empty-state .icon { font-size: 44px; margin-bottom: 14px; }
+  /* BOOKMARK TAB */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+  }
+  .empty-state .icon { font-size: 48px; margin-bottom: 16px; }
+  .empty-state h3 { font-size: 18px; color: var(--text-secondary); margin-bottom: 8px; }
+  .empty-state p { font-size: 14px; }
 
+  /* TABS CONTENT */
   .tab-content { display: none; }
   .tab-content.active { display: block; }
 
-  /* TRAPS */
-  .trap-toolbar { display: flex; align-items: center; justify-content: center; gap: 16px; margin: 4px 0 18px; }
+  /* TRAPS (تله‌های کنکوری) TAB */
+  .trap-toolbar {
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+    margin: 4px 0 18px;
+  }
+  .trap-counter { font-size: 13px; color: var(--text-secondary); font-weight: 600; min-width: 60px; text-align: center; }
   .trap-stage { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-  .trap-card { width: 100%; max-width: 620px; height: 260px; perspective: 1400px; cursor: pointer; }
-  .trap-flip-inner { position: relative; width: 100%; height: 100%; transition: transform 0.55s cubic-bezier(.4,.2,.2,1); transform-style: preserve-3d; }
+  .trap-card {
+    width: 100%; max-width: 620px; height: 260px;
+    perspective: 1400px;
+    cursor: pointer;
+  }
+  .trap-flip-inner {
+    position: relative; width: 100%; height: 100%;
+    transition: transform 0.55s cubic-bezier(.4,.2,.2,1);
+    transform-style: preserve-3d;
+  }
   .trap-card.flipped .trap-flip-inner { transform: rotateY(180deg); }
-  .trap-face { position: absolute; inset: 0; backface-visibility: hidden; border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px 28px; display: flex; flex-direction: column; justify-content: center; overflow-y: auto; }
-  .trap-front { background: linear-gradient(135deg, #0d2e42 0%, #14507a 55%, #0a4d3f 100%); color: #fff; text-align: center; }
-  .trap-back { background: var(--accent-pale); border: 1px solid var(--accent-light); transform: rotateY(180deg); direction: rtl; text-align: right; }
+  .trap-face {
+    position: absolute; inset: 0;
+    backface-visibility: hidden;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px 28px;
+    display: flex; flex-direction: column; justify-content: center;
+    overflow-y: auto;
+  }
+  .trap-front {
+    background: linear-gradient(135deg, #0d2e42 0%, #14507a 55%, #0a4d3f 100%);
+    color: #fff;
+    text-align: center;
+  }
+  .trap-back {
+    background: var(--accent-pale);
+    border: 1px solid var(--accent-light);
+    transform: rotateY(180deg);
+    direction: rtl;
+    text-align: right;
+  }
+  .trap-front .trap-num {
+    font-size: 12px; opacity: 0.75; margin-bottom: 10px; letter-spacing: 0.5px;
+  }
+  .trap-front .trap-title {
+    font-size: 19px; font-weight: 700; margin-bottom: 14px;
+  }
+  .trap-front .trap-example {
+    font-family: var(--font-en); font-size: 15px; line-height: 1.9; opacity: 0.95;
+  }
+  .trap-front .trap-example b { color: #ffd76a; }
+  .trap-back .trap-back-title {
+    font-size: 15px; font-weight: 700; color: var(--primary); margin-bottom: 10px;
+  }
+  .trap-back .trap-explain {
+    font-size: 14px; line-height: 2; color: var(--text);
+  }
+  .trap-back .trap-explain b { color: var(--accent); }
+  .trap-back .trap-tip {
+    margin-top: 12px; padding: 10px 12px;
+    background: var(--primary-pale);
+    border-right: 3px solid var(--primary-light);
+    border-radius: 6px;
+    font-size: 13px; color: var(--primary);
+  }
   .trap-hint { font-size: 12px; color: var(--text-muted); }
-  .trap-list-heading { margin: 30px 0 12px; font-size: 15px; font-weight: 700; color: var(--primary); text-align: right; }
+  .trap-list-heading {
+    margin: 30px 0 12px; font-size: 15px; font-weight: 700; color: var(--primary);
+    text-align: right;
+  }
   .trap-list { display: flex; flex-direction: column; gap: 6px; }
-  .trap-list-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; text-align: right; direction: rtl; }
+  .trap-list-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 14px;
+    background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    cursor: pointer; text-align: right; direction: rtl;
+    transition: background 0.15s, border-color 0.15s;
+  }
   .trap-list-item.active { border-color: var(--primary); background: var(--primary-pale); }
-  .trap-list-item .trap-list-num { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: var(--primary); color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  .trap-list-item .trap-list-num {
+    flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
+    background: var(--primary); color: #fff; font-size: 11px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .trap-list-item .trap-list-title { font-size: 13px; font-weight: 600; color: var(--text); }
+  @media (max-width: 640px) {
+    .trap-card { height: 320px; }
+  }
 
-  /* CHALLENGE */
+  /* CHALLENGE TAB */
   .challenge-screen { display: flex; flex-direction: column; align-items: center; }
-  .challenge-intro-card, .challenge-result-card { max-width: 480px; width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 32px 26px; text-align: center; }
+  .challenge-intro-card, .challenge-result-card {
+    max-width: 480px; width: 100%;
+    background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 32px 26px;
+    text-align: center;
+  }
   .challenge-intro-icon { font-size: 42px; margin-bottom: 10px; }
-  .btn-start-challenge { background: linear-gradient(135deg, #0d2e42 0%, #14507a 55%, #0a4d3f 100%); color: #fff; border: none; border-radius: var(--radius-sm); padding: 12px 30px; font-size: 14.5px; font-weight: 700; cursor: pointer; font-family: var(--font-fa); }
-  .challenge-topbar { width: 100%; max-width: 520px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
-  .challenge-timer { font-size: 20px; font-weight: 700; color: var(--danger); font-family: var(--font-en); }
-  .challenge-progress-bar { width: 100%; max-width: 520px; height: 6px; border-radius: 3px; background: var(--bg-tertiary); overflow: hidden; margin-bottom: 22px; }
-  .challenge-progress-fill { height: 100%; background: var(--accent-light); width: 0%; transition: width 0.25s ease; }
-  .challenge-card { width: 100%; max-width: 520px; background: linear-gradient(135deg, #0d2e42 0%, #14507a 55%, #0a4d3f 100%); color: #fff; border-radius: var(--radius); padding: 30px 24px; text-align: center; margin-bottom: 20px; box-shadow: var(--shadow); }
+  .challenge-intro-card h3 { font-size: 18px; color: var(--primary); margin-bottom: 10px; }
+  .challenge-intro-card p { font-size: 13.5px; color: var(--text-secondary); line-height: 2; margin-bottom: 22px; }
+  .btn-start-challenge {
+    background: linear-gradient(135deg, #0d2e42 0%, #14507a 55%, #0a4d3f 100%);
+    color: #fff; border: none; border-radius: var(--radius-sm);
+    padding: 12px 30px; font-size: 14.5px; font-weight: 700; cursor: pointer;
+    font-family: var(--font-fa);
+  }
+  .challenge-topbar {
+    width: 100%; max-width: 520px;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .challenge-timer {
+    font-size: 20px; font-weight: 700; color: var(--danger);
+    font-family: var(--font-en);
+  }
+  .challenge-progress { font-size: 13px; color: var(--text-secondary); font-weight: 600; }
+  .challenge-progress-bar {
+    width: 100%; max-width: 520px; height: 6px; border-radius: 3px;
+    background: var(--bg-tertiary); overflow: hidden; margin-bottom: 22px;
+  }
+  .challenge-progress-fill {
+    height: 100%; background: var(--accent-light);
+    width: 0%; transition: width 0.25s ease;
+  }
+  .challenge-card {
+    width: 100%; max-width: 520px;
+    background: linear-gradient(135deg, #0d2e42 0%, #14507a 55%, #0a4d3f 100%);
+    color: #fff; border-radius: var(--radius);
+    padding: 30px 24px; text-align: center; margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
   .challenge-word-en { font-family: var(--font-en); font-size: 28px; font-weight: 700; }
-  .challenge-options { width: 100%; max-width: 520px; display: flex; flex-direction: column; gap: 10px; }
-  .challenge-option { padding: 13px 16px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); text-align: right; direction: rtl; font-size: 14.5px; cursor: pointer; }
+  .challenge-word-phonetic { font-family: var(--font-en); font-size: 14px; opacity: 0.85; margin-top: 6px; }
+  .challenge-options {
+    width: 100%; max-width: 520px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .challenge-option {
+    padding: 13px 16px;
+    background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm);
+    text-align: right; direction: rtl; font-size: 14.5px; cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+  }
   .challenge-option.correct { border-color: #27ae60; background: #eafaf1; color: #1e8449; font-weight: 700; }
   .challenge-option.wrong { border-color: #e74c3c; background: #fdedec; color: #c0392b; }
+  .challenge-option:disabled { cursor: default; }
+  .challenge-result-title { font-size: 17px; font-weight: 700; color: var(--primary); margin-bottom: 14px; }
+  .challenge-result-score { font-size: 15px; color: var(--text-secondary); margin-bottom: 4px; }
+  .challenge-result-percent { font-size: 40px; font-weight: 800; color: var(--accent); margin-bottom: 20px; }
+  .challenge-wrong-heading { font-size: 13.5px; font-weight: 700; color: var(--danger); margin: 4px 0 10px; text-align: right; }
+  .challenge-wrong-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 22px; text-align: right; direction: rtl; }
+  .challenge-wrong-item {
+    padding: 10px 14px; background: var(--bg-secondary); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); font-size: 13px;
+  }
+  .challenge-wrong-item .cw-en { font-family: var(--font-en); font-weight: 700; color: var(--primary); }
+  .challenge-wrong-item .cw-fa { color: var(--text-secondary); margin-top: 2px; }
 
-  .section-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-  .section-heading h2 { font-size: 16px; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 8px; }
-  .badge { background: var(--primary); color: white; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+  /* section heading */
+  .section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .section-heading h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--primary);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .badge {
+    background: var(--primary);
+    color: white;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+  }
 
-  /* MENU & SUBSCREENS */
-  .screen-menu { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, #0d2e42 0%, #14507a 55%, #0a4d3f 100%); padding: 32px 22px; text-align: center; }
-  .menu-icon { width: 74px; height: 74px; background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.3); border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 36px; margin-bottom: 18px; }
+  .audio-playing-bar {
+    display: none;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 16px;
+    background: var(--accent-pale);
+    border-radius: var(--radius-sm);
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: var(--accent);
+  }
+  .audio-playing-bar.show { display: flex; }
+  .audio-wave { display: flex; gap: 3px; align-items: center; }
+  .audio-wave span {
+    display: block; width: 3px; background: var(--accent);
+    border-radius: 2px; animation: wave 0.8s ease-in-out infinite;
+  }
+  .audio-wave span:nth-child(1) { height: 8px; animation-delay: 0s; }
+  .audio-wave span:nth-child(2) { height: 16px; animation-delay: 0.15s; }
+  .audio-wave span:nth-child(3) { height: 12px; animation-delay: 0.3s; }
+  .audio-wave span:nth-child(4) { height: 20px; animation-delay: 0.45s; }
+  .audio-wave span:nth-child(5) { height: 8px; animation-delay: 0.6s; }
+  @keyframes wave {
+    0%, 100% { transform: scaleY(0.5); }
+    50% { transform: scaleY(1.3); }
+  }
+
+  /* SCROLL */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg-tertiary); }
+  ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .header-stats { display: none; }
+    .content-area { padding: 12px 14px; }
+    .header-top { padding: 12px 14px; }
+    .brand-text h1 { font-size: 15px; }
+    .brand-icon { width: 38px; height: 38px; font-size: 19px; }
+    .btn-back { padding: 7px 10px; font-size: 12px; }
+    .nav-tabs {
+      padding: 0 8px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .nav-tabs::-webkit-scrollbar { display: none; }
+    .nav-tab {
+      padding: 10px 12px;
+      font-size: 13px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  }
+  /* Hover-only states: avoid sticky hover after tap on touch devices */
+  @media (hover: hover) and (pointer: fine) {
+  .nav-tab:hover { color: white; background: rgba(255,255,255,0.08); }
+  .word-card:hover { box-shadow: 0 4px 18px rgba(26,82,118,0.12); }
+  .btn-icon:hover { border-color: var(--primary-light); color: var(--primary); }
+  .quiz-toggle:hover { border-color: var(--accent); color: var(--accent); }
+  .quiz-option:hover:not(:disabled) { border-color: var(--primary-light); background: var(--primary-pale); }
+  .passage-sentence:hover { background: var(--bg-secondary); }
+  .btn-page:hover:not(:disabled) { border-color: var(--primary-light); background: var(--primary-pale); color: var(--primary); }
+  .trap-list-item:hover { background: var(--bg-secondary); border-color: var(--primary-light); }
+  .btn-start-challenge:hover { opacity: 0.92; }
+  .challenge-option:hover:not(:disabled) { border-color: var(--primary-light); background: var(--primary-pale); }
+  .alpha-chip:hover {
+    border-color: rgba(255,255,255,0.6);
+    background: rgba(255,255,255,0.22);
+    color: white;
+    transform: translateY(-1px);
+  }
+  }
+
+  /* ===== MAIN MENU ===== */
+  .screen-menu {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0d2e42 0%, #14507a 55%, #0a4d3f 100%);
+    padding: 32px 22px;
+    text-align: center;
+  }
+  .menu-icon {
+    width: 74px; height: 74px;
+    background: rgba(255,255,255,0.15);
+    border: 1.5px solid rgba(255,255,255,0.3);
+    border-radius: 18px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+    margin-bottom: 18px;
+  }
   .menu-title { color: #fff; font-size: 20px; font-weight: 700; margin-bottom: 6px; }
   .menu-subtitle { color: rgba(255,255,255,0.75); font-size: 13.5px; margin-bottom: 34px; }
   .menu-buttons { display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 380px; }
-  .menu-btn { background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.28); color: #fff; padding: 17px 20px; border-radius: var(--radius); font-size: 15.5px; font-weight: 700; font-family: var(--font-fa); cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.15s; }
+  .menu-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1.5px solid rgba(255,255,255,0.28);
+    color: #fff;
+    padding: 17px 20px;
+    border-radius: var(--radius);
+    font-size: 15.5px;
+    font-weight: 700;
+    font-family: var(--font-fa);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between;
+    transition: all 0.15s;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .menu-btn:active { transform: scale(0.97); background: rgba(255,255,255,0.2); }
   .menu-btn.menu-btn-primary { background: rgba(26,188,156,0.25); border-color: rgba(26,188,156,0.6); }
+  .menu-btn-icon { font-size: 19px; }
 
-  .subscreen { min-height: 100vh; background: var(--bg-tertiary); }
-  .subscreen-topbar { background: linear-gradient(135deg, #0d2e42 0%, #14507a 55%, #0a4d3f 100%); color: #fff; padding: 14px 18px; display: flex; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 100; box-shadow: 0 3px 15px rgba(0,0,0,0.2); }
-  .btn-back { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: #fff; border-radius: 8px; padding: 8px 14px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: var(--font-fa); display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  /* ===== SUBSCREENS (about / contact) ===== */
+  .subscreen {
+    min-height: 100vh;
+    background: var(--bg-tertiary);
+  }
+  .subscreen-topbar {
+    background: linear-gradient(135deg, #0d2e42 0%, #14507a 55%, #0a4d3f 100%);
+    color: #fff;
+    padding: 14px 18px;
+    display: flex; align-items: center; gap: 12px;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.2);
+  }
+  .btn-back {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #fff;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--font-fa);
+    display: flex; align-items: center; gap: 6px;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    flex-shrink: 0;
+  }
+  .btn-back:active { background: rgba(255,255,255,0.28); }
   .subscreen-title { font-size: 15.5px; font-weight: 700; }
   .subscreen-body { padding: 26px 20px 40px; max-width: 640px; margin: 0 auto; }
   .about-text { font-size: 15px; line-height: 2.3; color: var(--text); }
   .about-text p { margin-bottom: 16px; }
+  .contact-list { display: flex; flex-direction: column; gap: 14px; margin-top: 6px; }
+  .contact-item {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 16px 18px;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .contact-item:active { transform: scale(0.98); background: var(--bg-secondary); }
+  .contact-item-main { display: flex; align-items: center; gap: 14px; flex: 1; min-width: 0; }
+  .contact-item-icon {
+    width: 42px; height: 42px; flex-shrink: 0;
+    background: var(--primary-pale); color: var(--primary);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+  }
+  .contact-item-info { flex: 1; min-width: 0; }
+  .contact-item-label { font-size: 12.5px; color: var(--text-muted); margin-bottom: 3px; line-height: 1.6; }
+  .contact-item-value { font-size: 14.5px; font-weight: 700; color: var(--text); font-family: var(--font-en); direction: ltr; text-align: right; unicode-bidi: isolate; }
+  .contact-item-action { font-size: 11.5px; color: var(--text-muted); flex-shrink: 0; }
 
-  .app-toast { position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%) translateY(20px); background: #1c1c1c; color: #fff; padding: 11px 20px; border-radius: 24px; font-size: 13.5px; font-family: var(--font-fa); z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.25s, transform 0.25s; }
+  /* TOAST */
+  .app-toast {
+    position: fixed;
+    bottom: 26px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #1c1c1c; color: #fff;
+    padding: 11px 20px;
+    border-radius: 24px;
+    font-size: 13.5px;
+    font-family: var(--font-fa);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s, transform 0.25s;
+  }
   .app-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* Leitner Action Bar */
+  .leitner-action-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding-top: 10px;
+    margin-top: 10px;
+    border-top: 1px dashed var(--border);
+  }
+  .btn-leitner {
+    padding: 7px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .btn-leitner:active { transform: scale(0.97); }
+  .btn-leitner-fail { background: #fdedec; color: #c0392b; border: 1px solid #f5b7b1; }
+  .btn-leitner-pass { background: #eafaf1; color: #1e8449; border: 1px solid #a9dfbf; }
+  .leitner-box-tag {
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 12px;
+    background: var(--bg-tertiary);
+    color: var(--primary);
+    border: 1px solid var(--border);
+  }
+
 </style>
 </head>
 <body>
 
-<!-- ===== MAIN APP SCREEN ===== -->
 <div id="screen-app" style="display:none;">
 <header>
   <div class="header-top">
@@ -457,12 +992,12 @@
       </div>
     </div>
     <div class="header-stats">
-      <div class="stat-pill"><strong id="total-words">1000</strong>واژه مرجع</div>
+      <div class="stat-pill"><strong id="total-words">1000</strong>واژه</div>
       <div class="stat-pill"><strong id="bookmarked-count">0</strong>مارک شده</div>
     </div>
   </div>
   <div class="nav-tabs">
-    <button class="nav-tab active" data-tab="vocab" onclick="switchTab('vocab')">📚 واژگان مرجع</button>
+    <button class="nav-tab active" data-tab="vocab" onclick="switchTab('vocab')">📚 واژگان</button>
     <button class="nav-tab" data-tab="ossareh" onclick="switchTab('ossareh')">🧪 عصاره لغات و لایتنر</button>
     <button class="nav-tab" data-tab="passage" onclick="switchTab('passage')">📄 Passage</button>
     <button class="nav-tab" data-tab="bookmarks" onclick="switchTab('bookmarks')">⭐ مارک‌شده‌ها</button>
@@ -472,48 +1007,186 @@
 </header>
 
 <div class="main-wrapper">
+  <!-- CONTENT -->
   <div class="content-area" style="width:100%;">
 
-    <!-- 1. VOCAB TAB -->
+    <!-- VOCAB TAB -->
     <div id="tab-vocab" class="tab-content active">
+
       <div class="alpha-bar-wrapper">
         <div class="alpha-bar" id="alphaBar">
-          <button class="alpha-chip active" onclick="filterAlpha('all')" id="filter-all">همه <span class="count" id="cnt-all">...</span></button>
-          <button class="alpha-chip" onclick="filterAlpha('AC')" id="filter-AC">A–C <span class="count" id="cnt-AC">0</span></button>
-          <button class="alpha-chip" onclick="filterAlpha('DF')" id="filter-DF">D–F <span class="count" id="cnt-DF">0</span></button>
-          <button class="alpha-chip" onclick="filterAlpha('GI')" id="filter-GI">G–I <span class="count" id="cnt-GI">0</span></button>
-          <button class="alpha-chip" onclick="filterAlpha('JL')" id="filter-JL">J–L <span class="count" id="cnt-JL">0</span></button>
-          <button class="alpha-chip" onclick="filterAlpha('MO')" id="filter-MO">M–O <span class="count" id="cnt-MO">0</span></button>
-          <button class="alpha-chip" onclick="filterAlpha('PR')" id="filter-PR">P–R <span class="count" id="cnt-PR">0</span></button>
-          <button class="alpha-chip" onclick="filterAlpha('SU')" id="filter-SU">S–U <span class="count" id="cnt-SU">0</span></button>
-          <button class="alpha-chip" onclick="filterAlpha('VZ')" id="filter-VZ">V–Z <span class="count" id="cnt-VZ">0</span></button>
+          <button class="alpha-chip active" onclick="filterAlpha('all')" id="filter-all">
+            همه <span class="count" id="cnt-all">20</span>
+          </button>
+          <button class="alpha-chip" onclick="filterAlpha('AC')" id="filter-AC">
+            A–C <span class="count" id="cnt-AC">0</span>
+          </button>
+          <button class="alpha-chip" onclick="filterAlpha('DF')" id="filter-DF">
+            D–F <span class="count" id="cnt-DF">0</span>
+          </button>
+          <button class="alpha-chip" onclick="filterAlpha('GI')" id="filter-GI">
+            G–I <span class="count" id="cnt-GI">0</span>
+          </button>
+          <button class="alpha-chip" onclick="filterAlpha('JL')" id="filter-JL">
+            J–L <span class="count" id="cnt-JL">0</span>
+          </button>
+          <button class="alpha-chip" onclick="filterAlpha('MO')" id="filter-MO">
+            M–O <span class="count" id="cnt-MO">0</span>
+          </button>
+          <button class="alpha-chip" onclick="filterAlpha('PR')" id="filter-PR">
+            P–R <span class="count" id="cnt-PR">0</span>
+          </button>
+          <button class="alpha-chip" onclick="filterAlpha('SU')" id="filter-SU">
+            S–U <span class="count" id="cnt-SU">0</span>
+          </button>
+          <button class="alpha-chip" onclick="filterAlpha('VZ')" id="filter-VZ">
+            V–Z <span class="count" id="cnt-VZ">0</span>
+          </button>
         </div>
-        <div style="display:flex; justify-content:center; margin-top:12px;">
-          <input type="text" class="search-box" id="searchBox" placeholder="جستجو در ۱۰۰۰ واژه مرجع..." oninput="filterWords()" style="max-width:320px;" />
+        <div style="display:flex; justify-content:center;">
+          <input type="text" class="search-box" id="searchBox" placeholder="جستجو واژه..." oninput="filterWords()" style="margin-top:12px; max-width:320px;" />
         </div>
+      </div>
+
+      <div class="section-heading" style="display:none;">
+        <h2 id="showing-count-wrapper">📖 واژگان تخصصی پزشکی <span class="badge" id="showing-count">20 واژه</span></h2>
+        <div class="page-info" id="current-range">A – C</div>
+      </div>
+      
+      <div class="audio-playing-bar" id="audioBar">
+        <div class="audio-wave">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <span id="audioText">در حال پخش...</span>
+        <button onclick="stopAudio()" style="margin-right:auto; background:none; border:none; cursor:pointer; color:var(--accent); font-size:13px;">✕ توقف</button>
       </div>
 
       <div class="word-grid" id="wordGrid"></div>
 
       <div class="page-controls">
         <button class="btn-page" id="prevBtn" onclick="changePage(-1)" disabled>← صفحه قبل</button>
-        <span class="page-info" id="pageInfo">صفحه 1</span>
+        <span class="page-info" id="pageInfo">صفحه 1 از 1</span>
         <button class="btn-page" id="nextBtn" onclick="changePage(1)">صفحه بعد →</button>
       </div>
     </div>
 
-    <!-- 2. OSSAREH TAB (عصاره لغات + سیستم لایتنر اختصاصی) -->
+    <!-- PASSAGE TAB -->
+    <div id="tab-passage" class="tab-content">
+      <div class="passage-card">
+        <div class="passage-header">
+          <div>
+            <div class="passage-title">📚 Medical Laboratory Science Passages</div>
+            <div class="passage-meta">۱۰۰ متن کوتاه پزشکی | سطح: متوسط به بالا | منبع: واژگان اپلیکیشن (آزمون علوم آزمایشگاهی)</div>
+          </div>
+        </div>
+        <div class="passage-body" id="passageBody"></div>
+      </div>
+    </div>
+
+    <!-- BOOKMARKS TAB -->
+    <div id="tab-bookmarks" class="tab-content">
+      <div class="section-heading">
+        <h2>⭐ واژگان مارک‌شده برای مرور</h2>
+      </div>
+      <div id="bookmarkGrid" class="word-grid">
+        <div class="empty-state">
+          <div class="icon">⭐</div>
+          <h3>هنوز واژه‌ای مارک نشده</h3>
+          <p>روی آیکون ستاره در هر کارت واژه کلیک کنید تا آن را برای مرور بعدی ذخیره کنید</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRAPS (تله‌های کنکوری) TAB -->
+    <div id="tab-traps" class="tab-content">
+      <div class="section-heading">
+        <h2>🧠 تله‌های رایج کنکور، علوم آزمایشگاهی ۱، ۲، ۳ و زبان پزشکی وزارت بهداشت</h2>
+        <div class="page-info" id="trap-range">فلش‌کارت ۱ از ۳۲</div>
+      </div>
+
+      <div class="trap-toolbar">
+        <button class="btn-page" onclick="shuffleTraps()">🔀 پخش تصادفی</button>
+        <span class="trap-counter" id="trapCounter">۱ / ۳۲</span>
+        <button class="btn-page" onclick="resetTraps()">↺ ترتیب اصلی</button>
+      </div>
+
+      <div class="trap-stage">
+        <div class="trap-card" id="trapCard" onclick="flipTrap()">
+          <div class="trap-flip-inner" id="trapFlipInner">
+            <div class="trap-face trap-front" id="trapFront"></div>
+            <div class="trap-face trap-back" id="trapBack"></div>
+          </div>
+        </div>
+        <div class="trap-hint">برای دیدن توضیح، روی کارت کلیک کنید 👆</div>
+      </div>
+
+      <div class="page-controls">
+        <button class="btn-page" id="trapPrevBtn" onclick="changeTrap(-1)">← قبلی</button>
+        <button class="btn-page" id="trapNextBtn" onclick="changeTrap(1)">بعدی →</button>
+      </div>
+
+      <div class="trap-list-heading">فهرست همه تله‌ها</div>
+      <div class="trap-list" id="trapList"></div>
+    </div>
+
+    <!-- CHALLENGE TAB -->
+    <div id="tab-challenge" class="tab-content">
+      <div class="section-heading">
+        <h2>🏆 چالش ۳۰ واژه</h2>
+      </div>
+
+      <div id="challenge-intro" class="challenge-screen">
+        <div class="challenge-intro-card">
+          <div class="challenge-intro-icon">🏆</div>
+          <h3>چالش سرعت واژگان</h3>
+          <p>۳۰ واژه به‌صورت تصادفی از کل بانک واژگان انتخاب می‌شود. برای هر واژه باید معنی فارسی درست را از بین ۴ گزینه انتخاب کنی. کل چالش ۳ دقیقه زمان دارد.</p>
+          <button class="btn-start-challenge" onclick="startChallenge()">شروع چالش</button>
+        </div>
+      </div>
+
+      <div id="challenge-quiz" class="challenge-screen" style="display:none;">
+        <div class="challenge-topbar">
+          <div class="challenge-timer" id="challengeTimer">۰۳:۰۰</div>
+          <div class="challenge-progress" id="challengeProgress">۱ / ۳۰</div>
+        </div>
+        <div class="challenge-progress-bar"><div class="challenge-progress-fill" id="challengeProgressFill"></div></div>
+        <div class="challenge-card">
+          <div class="challenge-word-en" id="challengeWord"></div>
+          <div class="challenge-word-phonetic" id="challengePhonetic"></div>
+        </div>
+        <div class="challenge-options" id="challengeOptions"></div>
+      </div>
+
+      <div id="challenge-result" class="challenge-screen" style="display:none;">
+        <div class="challenge-result-card">
+          <div class="challenge-result-title" id="challengeResultTitle">نتیجه چالش</div>
+          <div class="challenge-result-score" id="challengeResultScore"></div>
+          <div class="challenge-result-percent" id="challengeResultPercent"></div>
+          <div class="challenge-wrong-heading" id="challengeWrongHeading" style="display:none;">واژه‌هایی که اشتباه پاسخ داده شد</div>
+          <div class="challenge-wrong-list" id="challengeWrongList"></div>
+          <button class="btn-start-challenge" onclick="startChallenge()">تلاش دوباره</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+    <!-- OSSAREH TAB (عصاره لغات + سیستم لایتنر هوشمند) -->
     <div id="tab-ossareh" class="tab-content">
       <div class="section-heading">
         <h2>🧪 عصاره لغات و سیستم لایتنر هوشمند</h2>
         <div class="page-info" id="ossareh-count">در حال بارگذاری زنده از شیت...</div>
       </div>
 
-      <!-- نوار فیلتر جعبه‌های لایتنر -->
-      <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:10px 14px; margin-bottom:14px; box-shadow:var(--shadow);">
-        <div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:8px;">📦 جعبه‌های مرور لایتنر:</div>
+      <!-- جعبه‌های لایتنر (۱ تا ۵ + ستاره‌دارها) -->
+      <div style="background:var(--bg); border:1px solid var(--border); border-radius:var(--radius); padding:12px 16px; margin-bottom:14px; box-shadow:var(--shadow);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="font-size:12px; font-weight:700; color:var(--text-muted);">📦 فیلتر بر اساس جعبه لایتنر:</span>
+          <span style="font-size:11px; color:var(--accent); font-weight:600;">پیشرفت در مرور زمان</span>
+        </div>
         <div style="display:flex; flex-wrap:wrap; gap:6px;" id="leitnerBoxesBar">
-          <button class="alpha-chip active" onclick="filterLeitnerBox('all')" id="btn-box-all" style="background:var(--primary); color:white;">همه خانه‌ها <span class="count" id="cnt-box-all">۰</span></button>
+          <button class="alpha-chip active" onclick="filterLeitnerBox('all')" id="btn-box-all" style="background:var(--primary); color:#fff;">همه خانه‌ها <span class="count" id="cnt-box-all">۰</span></button>
           <button class="alpha-chip" onclick="filterLeitnerBox(1)" id="btn-box-1" style="color:var(--text);">خانه ۱ <span class="count" id="cnt-box-1">۰</span></button>
           <button class="alpha-chip" onclick="filterLeitnerBox(2)" id="btn-box-2" style="color:var(--text);">خانه ۲ <span class="count" id="cnt-box-2">۰</span></button>
           <button class="alpha-chip" onclick="filterLeitnerBox(3)" id="btn-box-3" style="color:var(--text);">خانه ۳ <span class="count" id="cnt-box-3">۰</span></button>
@@ -523,99 +1196,22 @@
         </div>
       </div>
 
-      <!-- فیلتر روز و جستجو -->
+      <!-- فیلتر روز و کادر جستجو -->
       <div class="alpha-bar-wrapper" style="margin-bottom: 16px;">
         <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;" id="ossarehDayFilters">
           <button class="alpha-chip active">همه روزها</button>
         </div>
         <div style="display:flex; justify-content:center; margin-top: 12px;">
-          <input type="text" class="search-box" id="ossarehSearch" placeholder="جستجو در عصاره لغات، مترادف‌ها یا ترجمه..." oninput="filterOssareh()" style="max-width:320px;" />
+          <input type="text" class="search-box" id="ossarehSearch" placeholder="جستجو در عصاره لغات، مترادف‌ها یا ترجمه..." oninput="filterOssareh()" style="max-width:340px;" />
         </div>
       </div>
 
       <div class="word-grid" id="ossarehGrid"></div>
     </div>
 
-    <!-- 3. PASSAGE TAB -->
-    <div id="tab-passage" class="tab-content">
-      <div class="passage-card">
-        <div class="passage-header">
-          <div class="passage-title">📚 Medical Laboratory Science Passages</div>
-          <div class="passage-meta">متون تخصصی و درک مطلب علوم آزمایشگاهی</div>
-        </div>
-        <div class="passage-body" id="passageBody"></div>
-      </div>
-    </div>
+    </div><!-- /screen-app -->
 
-    <!-- 4. BOOKMARKS TAB -->
-    <div id="tab-bookmarks" class="tab-content">
-      <div class="section-heading"><h2>⭐ واژگان مرجع مارک‌شده</h2></div>
-      <div id="bookmarkGrid" class="word-grid"></div>
-    </div>
-
-    <!-- 5. TRAPS TAB -->
-    <div id="tab-traps" class="tab-content">
-      <div class="section-heading">
-        <h2>🧠 تله‌های کنکوری و زبان پزشکی وزارت بهداشت</h2>
-        <div class="page-info" id="trapCounter">۱ / ۳۲</div>
-      </div>
-      <div class="trap-toolbar">
-        <button class="btn-page" onclick="shuffleTraps()">🔀 پخش تصادفی</button>
-        <button class="btn-page" onclick="resetTraps()">↺ ترتیب اصلی</button>
-      </div>
-      <div class="trap-stage">
-        <div class="trap-card" id="trapCard" onclick="flipTrap()">
-          <div class="trap-flip-inner">
-            <div class="trap-face trap-front" id="trapFront"></div>
-            <div class="trap-face trap-back" id="trapBack"></div>
-          </div>
-        </div>
-        <div class="trap-hint">برای دیدن نکته تله، روی کارت کلیک کنید 👆</div>
-      </div>
-      <div class="page-controls">
-        <button class="btn-page" onclick="changeTrap(-1)">← قبلی</button>
-        <button class="btn-page" onclick="changeTrap(1)">بعدی →</button>
-      </div>
-      <div class="trap-list-heading">فهرست همه تله‌ها</div>
-      <div class="trap-list" id="trapList"></div>
-    </div>
-
-    <!-- 6. CHALLENGE TAB -->
-    <div id="tab-challenge" class="tab-content">
-      <div class="section-heading"><h2>🏆 چالش واژگان سرعتی</h2></div>
-      <div id="challenge-intro" class="challenge-screen">
-        <div class="challenge-intro-card">
-          <div class="challenge-intro-icon">🏆</div>
-          <h3>چالش سرعت واژگان پزشکی</h3>
-          <p>۳۰ واژه تصادفی، تست‌های ۴ گزینه‌ای و محدودیت زمانی ۳ دقیقه برای سنجش تسلط شما.</p>
-          <button class="btn-start-challenge" onclick="startChallenge()">شروع چالش</button>
-        </div>
-      </div>
-      <div id="challenge-quiz" class="challenge-screen" style="display:none;">
-        <div class="challenge-topbar">
-          <div class="challenge-timer" id="challengeTimer">۰۳:۰۰</div>
-          <div class="challenge-progress" id="challengeProgress">۱ / ۳۰</div>
-        </div>
-        <div class="challenge-progress-bar"><div class="challenge-progress-fill" id="challengeProgressFill"></div></div>
-        <div class="challenge-card">
-          <div class="challenge-word-en" id="challengeWord"></div>
-        </div>
-        <div class="challenge-options" id="challengeOptions"></div>
-      </div>
-      <div id="challenge-result" class="challenge-screen" style="display:none;">
-        <div class="challenge-result-card">
-          <div class="challenge-result-title">نتیجه چالش</div>
-          <div class="challenge-result-percent" id="challengeResultPercent"></div>
-          <button class="btn-start-challenge" onclick="startChallenge()">تلاش مجدد</button>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-</div>
-
-<!-- ===== MAIN MENU SCREEN ===== -->
+<!-- ===== MAIN MENU ===== -->
 <div id="screen-menu" class="screen-menu">
   <div class="menu-icon">🔬</div>
   <div class="menu-title">اپلیکیشن جامع زبان پزشکی</div>
@@ -629,6 +1225,10 @@
       <span>درباره اپلیکیشن</span>
       <span class="menu-btn-icon">ℹ️</span>
     </button>
+    <button class="menu-btn" onclick="showContact()">
+      <span>ارتباط با ما</span>
+      <span class="menu-btn-icon">📞</span>
+    </button>
   </div>
 </div>
 
@@ -640,260 +1240,1402 @@
   </div>
   <div class="subscreen-body">
     <div class="about-text">
-      <p>این سامانه توسط Learning Lab Academy با هدف تسلط کامل داوطلبان و دانشجویان علوم آزمایشگاهی بر واژگان، متون تخصصی پزشکی و سیستم لایتنر هوشمند طراحی شده است.</p>
+      <p>این اپلیکیشن توسط Learning Lab Academy با هدف ارتقای سطح آمادگی داوطلبان آزمون‌های مختلف طراحی و توسعه یافته است. محتوای این برنامه با صرف زمان و تلاش فراوان تهیه شده تا به عنوان یک مرجع جامع و کاربردی، مسیر یادگیری شما را ساده‌تر و مؤثرتر کند.</p>
+      <p>از شما همراه گرامی خواهشمندیم با خرید و استفاده از نسخه اصلی، از ادامه توسعه و به‌روزرسانی این مجموعه آموزشی حمایت کنید. همچنین نظرات، پیشنهادها و انتقادات ارزشمند شما نقش مهمی در بهبود کیفیت اپلیکیشن دارد؛ بنابراین خوشحال می‌شویم دیدگاه‌های خود را با ما در میان بگذارید تا بتوانیم در آینده خدمات بهتری ارائه دهیم.</p>
+      <p>از اعتماد و همراهی شما صمیمانه سپاسگزاریم و برایتان آرزوی موفقیت در تمامی آزمون‌های پیش رو داریم.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CONTACT SCREEN ===== -->
+<div id="screen-contact" class="subscreen" style="display:none;">
+  <div class="subscreen-topbar">
+    <button class="btn-back" onclick="goToMenu()">→ بازگشت</button>
+    <div class="subscreen-title">ارتباط با ما</div>
+  </div>
+  <div class="subscreen-body">
+    <div class="contact-list">
+      <div class="contact-item" onclick="openInstagram()">
+        <div class="contact-item-main">
+          <div class="contact-item-icon">📷</div>
+          <div class="contact-item-info">
+            <div class="contact-item-label">Instagram</div>
+            <div class="contact-item-value">biochemistry_course</div>
+          </div>
+        </div>
+        <div class="contact-item-action">باز کردن ↗</div>
+      </div>
+      <div class="contact-item" onclick="copyPhone('09926202851', this)">
+        <div class="contact-item-main">
+          <div class="contact-item-icon">👤</div>
+          <div class="contact-item-info">
+            <div class="contact-item-label">مدیریت و مشاوره</div>
+            <div class="contact-item-value">09926202851</div>
+          </div>
+        </div>
+        <div class="contact-item-action">کپی 📋</div>
+      </div>
+      <div class="contact-item" onclick="copyPhone('09032384138', this)">
+        <div class="contact-item-main">
+          <div class="contact-item-icon">🛠️</div>
+          <div class="contact-item-info">
+            <div class="contact-item-label">پشتیبانی اپلیکیشن، انتقاد و پیشنهادات</div>
+            <div class="contact-item-value">09032384138</div>
+          </div>
+        </div>
+        <div class="contact-item-action">کپی 📋</div>
+      </div>
     </div>
   </div>
 </div>
 
 <div id="appToast" class="app-toast"></div>
 
-<!-- ================= JAVASCRIPT ================= -->
 <script>
-const OSSAREH_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQsotmNaQnk65bd3Kgw_cAYwSztRDdnIlOVsLDkkuij8x6jdo6EUQ9zNgXNWNtiZfpgHYG778IE7rsu/pub?gid=2&single=true&output=csv";
-
 let WORDS = [];
-let bookmarks = JSON.parse(localStorage.getItem('med_bookmarks') || '[]');
-let currentPage = 1;
-const pageSize = 15;
-let filteredWordsList = [];
-let activeAlpha = 'all';
+const PASSAGE = {
+  title: "Medical Laboratory Science Passages",
+  source: "واژگان اپلیکیشن - آزمون علوم آزمایشگاهی",
+  sentences: [
+    {
+      en: "A complete blood count includes a white blood cell differential, which identifies the relative percentages of neutrophils, lymphocytes, monocytes, eosinophils, and basophils.",
+      fa: "شمارش کامل خون شامل افتراق گلبول‌های سفید است که درصد نسبی نوتروفیل‌ها، لنفوسیت‌ها، مونوسیت‌ها، ائوزینوفیل‌ها و بازوفیل‌ها را مشخص می‌کند.",
+      analysis: "'differential' = افتراقی | 'neutrophils' = نوتروفیل‌ها | 'complete blood count' = شمارش کامل خون — این آزمایش پایه در هماتولوژی است.",
+      keywords: ["complete blood count","differential","neutrophils","lymphocytes"]
+    },
+    {
+      en: "Abnormal red blood cell morphology, such as microcytosis or macrocytosis, can provide important clues about the underlying cause of anemia.",
+      fa: "مورفولوژی غیرطبیعی گلبول قرمز، مانند میکروسیتوز یا ماکروسیتوز، می‌تواند سرنخ‌های مهمی درباره علت زمینه‌ای کم‌خونی ارائه دهد.",
+      analysis: "'morphology' = ریخت‌شناسی | 'microcytosis' = ریزی گلبول قرمز | 'macrocytosis' = درشتی گلبول قرمز — این اصطلاحات در تفسیر اسمیر خون کاربرد دارند.",
+      keywords: ["morphology","microcytosis","macrocytosis","anemia"]
+    },
+    {
+      en: "A low platelet count, known as thrombocytopenia, increases the risk of spontaneous bleeding and impairs normal hemostasis.",
+      fa: "شمارش پایین پلاکت که ترومبوسیتوپنی نامیده می‌شود، خطر خونریزی خودبه‌خودی را افزایش می‌دهد و هموستاز طبیعی را مختل می‌کند.",
+      analysis: "'thrombocytopenia' = کاهش پلاکت | 'hemostasis' = هموستاز (توقف خونریزی) — پیشوند 'thrombo-' به معنای لخته یا پلاکت است.",
+      keywords: ["platelet count","thrombocytopenia","hemostasis"]
+    },
+    {
+      en: "The coagulation cascade involves a series of clotting factors that must be activated sequentially to form a stable fibrin clot.",
+      fa: "آبشار انعقادی شامل مجموعه‌ای از فاکتورهای انعقادی است که باید به‌ترتیب فعال شوند تا یک لخته فیبرینی پایدار تشکیل شود.",
+      analysis: "'coagulation cascade' = آبشار انعقادی | 'clotting factors' = فاکتورهای انعقادی | 'fibrin clot' = لخته فیبرینی — مبنای آزمایش PT و PTT.",
+      keywords: ["coagulation cascade","clotting factors","fibrin clot"]
+    },
+    {
+      en: "Determining a patient's ABO blood group is essential before transfusion to prevent a potentially fatal hemolytic reaction.",
+      fa: "تعیین گروه خونی ABO بیمار قبل از تزریق خون برای جلوگیری از یک واکنش همولیتیک بالقوه کشنده ضروری است.",
+      analysis: "'ABO blood group' = گروه خونی ABO | 'transfusion' = تزریق خون | 'hemolytic reaction' = واکنش همولیتیک — پایه آزمایش‌های بانک خون.",
+      keywords: ["ABO blood group","transfusion","hemolytic reaction"]
+    },
+    {
+      en: "An Rh-negative mother carrying an Rh-positive fetus may develop antibodies that cause hemolytic disease of the newborn in subsequent pregnancies.",
+      fa: "مادر Rh منفی که جنین Rh مثبت حمل می‌کند ممکن است آنتی‌بادی‌هایی تولید کند که در بارداری‌های بعدی باعث بیماری همولیتیک نوزاد شود.",
+      analysis: "'Rh-negative/positive' = Rh منفی/مثبت | 'hemolytic disease of the newborn' = بیماری همولیتیک نوزاد — مرتبط با ناسازگاری Rh.",
+      keywords: ["Rh-negative","hemolytic disease of the newborn"]
+    },
+    {
+      en: "Iron-deficiency anemia, the most common type worldwide, results from inadequate iron intake or chronic blood loss.",
+      fa: "کم‌خونی فقر آهن، شایع‌ترین نوع در سراسر جهان، ناشی از دریافت ناکافی آهن یا از دست دادن مزمن خون است.",
+      analysis: "'iron-deficiency anemia' = کم‌خونی فقر آهن | 'chronic blood loss' = از دست دادن مزمن خون — شایع‌ترین علت کم‌خونی.",
+      keywords: ["iron-deficiency anemia","chronic blood loss"]
+    },
+    {
+      en: "Leukemia is characterized by the uncontrolled proliferation of abnormal white blood cells within the bone marrow and bloodstream.",
+      fa: "لوسمی با تکثیر کنترل‌نشده گلبول‌های سفید غیرطبیعی در مغز استخوان و جریان خون مشخص می‌شود.",
+      analysis: "'leukemia' = لوسمی | 'proliferation' = تکثیر | 'bone marrow' = مغز استخوان — سرطان خون‌ساز.",
+      keywords: ["leukemia","proliferation","bone marrow"]
+    },
+    {
+      en: "An elevated erythrocyte sedimentation rate is a nonspecific indicator of inflammation somewhere in the body.",
+      fa: "افزایش سرعت رسوب گلبول قرمز یک شاخص غیراختصاصی برای التهاب در جایی از بدن است.",
+      analysis: "'erythrocyte sedimentation rate (ESR)' = سرعت رسوب گلبول قرمز | 'nonspecific' = غیراختصاصی — آزمایش غربالگری التهاب.",
+      keywords: ["erythrocyte sedimentation rate","nonspecific","inflammation"]
+    },
+    {
+      en: "The hematocrit measures the percentage of blood volume occupied by red blood cells and helps evaluate anemia or dehydration.",
+      fa: "هماتوکریت درصد حجم خون اشغال‌شده توسط گلبول‌های قرمز را اندازه‌گیری می‌کند و به ارزیابی کم‌خونی یا کم‌آبی کمک می‌کند.",
+      analysis: "'hematocrit' = هماتوکریت | 'blood volume' = حجم خون — از شاخص‌های اصلی CBC.",
+      keywords: ["hematocrit","blood volume","dehydration"]
+    },
+    {
+      en: "Gram staining differentiates bacteria into gram-positive and gram-negative groups based on the composition of their cell walls.",
+      fa: "رنگ‌آمیزی گرم باکتری‌ها را بر اساس ترکیب دیواره سلولی‌شان به دو گروه گرم مثبت و گرم منفی تقسیم می‌کند.",
+      analysis: "'Gram staining' = رنگ‌آمیزی گرم | 'gram-positive/negative' = گرم مثبت/منفی | 'cell wall' = دیواره سلولی — روش پایه شناسایی باکتری.",
+      keywords: ["Gram staining","gram-positive","gram-negative","cell walls"]
+    },
+    {
+      en: "Selective culture media allow certain bacterial species to grow while inhibiting the growth of others.",
+      fa: "محیط‌های کشت اختصاصی امکان رشد گونه‌های خاصی از باکتری را می‌دهند در حالی که رشد سایرین را مهار می‌کنند.",
+      analysis: "'selective culture media' = محیط کشت اختصاصی | 'inhibit' = مهار کردن — روشی برای جداسازی پاتوژن‌ها.",
+      keywords: ["selective culture media","inhibiting"]
+    },
+    {
+      en: "Antibiotic sensitivity testing determines which antimicrobial agents will effectively inhibit the growth of an isolated pathogen.",
+      fa: "آزمایش حساسیت آنتی‌بیوتیکی مشخص می‌کند کدام عوامل ضدمیکروبی به‌طور مؤثر رشد یک عامل بیماری‌زای جداشده را مهار می‌کنند.",
+      analysis: "'antibiotic sensitivity testing' = آزمایش حساسیت آنتی‌بیوتیکی | 'antimicrobial agents' = عوامل ضدمیکروبی — پایه انتخاب درمان.",
+      keywords: ["antibiotic sensitivity testing","antimicrobial agents","isolated pathogen"]
+    },
+    {
+      en: "An autoclave uses pressurized steam to sterilize laboratory equipment by destroying all forms of microbial life, including spores.",
+      fa: "اتوکلاو از بخار تحت فشار برای استریل کردن تجهیزات آزمایشگاهی با از بین بردن تمام اشکال حیات میکروبی، از جمله اسپور، استفاده می‌کند.",
+      analysis: "'autoclave' = اتوکلاو | 'sterilize' = استریل کردن | 'spores' = اسپورها — روش استاندارد ضدعفونی در آزمایشگاه.",
+      keywords: ["autoclave","sterilize","spores"]
+    },
+    {
+      en: "Viral culture requires living host cells, since viruses cannot replicate independently outside a living organism.",
+      fa: "کشت ویروسی نیازمند سلول‌های میزبان زنده است، زیرا ویروس‌ها نمی‌توانند به‌طور مستقل خارج از یک موجود زنده تکثیر شوند.",
+      analysis: "'viral culture' = کشت ویروسی | 'replicate' = تکثیر شدن | 'host cells' = سلول‌های میزبان — تفاوت اصلی ویروس با باکتری.",
+      keywords: ["viral culture","replicate","host cells"]
+    },
+    {
+      en: "Microscopic examination of a stool sample can reveal the presence of parasitic eggs, larvae, or protozoan cysts.",
+      fa: "بررسی میکروسکوپی نمونه مدفوع می‌تواند وجود تخم انگل، لارو یا کیست پروتوزوآ را نشان دهد.",
+      analysis: "'stool sample' = نمونه مدفوع | 'parasitic eggs' = تخم انگل | 'cysts' = کیست‌ها — آزمایش پارازیتولوژی روتین.",
+      keywords: ["stool sample","parasitic eggs","protozoan cysts"]
+    },
+    {
+      en: "Fungal infections, ranging from superficial skin conditions to life-threatening systemic disease, are diagnosed through culture and microscopic examination.",
+      fa: "عفونت‌های قارچی، از شرایط سطحی پوستی تا بیماری سیستمیک تهدیدکننده زندگی، از طریق کشت و بررسی میکروسکوپی تشخیص داده می‌شوند.",
+      analysis: "'fungal infections' = عفونت‌های قارچی | 'superficial' = سطحی | 'systemic' = سیستمیک — طیف بیماری‌های قارچی.",
+      keywords: ["fungal infections","superficial","systemic"]
+    },
+    {
+      en: "The ELISA technique uses an enzyme-linked antibody to detect and quantify specific antigens or antibodies in a patient's serum.",
+      fa: "تکنیک الایزا از یک آنتی‌بادی متصل به آنزیم برای شناسایی و اندازه‌گیری آنتی‌ژن‌ها یا آنتی‌بادی‌های خاص در سرم بیمار استفاده می‌کند.",
+      analysis: "'ELISA' = الایزا | 'enzyme-linked antibody' = آنتی‌بادی متصل به آنزیم | 'serum' = سرم — روش رایج ایمونولوژی.",
+      keywords: ["ELISA","enzyme-linked antibody","serum"]
+    },
+    {
+      en: "An antigen-antibody reaction forms the basis of most immunological diagnostic tests used in clinical laboratories.",
+      fa: "واکنش آنتی‌ژن-آنتی‌بادی مبنای بیشتر آزمایش‌های تشخیصی ایمونولوژیک استفاده‌شده در آزمایشگاه‌های بالینی است.",
+      analysis: "'antigen-antibody reaction' = واکنش آنتی‌ژن-آنتی‌بادی — اصل بنیادین ایمونولوژی تشخیصی.",
+      keywords: ["antigen-antibody reaction","immunological diagnostic tests"]
+    },
+    {
+      en: "Liver function tests, including ALT and AST levels, help clinicians assess the extent of hepatic cell damage.",
+      fa: "آزمایش‌های عملکرد کبد، از جمله سطح ALT و AST، به پزشکان در ارزیابی میزان آسیب سلول‌های کبدی کمک می‌کنند.",
+      analysis: "'liver function tests' = آزمایش‌های عملکرد کبد | 'hepatic cell damage' = آسیب سلول کبدی — پیشوند 'hepa-' یعنی کبد.",
+      keywords: ["liver function tests","hepatic cell damage"]
+    },
+    {
+      en: "Renal function tests, such as serum creatinine and blood urea nitrogen, evaluate how effectively the kidneys are filtering waste products.",
+      fa: "آزمایش‌های عملکرد کلیه، مانند کراتینین سرم و نیتروژن اوره خون، میزان کارایی کلیه‌ها در فیلتر کردن مواد زائد را ارزیابی می‌کنند.",
+      analysis: "'renal function tests' = آزمایش عملکرد کلیه | 'creatinine' = کراتینین | 'blood urea nitrogen' = نیتروژن اوره خون — شاخص‌های اصلی عملکرد کلیوی.",
+      keywords: ["renal function tests","serum creatinine","blood urea nitrogen"]
+    },
+    {
+      en: "A complete lipid profile measures total cholesterol, triglycerides, HDL, and LDL to assess cardiovascular risk.",
+      fa: "پروفایل کامل چربی خون کلسترول تام، تری‌گلیسیرید، HDL و LDL را برای ارزیابی خطر قلبی-عروقی اندازه‌گیری می‌کند.",
+      analysis: "'lipid profile' = پروفایل چربی خون | 'HDL/LDL' = لیپوپروتئین‌های با چگالی بالا/پایین — پایه ارزیابی خطر قلبی.",
+      keywords: ["lipid profile","triglycerides","cardiovascular risk"]
+    },
+    {
+      en: "An oral glucose tolerance test measures how efficiently the body clears glucose from the bloodstream after a standardized sugar load.",
+      fa: "آزمایش تحمل گلوکز خوراکی نشان می‌دهد بدن پس از دریافت مقدار استاندارد قند، چقدر کارآمد گلوکز را از جریان خون پاک می‌کند.",
+      analysis: "'oral glucose tolerance test' = آزمایش تحمل گلوکز خوراکی — روش استاندارد تشخیص دیابت بارداری و دیابت نوع ۲.",
+      keywords: ["oral glucose tolerance test","bloodstream"]
+    },
+    {
+      en: "Serum electrolyte panels measure sodium, potassium, and chloride levels, which are critical for maintaining fluid balance and nerve function.",
+      fa: "پنل الکترولیت سرم سطح سدیم، پتاسیم و کلراید را اندازه‌گیری می‌کند که برای حفظ تعادل مایعات و عملکرد عصبی حیاتی‌اند.",
+      analysis: "'electrolyte panel' = پنل الکترولیت | 'fluid balance' = تعادل مایعات — از آزمایش‌های پرتکرار بیوشیمی بالینی.",
+      keywords: ["electrolyte panels","sodium","potassium","fluid balance"]
+    },
+    {
+      en: "Elevated serum amylase and lipase levels are commonly used to support the diagnosis of acute pancreatitis.",
+      fa: "افزایش سطح آمیلاز و لیپاز سرم معمولاً برای حمایت از تشخیص پانکراتیت حاد استفاده می‌شود.",
+      analysis: "'amylase' = آمیلاز | 'lipase' = لیپاز | 'pancreatitis' = پانکراتیت — آنزیم‌های اختصاصی پانکراس.",
+      keywords: ["amylase","lipase","pancreatitis"]
+    },
+    {
+      en: "Thyroid function tests, including TSH and free T4, help distinguish between hyperthyroidism and hypothyroidism.",
+      fa: "آزمایش‌های عملکرد تیروئید، از جمله TSH و T4 آزاد، به تمایز بین پرکاری و کم‌کاری تیروئید کمک می‌کنند.",
+      analysis: "'thyroid function tests' = آزمایش عملکرد تیروئید | 'hyperthyroidism/hypothyroidism' = پرکاری/کم‌کاری تیروئید — پیشوند 'hyper-' و 'hypo-'.",
+      keywords: ["thyroid function tests","hyperthyroidism","hypothyroidism"]
+    },
+    {
+      en: "Microscopic examination of urine sediment can reveal red blood cells, white blood cells, casts, and crystals.",
+      fa: "بررسی میکروسکوپی رسوب ادرار می‌تواند وجود گلبول قرمز، گلبول سفید، کست‌ها و کریستال‌ها را نشان دهد.",
+      analysis: "'urine sediment' = رسوب ادرار | 'casts' = کست‌ها — بخشی از آنالیز کامل ادرار.",
+      keywords: ["urine sediment","casts","crystals"]
+    },
+    {
+      en: "Persistent proteinuria may indicate underlying kidney damage and often warrants further diagnostic evaluation.",
+      fa: "پروتئینوری پایدار می‌تواند نشان‌دهنده آسیب زمینه‌ای کلیه باشد و اغلب نیازمند ارزیابی تشخیصی بیشتر است.",
+      analysis: "'proteinuria' = دفع پروتئین در ادرار | 'persistent' = پایدار — یافته کلیدی در بیماری کلیوی.",
+      keywords: ["proteinuria","kidney damage"]
+    },
+    {
+      en: "Tissue processing involves fixation, dehydration, and embedding to prepare a specimen for thin sectioning and staining.",
+      fa: "پردازش بافت شامل ثابت‌سازی، آبگیری و قالب‌گیری برای آماده‌سازی نمونه جهت برش نازک و رنگ‌آمیزی است.",
+      analysis: "'fixation' = ثابت‌سازی | 'dehydration' = آبگیری | 'embedding' = قالب‌گیری — مراحل اصلی هیستوتکنولوژی.",
+      keywords: ["tissue processing","fixation","dehydration","embedding"]
+    },
+    {
+      en: "Hematoxylin and eosin staining remains the most widely used technique for examining tissue architecture under the microscope.",
+      fa: "رنگ‌آمیزی هماتوکسیلین و ائوزین همچنان پرکاربردترین تکنیک برای بررسی ساختار بافت زیر میکروسکوپ است.",
+      analysis: "'hematoxylin and eosin (H&E)' = هماتوکسیلین و ائوزین | 'tissue architecture' = ساختار بافت — رنگ‌آمیزی استاندارد پاتولوژی.",
+      keywords: ["Hematoxylin and eosin staining","tissue architecture"]
+    },
+    {
+      en: "A Pap smear screens for abnormal cervical cells that may indicate early precancerous changes.",
+      fa: "پاپ اسمیر برای غربالگری سلول‌های غیرطبیعی دهانه رحم که ممکن است نشان‌دهنده تغییرات پیش‌سرطانی زودهنگام باشد انجام می‌شود.",
+      analysis: "'Pap smear' = پاپ اسمیر | 'precancerous' = پیش‌سرطانی — آزمایش غربالگری سیتولوژی.",
+      keywords: ["Pap smear","cervical cells","precancerous"]
+    },
+    {
+      en: "Polymerase chain reaction rapidly amplifies a specific segment of DNA, enabling detection of even minute amounts of genetic material.",
+      fa: "واکنش زنجیره‌ای پلیمراز به‌سرعت یک قطعه خاص از DNA را تکثیر می‌کند و امکان شناسایی حتی مقادیر بسیار کم مواد ژنتیکی را فراهم می‌آورد.",
+      analysis: "'polymerase chain reaction (PCR)' = واکنش زنجیره‌ای پلیمراز | 'amplifies' = تکثیر می‌کند — روش کلیدی مولکولی.",
+      keywords: ["Polymerase chain reaction","amplifies","genetic material"]
+    },
+    {
+      en: "DNA extraction separates genetic material from cellular debris and proteins so that it can be used in downstream molecular assays.",
+      fa: "استخراج DNA مواد ژنتیکی را از بقایای سلولی و پروتئین‌ها جدا می‌کند تا در آزمایش‌های مولکولی بعدی استفاده شود.",
+      analysis: "'DNA extraction' = استخراج DNA | 'cellular debris' = بقایای سلولی — گام اول در بسیاری از آزمایش‌های ژنتیک.",
+      keywords: ["DNA extraction","cellular debris","molecular assays"]
+    },
+    {
+      en: "Karyotyping allows technicians to visualize and analyze the number and structure of an individual's chromosomes.",
+      fa: "کاریوتایپینگ به تکنسین‌ها امکان مشاهده و تحلیل تعداد و ساختار کروموزوم‌های یک فرد را می‌دهد.",
+      analysis: "'karyotyping' = کاریوتایپینگ | 'chromosomes' = کروموزوم‌ها — روش تشخیص اختلالات کروموزومی.",
+      keywords: ["Karyotyping","chromosomes"]
+    },
+    {
+      en: "Down syndrome results from a chromosomal abnormality in which an individual has three copies of chromosome 21 instead of two.",
+      fa: "سندروم داون ناشی از یک ناهنجاری کروموزومی است که در آن فرد به‌جای دو نسخه، سه نسخه از کروموزوم ۲۱ دارد.",
+      analysis: "'chromosomal abnormality' = ناهنجاری کروموزومی — سندروم داون نمونه‌ای کلاسیک از تریزومی است.",
+      keywords: ["chromosomal abnormality","Down syndrome"]
+    },
+    {
+      en: "Cross-matching mixes a sample of the donor's red blood cells with the recipient's serum to confirm compatibility before transfusion.",
+      fa: "کراس‌مچ نمونه‌ای از گلبول‌های قرمز اهداکننده را با سرم گیرنده مخلوط می‌کند تا سازگاری آن‌ها را پیش از تزریق خون تأیید کند.",
+      analysis: "'cross-matching' = کراس‌مچ | 'compatibility' = سازگاری — گام نهایی ایمنی تزریق خون.",
+      keywords: ["Cross-matching","compatibility","transfusion"]
+    },
+    {
+      en: "Blood component therapy allows physicians to transfuse only the specific component a patient needs, such as plasma or platelets, rather than whole blood.",
+      fa: "درمان با اجزای خون به پزشکان امکان می‌دهد فقط جزء خاصی که بیمار نیاز دارد، مانند پلاسما یا پلاکت، تزریق شود نه خون کامل.",
+      analysis: "'blood component therapy' = درمان با اجزای خون | 'plasma' = پلاسما — رویکرد مدرن بانک خون.",
+      keywords: ["Blood component therapy","plasma","platelets"]
+    },
+    {
+      en: "Daily quality control testing ensures that laboratory instruments produce accurate and reliable results before patient samples are analyzed.",
+      fa: "آزمایش کنترل کیفیت روزانه اطمینان می‌دهد که دستگاه‌های آزمایشگاهی پیش از آنالیز نمونه بیماران، نتایج دقیق و قابل‌اعتماد تولید می‌کنند.",
+      analysis: "'quality control' = کنترل کیفیت | 'reliable' = قابل‌اعتماد — بخشی حیاتی از اعتباربخشی آزمایشگاه.",
+      keywords: ["quality control","reliable"]
+    },
+    {
+      en: "Regular calibration of laboratory analyzers against known standards prevents systematic errors in test results.",
+      fa: "کالیبراسیون منظم دستگاه‌های آنالیزور آزمایشگاهی در برابر استانداردهای شناخته‌شده از بروز خطاهای سیستماتیک در نتایج آزمایش جلوگیری می‌کند.",
+      analysis: "'calibration' = کالیبراسیون | 'systematic errors' = خطاهای سیستماتیک — تضمین دقت دستگاه‌ها.",
+      keywords: ["calibration","systematic errors"]
+    },
+    {
+      en: "Proper handling of biohazardous waste, including sharps and contaminated materials, is essential to protect laboratory personnel from infection.",
+      fa: "مدیریت صحیح زباله‌های خطرناک زیستی، از جمله اشیای تیز و مواد آلوده، برای محافظت از کارکنان آزمایشگاه در برابر عفونت ضروری است.",
+      analysis: "'biohazardous waste' = زباله خطرناک زیستی | 'sharps' = اشیای تیز — اصول ایمنی آزمایشگاه.",
+      keywords: ["biohazardous waste","sharps","infection"]
+    },
+    {
+      en: "Proper venipuncture technique minimizes patient discomfort while ensuring a sufficient, uncontaminated blood sample for testing.",
+      fa: "تکنیک صحیح خون‌گیری وریدی ناراحتی بیمار را به حداقل می‌رساند و در عین حال نمونه خون کافی و بدون آلودگی برای آزمایش تضمین می‌کند.",
+      analysis: "'venipuncture' = خون‌گیری وریدی | 'uncontaminated' = بدون آلودگی — مهارت پایه فلبوتومی.",
+      keywords: ["venipuncture","uncontaminated"]
+    },
+    {
+      en: "Centrifugation separates blood into its components, plasma, buffy coat, and red blood cells, based on differences in density.",
+      fa: "سانتریفیوژ خون را بر اساس تفاوت در چگالی به اجزای آن، پلاسما، لایه بافی کوت و گلبول‌های قرمز، جدا می‌کند.",
+      analysis: "'centrifugation' = سانتریفیوژ کردن | 'buffy coat' = لایه بافی کوت | 'density' = چگالی — روش جداسازی اجزای خون.",
+      keywords: ["Centrifugation","buffy coat","density"]
+    },
+    {
+      en: "Spectrophotometry measures the amount of light absorbed by a solution to determine the concentration of a substance in a sample.",
+      fa: "اسپکتروفتومتری میزان نوری که توسط یک محلول جذب می‌شود را اندازه‌گیری می‌کند تا غلظت یک ماده در نمونه را تعیین کند.",
+      analysis: "'spectrophotometry' = اسپکتروفتومتری | 'absorbed' = جذب‌شده | 'concentration' = غلظت — روش پرکاربرد بیوشیمی.",
+      keywords: ["Spectrophotometry","absorbed","concentration"]
+    },
+    {
+      en: "Flow cytometry rapidly analyzes the physical and chemical characteristics of thousands of individual cells suspended in a fluid stream.",
+      fa: "فلوسیتومتری به‌سرعت ویژگی‌های فیزیکی و شیمیایی هزاران سلول منفرد معلق در یک جریان مایع را تحلیل می‌کند.",
+      analysis: "'flow cytometry' = فلوسیتومتری | 'suspended' = معلق — روش پیشرفته شمارش و تحلیل سلولی.",
+      keywords: ["Flow cytometry","suspended"]
+    },
+    {
+      en: "Tumor markers, such as PSA and CA-125, are substances found in blood that may indicate the presence of certain cancers.",
+      fa: "نشانگرهای توموری، مانند PSA و CA-125، موادی هستند که در خون یافت می‌شوند و می‌توانند نشان‌دهنده وجود برخی سرطان‌ها باشند.",
+      analysis: "'tumor markers' = نشانگرهای توموری — استفاده در غربالگری و پیگیری سرطان.",
+      keywords: ["Tumor markers","cancers"]
+    },
+    {
+      en: "Hemophilia is an inherited bleeding disorder caused by a deficiency in one of the blood clotting factors.",
+      fa: "هموفیلی یک اختلال خونریزی ارثی است که ناشی از کمبود یکی از فاکتورهای انعقادی خون است.",
+      analysis: "'hemophilia' = هموفیلی | 'inherited' = ارثی | 'deficiency' = کمبود — اختلال انعقادی وابسته به کروموزوم X.",
+      keywords: ["Hemophilia","inherited","deficiency"]
+    },
+    {
+      en: "Systemic lupus erythematosus is an autoimmune disease in which the immune system mistakenly attacks the body's own healthy tissues.",
+      fa: "لوپوس اریتماتوز سیستمیک یک بیماری خودایمنی است که در آن سیستم ایمنی به‌اشتباه به بافت‌های سالم بدن حمله می‌کند.",
+      analysis: "'autoimmune disease' = بیماری خودایمنی | 'mistakenly' = به‌اشتباه — لوپوس نمونه‌ای کلاسیک از بیماری خودایمنی است.",
+      keywords: ["autoimmune disease","mistakenly"]
+    },
+    {
+      en: "Sputum smear microscopy for acid-fast bacilli remains a rapid and inexpensive method for diagnosing pulmonary tuberculosis.",
+      fa: "میکروسکوپی اسمیر خلط برای باسیل‌های اسیدفست همچنان روشی سریع و کم‌هزینه برای تشخیص سل ریوی است.",
+      analysis: "'acid-fast bacilli' = باسیل‌های اسیدفست | 'pulmonary tuberculosis' = سل ریوی — روش کلاسیک تشخیص سل.",
+      keywords: ["acid-fast bacilli","pulmonary tuberculosis"]
+    },
+    {
+      en: "Epidemiologists investigate disease outbreaks by identifying the source of infection and tracing patterns of transmission within a population.",
+      fa: "اپیدمیولوژیست‌ها با شناسایی منبع عفونت و ردیابی الگوهای انتقال در یک جمعیت، شیوع بیماری را بررسی می‌کنند.",
+      analysis: "'outbreak' = شیوع | 'transmission' = انتقال | 'population' = جمعیت — روش‌شناسی اپیدمیولوژی میدانی.",
+      keywords: ["disease outbreaks","transmission","population"]
+    },
+    {
+      en: "Point-of-care testing enables rapid diagnostic results to be obtained near the patient, without the delay of sending samples to a central laboratory.",
+      fa: "آزمایش در محل مراقبت امکان دریافت سریع نتایج تشخیصی نزدیک بیمار را فراهم می‌کند، بدون تأخیر ارسال نمونه به آزمایشگاه مرکزی.",
+      analysis: "'point-of-care testing' = آزمایش در محل مراقبت | 'central laboratory' = آزمایشگاه مرکزی — روند نوین تشخیص سریع.",
+      keywords: ["Point-of-care testing","central laboratory"]
+    },
+    {
+      en: "A reticulocyte count measures the number of immature red blood cells in circulation, reflecting the rate of bone marrow production.",
+      fa: "شمارش رتیکولوسیت تعداد گلبول‌های قرمز نابالغ در گردش خون را اندازه‌گیری می‌کند و بیانگر سرعت تولید مغز استخوان است.",
+      analysis: "'reticulocyte count' = شمارش رتیکولوسیت | 'immature' = نابالغ — شاخص فعالیت خون‌سازی.",
+      keywords: ["reticulocyte count","immature","bone marrow production"]
+    },
+    {
+      en: "Sickle cell anemia results from a genetic mutation that causes red blood cells to form an abnormal, crescent-shaped structure under low oxygen conditions.",
+      fa: "کم‌خونی داسی‌شکل ناشی از یک موتاسیون ژنتیکی است که باعث می‌شود گلبول‌های قرمز در شرایط کمبود اکسیژن ساختاری غیرطبیعی و هلالی‌شکل پیدا کنند.",
+      analysis: "'sickle cell anemia' = کم‌خونی داسی‌شکل | 'crescent-shaped' = هلالی‌شکل — بیماری ژنتیکی مرتبط با هموگلوبین S.",
+      keywords: ["Sickle cell anemia","genetic mutation","crescent-shaped"]
+    },
+    {
+      en: "Thalassemia is an inherited blood disorder characterized by reduced production of one of the globin chains that make up hemoglobin.",
+      fa: "تالاسمی یک اختلال خونی ارثی است که با کاهش تولید یکی از زنجیره‌های گلوبین تشکیل‌دهنده هموگلوبین مشخص می‌شود.",
+      analysis: "'thalassemia' = تالاسمی | 'globin chains' = زنجیره‌های گلوبین — بیماری ژنتیکی هموگلوبین.",
+      keywords: ["Thalassemia","inherited","globin chains"]
+    },
+    {
+      en: "Bone marrow aspiration allows pathologists to directly examine the cells responsible for producing blood components.",
+      fa: "آسپیراسیون مغز استخوان به پاتولوژیست‌ها امکان می‌دهد سلول‌های مسئول تولید اجزای خون را مستقیماً بررسی کنند.",
+      analysis: "'bone marrow aspiration' = آسپیراسیون مغز استخوان — روش تشخیصی در بیماری‌های خون‌ساز.",
+      keywords: ["Bone marrow aspiration","pathologists"]
+    },
+    {
+      en: "The direct Coombs test detects antibodies already attached to the surface of a patient's own red blood cells.",
+      fa: "آزمایش کومبس مستقیم آنتی‌بادی‌هایی را که از قبل به سطح گلبول‌های قرمز خود بیمار متصل شده‌اند شناسایی می‌کند.",
+      analysis: "'direct Coombs test' = آزمایش کومبس مستقیم — استفاده در تشخیص بیماری همولیتیک.",
+      keywords: ["direct Coombs test","antibodies","red blood cells"]
+    },
+    {
+      en: "Prolonged prothrombin time and partial thromboplastin time results can indicate a deficiency in specific clotting factors.",
+      fa: "طولانی شدن زمان پروترومبین و زمان ترومبوپلاستین جزئی می‌تواند نشان‌دهنده کمبود فاکتورهای انعقادی خاص باشد.",
+      analysis: "'prothrombin time (PT)' = زمان پروترومبین | 'partial thromboplastin time (PTT)' = زمان ترومبوپلاستین جزئی — آزمایش‌های اصلی انعقاد.",
+      keywords: ["prothrombin time","partial thromboplastin time","clotting factors"]
+    },
+    {
+      en: "An elevated D-dimer level suggests the presence of abnormal blood clot formation and breakdown somewhere in the body.",
+      fa: "افزایش سطح D-dimer نشان‌دهنده تشکیل و تجزیه غیرطبیعی لخته خون در جایی از بدن است.",
+      analysis: "'D-dimer' = دی‌دایمر — مارکر پرکاربرد در تشخیص ترومبوز وریدی.",
+      keywords: ["D-dimer","blood clot formation"]
+    },
+    {
+      en: "Preparing a proper blood smear requires spreading a small drop of blood thinly and evenly across a glass slide before staining.",
+      fa: "تهیه اسمیر خون مناسب نیازمند پخش کردن یک قطره کوچک خون به‌صورت نازک و یکنواخت روی لام شیشه‌ای پیش از رنگ‌آمیزی است.",
+      analysis: "'blood smear' = اسمیر خون | 'evenly' = یکنواخت — مهارت پایه در هماتولوژی آزمایشگاهی.",
+      keywords: ["blood smear","evenly","staining"]
+    },
+    {
+      en: "Neutropenia, a marked decrease in neutrophil count, significantly increases a patient's susceptibility to bacterial infections.",
+      fa: "نوتروپنی، کاهش قابل توجه تعداد نوتروفیل، حساسیت بیمار به عفونت‌های باکتریایی را به‌طور چشمگیری افزایش می‌دهد.",
+      analysis: "'neutropenia' = نوتروپنی | 'susceptibility' = حساسیت — خطر عفونت در بیماران شیمی‌درمانی.",
+      keywords: ["Neutropenia","susceptibility","bacterial infections"]
+    },
+    {
+      en: "A positive heterophile antibody test supports the diagnosis of infectious mononucleosis caused by the Epstein-Barr virus.",
+      fa: "نتیجه مثبت آزمایش آنتی‌بادی هتروفیل از تشخیص مونونوکلئوز عفونی ناشی از ویروس اپشتین-بار حمایت می‌کند.",
+      analysis: "'heterophile antibody test' = آزمایش آنتی‌بادی هتروفیل | 'Epstein-Barr virus' = ویروس اپشتین-بار — تشخیص کلاسیک مونو.",
+      keywords: ["heterophile antibody test","infectious mononucleosis","Epstein-Barr virus"]
+    },
+    {
+      en: "Thick and thin blood smears remain the gold standard for detecting and identifying malaria parasites under the microscope.",
+      fa: "اسمیرهای خونی ضخیم و نازک همچنان استاندارد طلایی برای شناسایی و تعیین نوع انگل مالاریا زیر میکروسکوپ هستند.",
+      analysis: "'thick and thin blood smears' = اسمیرهای ضخیم و نازک | 'gold standard' = استاندارد طلایی — روش تشخیص مالاریا.",
+      keywords: ["Thick and thin blood smears","malaria parasites"]
+    },
+    {
+      en: "A urine culture that grows more than one hundred thousand colony-forming units per milliliter typically confirms a urinary tract infection.",
+      fa: "کشت ادراری که بیش از صد هزار واحد تشکیل‌دهنده کلونی در هر میلی‌لیتر رشد کند معمولاً عفونت مجاری ادراری را تأیید می‌کند.",
+      analysis: "'colony-forming units' = واحدهای تشکیل‌دهنده کلونی | 'urinary tract infection' = عفونت مجاری ادراری — معیار تشخیص UTI.",
+      keywords: ["urine culture","colony-forming units","urinary tract infection"]
+    },
+    {
+      en: "A throat culture helps differentiate a bacterial infection caused by group A Streptococcus from a viral sore throat.",
+      fa: "کشت گلو به تمایز عفونت باکتریایی ناشی از استرپتوکوک گروه A از گلودرد ویروسی کمک می‌کند.",
+      analysis: "'throat culture' = کشت گلو | 'group A Streptococcus' = استرپتوکوک گروه A — تشخیص افتراقی گلودرد.",
+      keywords: ["throat culture","group A Streptococcus"]
+    },
+    {
+      en: "Screening for methicillin-resistant Staphylococcus aureus helps hospitals prevent the spread of this multidrug-resistant organism.",
+      fa: "غربالگری استافیلوکوکوس اورئوس مقاوم به متی‌سیلین به بیمارستان‌ها در جلوگیری از گسترش این ارگانیسم مقاوم به چند دارو کمک می‌کند.",
+      analysis: "'methicillin-resistant Staphylococcus aureus (MRSA)' = استافیلوکوک مقاوم به متی‌سیلین | 'multidrug-resistant' = مقاوم به چند دارو.",
+      keywords: ["methicillin-resistant Staphylococcus aureus","multidrug-resistant"]
+    },
+    {
+      en: "A biosafety cabinet protects laboratory workers by containing infectious aerosols generated during the handling of hazardous specimens.",
+      fa: "کابینت ایمنی زیستی با محصور کردن آئروسل‌های عفونی تولیدشده در طول کار با نمونه‌های خطرناک، از کارکنان آزمایشگاه محافظت می‌کند.",
+      analysis: "'biosafety cabinet' = کابینت ایمنی زیستی | 'aerosols' = آئروسل‌ها — تجهیز اصلی ایمنی زیستی.",
+      keywords: ["biosafety cabinet","infectious aerosols"]
+    },
+    {
+      en: "Quality assurance encompasses the entire testing process, from specimen collection to result reporting, whereas quality control focuses specifically on instrument performance.",
+      fa: "تضمین کیفیت کل فرآیند آزمایش، از جمع‌آوری نمونه تا گزارش نتیجه، را دربرمی‌گیرد در حالی که کنترل کیفیت به‌طور خاص بر عملکرد دستگاه تمرکز دارد.",
+      analysis: "'quality assurance' = تضمین کیفیت | 'quality control' = کنترل کیفیت — تفاوت مفهومی مهم در آزمایشگاه.",
+      keywords: ["Quality assurance","quality control","result reporting"]
+    },
+    {
+      en: "Western blot analysis separates proteins by size and then detects specific ones using labeled antibodies, often used to confirm HIV infection.",
+      fa: "آنالیز وسترن بلات پروتئین‌ها را بر اساس اندازه جدا می‌کند و سپس با استفاده از آنتی‌بادی‌های نشان‌دار پروتئین‌های خاص را شناسایی می‌کند و اغلب برای تأیید عفونت HIV استفاده می‌شود.",
+      analysis: "'Western blot' = وسترن بلات | 'labeled antibodies' = آنتی‌بادی‌های نشان‌دار — آزمایش تأییدی HIV.",
+      keywords: ["Western blot analysis","labeled antibodies","HIV infection"]
+    },
+    {
+      en: "Immunofluorescence techniques use fluorescently labeled antibodies to visualize the location of specific antigens within cells or tissues.",
+      fa: "تکنیک‌های ایمونوفلورسانس از آنتی‌بادی‌های نشان‌دار فلورسنت برای مشاهده محل آنتی‌ژن‌های خاص در سلول‌ها یا بافت‌ها استفاده می‌کنند.",
+      analysis: "'immunofluorescence' = ایمونوفلورسانس | 'fluorescently labeled' = نشان‌دار فلورسنت — روش تشخیصی و پژوهشی.",
+      keywords: ["Immunofluorescence","fluorescently labeled","antigens"]
+    },
+    {
+      en: "The complement system consists of a group of blood proteins that enhance the ability of antibodies to clear pathogens from the body.",
+      fa: "سیستم کمپلمان شامل گروهی از پروتئین‌های خونی است که توانایی آنتی‌بادی‌ها را برای پاک‌سازی عوامل بیماری‌زا از بدن تقویت می‌کنند.",
+      analysis: "'complement system' = سیستم کمپلمان — بخشی از ایمنی ذاتی که با آنتی‌بادی همکاری می‌کند.",
+      keywords: ["complement system","antibodies","pathogens"]
+    },
+    {
+      en: "Cytokines, including interleukins, are signaling molecules that immune cells release to coordinate the body's inflammatory response.",
+      fa: "سیتوکین‌ها، از جمله اینترلوکین‌ها، مولکول‌های پیام‌رسانی هستند که سلول‌های ایمنی برای هماهنگ کردن پاسخ التهابی بدن آزاد می‌کنند.",
+      analysis: "'cytokines' = سیتوکین‌ها | 'interleukins' = اینترلوکین‌ها — مولکول‌های ارتباطی سیستم ایمنی.",
+      keywords: ["Cytokines","interleukins","inflammatory response"]
+    },
+    {
+      en: "HLA typing identifies specific proteins on the surface of white blood cells that must be matched before organ transplantation.",
+      fa: "تعیین نوع HLA پروتئین‌های خاصی روی سطح گلبول‌های سفید را شناسایی می‌کند که باید پیش از پیوند عضو مطابقت داده شوند.",
+      analysis: "'HLA typing' = تعیین نوع HLA | 'organ transplantation' = پیوند عضو — پایه سازگاری بافتی.",
+      keywords: ["HLA typing","organ transplantation"]
+    },
+    {
+      en: "C-reactive protein levels rise sharply in response to acute inflammation, making it a useful marker for monitoring infection or tissue injury.",
+      fa: "سطح پروتئین واکنشگر C در پاسخ به التهاب حاد به‌شدت افزایش می‌یابد و این آن را به نشانگری مفید برای پایش عفونت یا آسیب بافتی تبدیل می‌کند.",
+      analysis: "'C-reactive protein (CRP)' = پروتئین واکنشگر C | 'acute inflammation' = التهاب حاد — نشانگر التهاب حاد.",
+      keywords: ["C-reactive protein","acute inflammation"]
+    },
+    {
+      en: "An elevated rheumatoid factor level can support the diagnosis of rheumatoid arthritis, although it is not entirely specific to this condition.",
+      fa: "افزایش سطح فاکتور روماتوئید می‌تواند از تشخیص آرتریت روماتوئید حمایت کند، هرچند به‌طور کامل اختصاصی این بیماری نیست.",
+      analysis: "'rheumatoid factor' = فاکتور روماتوئید | 'not entirely specific' = نه کاملاً اختصاصی — محدودیت آزمایش تشخیصی.",
+      keywords: ["rheumatoid factor","rheumatoid arthritis"]
+    },
+    {
+      en: "A positive antinuclear antibody test suggests the presence of an autoimmune condition and often prompts further specific antibody testing.",
+      fa: "نتیجه مثبت آزمایش آنتی‌بادی ضدهسته‌ای نشان‌دهنده وجود یک بیماری خودایمنی است و اغلب انجام آزمایش‌های اختصاصی‌تر آنتی‌بادی را ایجاب می‌کند.",
+      analysis: "'antinuclear antibody (ANA)' = آنتی‌بادی ضدهسته‌ای — آزمایش غربالگری بیماری‌های خودایمنی.",
+      keywords: ["antinuclear antibody","autoimmune condition"]
+    },
+    {
+      en: "Screening blood donors for hepatitis B surface antigen is a mandatory step in ensuring the safety of the blood supply.",
+      fa: "غربالگری اهداکنندگان خون از نظر آنتی‌ژن سطحی هپاتیت B گامی اجباری برای تضمین ایمنی ذخیره خون است.",
+      analysis: "'hepatitis B surface antigen' = آنتی‌ژن سطحی هپاتیت B | 'blood supply' = ذخیره خون — بخشی از ایمنی بانک خون.",
+      keywords: ["hepatitis B surface antigen","blood supply"]
+    },
+    {
+      en: "Initial HIV screening with an enzyme immunoassay is typically followed by a confirmatory test to rule out false-positive results.",
+      fa: "غربالگری اولیه HIV با ایمونواسی آنزیمی معمولاً با یک آزمایش تأییدی برای رد نتایج مثبت کاذب دنبال می‌شود.",
+      analysis: "'enzyme immunoassay' = ایمونواسی آنزیمی | 'false-positive results' = نتایج مثبت کاذب — الگوریتم دومرحله‌ای تشخیص HIV.",
+      keywords: ["enzyme immunoassay","confirmatory test","false-positive"]
+    },
+    {
+      en: "Drawing blood cultures from two separate sites helps distinguish true bacteremia from contamination by skin flora.",
+      fa: "گرفتن کشت خون از دو محل جداگانه به تمایز باکتریمی واقعی از آلودگی توسط فلور طبیعی پوست کمک می‌کند.",
+      analysis: "'blood cultures' = کشت خون | 'bacteremia' = باکتریمی | 'skin flora' = فلور پوست — کاهش خطای آلودگی نمونه.",
+      keywords: ["blood cultures","bacteremia","skin flora"]
+    },
+    {
+      en: "Anaerobic culture techniques are required to isolate bacteria that can only survive and multiply in the absence of oxygen.",
+      fa: "تکنیک‌های کشت بی‌هوازی برای جداسازی باکتری‌هایی که تنها در نبود اکسیژن می‌توانند زنده بمانند و تکثیر شوند لازم است.",
+      analysis: "'anaerobic culture' = کشت بی‌هوازی | 'absence of oxygen' = نبود اکسیژن — روش تخصصی میکروبیولوژی.",
+      keywords: ["Anaerobic culture","absence of oxygen"]
+    },
+    {
+      en: "Rising antibody titers measured over several weeks can confirm a recent or active infection with a specific pathogen.",
+      fa: "افزایش تیتر آنتی‌بادی که طی چند هفته اندازه‌گیری می‌شود می‌تواند عفونت اخیر یا فعال با یک عامل بیماری‌زای خاص را تأیید کند.",
+      analysis: "'antibody titers' = تیتر آنتی‌بادی — روش سرولوژیک تأیید عفونت فعال.",
+      keywords: ["antibody titers","recent or active infection"]
+    },
+    {
+      en: "Widespread vaccination programs contribute to herd immunity, reducing disease transmission even among individuals who are not vaccinated.",
+      fa: "برنامه‌های گسترده واکسیناسیون به ایمنی جمعی کمک می‌کنند و انتقال بیماری را حتی در میان افراد واکسینه‌نشده کاهش می‌دهند.",
+      analysis: "'herd immunity' = ایمنی جمعی | 'disease transmission' = انتقال بیماری — مفهوم کلیدی اپیدمیولوژی واکسن.",
+      keywords: ["vaccination programs","herd immunity","disease transmission"]
+    },
+    {
+      en: "Identifying a specific genetic mutation through PCR-based testing enables clinicians to select targeted therapies for certain cancers.",
+      fa: "شناسایی یک موتاسیون ژنتیکی خاص از طریق آزمایش مبتنی بر PCR به پزشکان امکان می‌دهد درمان‌های هدفمند را برای برخی سرطان‌ها انتخاب کنند.",
+      analysis: "'PCR-based testing' = آزمایش مبتنی بر PCR | 'targeted therapies' = درمان‌های هدفمند — پزشکی شخصی‌سازی‌شده.",
+      keywords: ["genetic mutation","PCR-based testing","targeted therapies"]
+    },
+    {
+      en: "Southern blot analysis detects specific sequences of DNA by transferring fragments separated by gel electrophoresis onto a membrane.",
+      fa: "آنالیز ساترن بلات با انتقال قطعات جداشده توسط الکتروفورز ژل به یک غشا، توالی‌های خاص DNA را شناسایی می‌کند.",
+      analysis: "'Southern blot' = ساترن بلات | 'gel electrophoresis' = الکتروفورز ژل — روش کلاسیک شناسایی DNA.",
+      keywords: ["Southern blot","gel electrophoresis"]
+    },
+    {
+      en: "Gel electrophoresis separates DNA, RNA, or protein fragments according to their size as they migrate through a gel matrix under an electric field.",
+      fa: "الکتروفورز ژل قطعات DNA، RNA یا پروتئین را بر اساس اندازه‌شان هنگام حرکت در یک بستر ژل تحت میدان الکتریکی جدا می‌کند.",
+      analysis: "'gel electrophoresis' = الکتروفورز ژل | 'electric field' = میدان الکتریکی — روش پایه بیولوژی مولکولی.",
+      keywords: ["Gel electrophoresis","electric field"]
+    },
+    {
+      en: "Enzyme kinetics studies how the rate of an enzymatic reaction changes with variations in substrate concentration and temperature.",
+      fa: "سینتیک آنزیمی چگونگی تغییر سرعت یک واکنش آنزیمی را با تغییرات غلظت سوبسترا و دما بررسی می‌کند.",
+      analysis: "'enzyme kinetics' = سینتیک آنزیمی | 'substrate concentration' = غلظت سوبسترا — مبحث بیوشیمی بالینی.",
+      keywords: ["Enzyme kinetics","substrate concentration"]
+    },
+    {
+      en: "Arterial blood gas analysis measures pH, oxygen, and carbon dioxide levels to assess a patient's acid-base and respiratory status.",
+      fa: "آنالیز گاز خون شریانی سطح pH، اکسیژن و دی‌اکسیدکربن را برای ارزیابی وضعیت اسید-باز و تنفسی بیمار اندازه‌گیری می‌کند.",
+      analysis: "'arterial blood gas' = گاز خون شریانی | 'acid-base status' = وضعیت اسید-باز — آزمایش حیاتی در بیماران بحرانی.",
+      keywords: ["arterial blood gas","acid-base","respiratory status"]
+    },
+    {
+      en: "Serum osmolality reflects the concentration of dissolved particles in the blood and helps evaluate fluid and electrolyte disorders.",
+      fa: "اسمولالیته سرم غلظت ذرات محلول در خون را نشان می‌دهد و به ارزیابی اختلالات مایعات و الکترولیت کمک می‌کند.",
+      analysis: "'osmolality' = اسمولالیته | 'dissolved particles' = ذرات محلول — شاخص تعادل مایعات بدن.",
+      keywords: ["Serum osmolality","dissolved particles"]
+    },
+    {
+      en: "Elevated bilirubin levels cause the yellowish discoloration of the skin and eyes known clinically as jaundice.",
+      fa: "افزایش سطح بیلی‌روبین باعث تغییر رنگ زرد پوست و چشم می‌شود که از نظر بالینی زردی نامیده می‌شود.",
+      analysis: "'bilirubin' = بیلی‌روبین | 'jaundice' = زردی — پیامد اختلال متابولیسم صفراوی.",
+      keywords: ["bilirubin","jaundice"]
+    },
+    {
+      en: "Cardiac troponin is released into the bloodstream when heart muscle cells are damaged, making it a key marker for diagnosing heart attacks.",
+      fa: "تروپونین قلبی هنگامی که سلول‌های عضله قلب آسیب می‌بینند وارد جریان خون می‌شود و این آن را به نشانگر کلیدی تشخیص حمله قلبی تبدیل می‌کند.",
+      analysis: "'cardiac troponin' = تروپونین قلبی | 'heart attacks' = حملات قلبی — مارکر اختصاصی آسیب میوکارد.",
+      keywords: ["Cardiac troponin","heart attacks"]
+    },
+    {
+      en: "Hemoglobin A1c reflects a patient's average blood glucose level over the preceding two to three months.",
+      fa: "هموگلوبین A1c سطح میانگین قند خون بیمار طی دو تا سه ماه گذشته را نشان می‌دهد.",
+      analysis: "'hemoglobin A1c' = هموگلوبین A1c — شاخص کنترل بلندمدت قند خون در دیابت.",
+      keywords: ["Hemoglobin A1c","average blood glucose level"]
+    },
+    {
+      en: "A Factor VIII assay measures the activity of a specific clotting protein whose deficiency causes hemophilia A.",
+      fa: "آزمایش فاکتور هشت فعالیت یک پروتئین انعقادی خاص را اندازه‌گیری می‌کند که کمبود آن باعث هموفیلی A می‌شود.",
+      analysis: "'Factor VIII assay' = آزمایش فاکتور هشت | 'hemophilia A' = هموفیلی A — آزمایش تخصصی انعقاد.",
+      keywords: ["Factor VIII assay","hemophilia A"]
+    },
+    {
+      en: "A fecal occult blood test detects trace amounts of hidden blood in the stool that may indicate colorectal cancer or other gastrointestinal disease.",
+      fa: "آزمایش خون مخفی مدفوع مقادیر بسیار کم خون پنهان در مدفوع را شناسایی می‌کند که می‌تواند نشان‌دهنده سرطان کولورکتال یا سایر بیماری‌های گوارشی باشد.",
+      analysis: "'fecal occult blood test' = آزمایش خون مخفی مدفوع | 'colorectal cancer' = سرطان کولورکتال — آزمایش غربالگری گوارشی.",
+      keywords: ["fecal occult blood test","colorectal cancer"]
+    },
+    {
+      en: "Semen analysis evaluates sperm count, motility, and morphology to assess male fertility potential.",
+      fa: "آنالیز مایع منی تعداد، تحرک و ریخت‌شناسی اسپرم را برای ارزیابی توان باروری مرد بررسی می‌کند.",
+      analysis: "'semen analysis' = آنالیز مایع منی | 'motility' = تحرک — آزمایش پایه ارزیابی ناباروری.",
+      keywords: ["Semen analysis","motility","male fertility"]
+    },
+    {
+      en: "Cerebrospinal fluid analysis, obtained through a lumbar puncture, helps diagnose infections and other disorders affecting the central nervous system.",
+      fa: "آنالیز مایع مغزی-نخاعی که از طریق پونکسیون کمری به دست می‌آید به تشخیص عفونت‌ها و سایر اختلالات سیستم عصبی مرکزی کمک می‌کند.",
+      analysis: "'cerebrospinal fluid' = مایع مغزی-نخاعی | 'lumbar puncture' = پونکسیون کمری — نمونه‌گیری تخصصی نورولوژی.",
+      keywords: ["Cerebrospinal fluid analysis","lumbar puncture","central nervous system"]
+    },
+    {
+      en: "Synovial fluid analysis helps distinguish infectious, inflammatory, and degenerative causes of joint swelling.",
+      fa: "آنالیز مایع سینوویال به تمایز علل عفونی، التهابی و دژنراتیو تورم مفصل کمک می‌کند.",
+      analysis: "'synovial fluid' = مایع سینوویال | 'joint swelling' = تورم مفصل — تشخیص افتراقی آرتریت.",
+      keywords: ["Synovial fluid analysis","joint swelling"]
+    },
+    {
+      en: "Pleural fluid analysis distinguishes between a transudate and an exudate, guiding the diagnostic evaluation of lung and chest conditions.",
+      fa: "آنالیز مایع پلور بین ترانسودا و اگزودا تمایز قائل می‌شود و ارزیابی تشخیصی شرایط ریه و قفسه سینه را هدایت می‌کند.",
+      analysis: "'pleural fluid' = مایع پلور | 'transudate/exudate' = ترانسودا/اگزودا — طبقه‌بندی مایع بدن.",
+      keywords: ["Pleural fluid analysis","transudate","exudate"]
+    },
+    {
+      en: "Immunohistochemistry uses antibodies to detect specific proteins within tissue sections, aiding in the classification of tumors.",
+      fa: "ایمونوهیستوشیمی از آنتی‌بادی‌ها برای شناسایی پروتئین‌های خاص در برش‌های بافتی استفاده می‌کند و به طبقه‌بندی تومورها کمک می‌کند.",
+      analysis: "'immunohistochemistry' = ایمونوهیستوشیمی | 'tissue sections' = برش‌های بافتی — روش تشخیص افتراقی پاتولوژی سرطان.",
+      keywords: ["Immunohistochemistry","tissue sections","tumors"]
+    },
+    {
+      en: "A frozen section provides a rapid preliminary diagnosis during surgery by quickly freezing and slicing a tissue sample for immediate examination.",
+      fa: "برش منجمد با انجماد سریع و برش نمونه بافت برای بررسی فوری، یک تشخیص اولیه سریع در طول جراحی ارائه می‌دهد.",
+      analysis: "'frozen section' = برش منجمد | 'rapid preliminary diagnosis' = تشخیص اولیه سریع — روش حین‌عمل جراحی.",
+      keywords: ["frozen section","rapid preliminary diagnosis"]
+    },
+    {
+      en: "The Philadelphia chromosome, a hallmark genetic abnormality of chronic myeloid leukemia, results from a translocation between chromosomes 9 and 22.",
+      fa: "کروموزوم فیلادلفیا، نشانه ژنتیکی کلیدی لوسمی میلوئیدی مزمن، ناشی از یک جابه‌جایی بین کروموزوم‌های ۹ و ۲۲ است.",
+      analysis: "'Philadelphia chromosome' = کروموزوم فیلادلفیا | 'translocation' = جابه‌جایی — یافته سیتوژنتیک اختصاصی CML.",
+      keywords: ["Philadelphia chromosome","translocation","chronic myeloid leukemia"]
+    },
+    {
+      en: "Newborn screening for phenylketonuria allows early detection of a metabolic disorder before irreversible neurological damage occurs.",
+      fa: "غربالگری نوزادان برای فنیل‌کتونوری امکان تشخیص زودهنگام یک اختلال متابولیک را پیش از بروز آسیب غیرقابل‌برگشت عصبی فراهم می‌کند.",
+      analysis: "'newborn screening' = غربالگری نوزادان | 'phenylketonuria (PKU)' = فنیل‌کتونوری — برنامه غربالگری متابولیک استاندارد.",
+      keywords: ["Newborn screening","phenylketonuria","irreversible neurological damage"]
+    },
+    {
+      en: "A laboratory information system electronically manages the flow of specimen data, from order entry to the final reporting of test results.",
+      fa: "سیستم اطلاعات آزمایشگاهی به‌طور الکترونیکی جریان داده‌های نمونه، از ثبت سفارش تا گزارش نهایی نتایج آزمایش، را مدیریت می‌کند.",
+      analysis: "'laboratory information system (LIS)' = سیستم اطلاعات آزمایشگاهی | 'order entry' = ثبت سفارش — زیرساخت دیجیتال آزمایشگاه مدرن.",
+      keywords: ["laboratory information system","order entry","test results"]
+    }
+  ]
+};
 
-function startLearning() {
-  document.getElementById('screen-menu').style.display = 'none';
-  document.getElementById('screen-about').style.display = 'none';
-  document.getElementById('screen-app').style.display = 'block';
+let bookmarks = JSON.parse(localStorage.getItem('medBookmarks') || '[]');
+let currentPage = 0;
+let filteredWords = [...WORDS];
+const ITEMS_PER_PAGE = 20;
+let currentAlpha = 'all';
+let utterance = null;
+let isSpeaking = false;
+
+function getRange(word) {
+  const c = word[0].toUpperCase();
+  if (c <= 'C') return 'AC';
+  if (c <= 'F') return 'DF';
+  if (c <= 'I') return 'GI';
+  if (c <= 'L') return 'JL';
+  if (c <= 'O') return 'MO';
+  if (c <= 'R') return 'PR';
+  if (c <= 'U') return 'SU';
+  return 'VZ';
 }
 
-function goToMenu() {
-  document.getElementById('screen-app').style.display = 'none';
-  document.getElementById('screen-about').style.display = 'none';
-  document.getElementById('screen-menu').style.display = 'flex';
-}
-
-function showAbout() {
-  document.getElementById('screen-menu').style.display = 'none';
-  document.getElementById('screen-about').style.display = 'block';
-}
-
-function switchTab(tabId) {
-  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
-  
-  const target = document.getElementById('tab-' + tabId);
-  const btn = document.querySelector(`.nav-tab[data-tab="${tabId}"]`);
-  if (target) target.classList.add('active');
-  if (btn) btn.classList.add('active');
-
-  if (tabId === 'bookmarks') renderBookmarks();
-}
-
-// واژگان مرجع ۱۰۰۰ تایی
-async function loadMainWords() {
-  try {
-    const res = await fetch('medical_vocab_data.json');
-    WORDS = await res.json();
-    document.getElementById('total-words').innerText = WORDS.length;
-    document.getElementById('cnt-all').innerText = WORDS.length;
-    filterWords();
-    updateAlphaCounts();
-  } catch (e) {
-    console.error("خطا در لود فایل محلی واژگان:", e);
-  }
-}
-
-function filterWords() {
-  const q = (document.getElementById('searchBox')?.value || '').toLowerCase().trim();
-  filteredWordsList = WORDS.filter(w => {
-    const matchesQuery = w.word.toLowerCase().includes(q) || w.meaning.includes(q);
-    if (!matchesQuery) return false;
-    if (activeAlpha === 'all') return true;
-    const firstChar = w.word.charAt(0).toUpperCase();
-    const [start, end] = activeAlpha.split('');
-    return firstChar >= start && firstChar <= end;
+function updateCounts() {
+  const ranges = ['AC','DF','GI','JL','MO','PR','SU','VZ'];
+  ranges.forEach(r => {
+    const cnt = WORDS.filter(w => getRange(w.word) === r).length;
+    const el = document.getElementById('cnt-'+r);
+    if (el) el.textContent = cnt;
   });
-  currentPage = 1;
-  renderWordPage();
+  document.getElementById('cnt-all').textContent = WORDS.length;
 }
 
 function filterAlpha(range) {
-  activeAlpha = range;
-  document.querySelectorAll('#alphaBar .alpha-chip').forEach(el => el.classList.remove('active'));
-  const btn = document.getElementById('filter-' + range);
-  if (btn) btn.classList.add('active');
-  filterWords();
+  currentAlpha = range;
+  currentPage = 0;
+  document.querySelectorAll('.alpha-chip').forEach(b => b.classList.remove('active'));
+  document.getElementById('filter-' + (range === 'all' ? 'all' : range))?.classList.add('active');
+  applyFilters();
 }
 
-function updateAlphaCounts() {
-  const ranges = ['AC', 'DF', 'GI', 'JL', 'MO', 'PR', 'SU', 'VZ'];
-  ranges.forEach(r => {
-    const [start, end] = r.split('');
-    const count = WORDS.filter(w => {
-      const c = w.word.charAt(0).toUpperCase();
-      return c >= start && c <= end;
-    }).length;
-    const el = document.getElementById('cnt-' + r);
-    if (el) el.innerText = count;
+function filterWords() {
+  currentPage = 0;
+  applyFilters();
+}
+
+function applyFilters() {
+  const q = document.getElementById('searchBox').value.toLowerCase();
+  filteredWords = WORDS.filter(w => {
+    const alphaOk = currentAlpha === 'all' || getRange(w.word) === currentAlpha;
+    const searchOk = !q || w.word.toLowerCase().includes(q) || w.meaning.includes(q);
+    return alphaOk && searchOk;
   });
+  renderPage();
 }
 
-function renderWordPage() {
+function renderPage() {
   const grid = document.getElementById('wordGrid');
-  if (!grid) return;
-  const start = (currentPage - 1) * pageSize;
-  const end = start + pageSize;
-  const pageItems = filteredWordsList.slice(start, end);
+  const start = currentPage * ITEMS_PER_PAGE;
+  const end = Math.min(start + ITEMS_PER_PAGE, filteredWords.length);
+  const pageWords = filteredWords.slice(start, end);
+  const totalPages = Math.ceil(filteredWords.length / ITEMS_PER_PAGE);
 
-  if (pageItems.length === 0) {
-    grid.innerHTML = '<div class="empty-state"><div class="icon">🔍</div><h3>واژه‌ای یافت نشد</h3></div>';
-    return;
+  document.getElementById('showing-count').textContent = filteredWords.length + ' واژه';
+  document.getElementById('pageInfo').textContent = `صفحه ${currentPage+1} از ${totalPages || 1}`;
+  document.getElementById('prevBtn').disabled = currentPage === 0;
+  document.getElementById('nextBtn').disabled = currentPage >= totalPages - 1;
+  
+  const rangeLabel = currentAlpha === 'all' ? 'همه واژه‌ها' :
+    currentAlpha === 'AC' ? 'A تا C' : currentAlpha === 'DF' ? 'D تا F' :
+    currentAlpha === 'GI' ? 'G تا I' : currentAlpha === 'JL' ? 'J تا L' :
+    currentAlpha === 'MO' ? 'M تا O' : currentAlpha === 'PR' ? 'P تا R' :
+    currentAlpha === 'SU' ? 'S تا U' : 'V تا Z';
+  document.getElementById('current-range').textContent = rangeLabel;
+
+  grid.innerHTML = pageWords.map(w => renderWordCard(w)).join('');
+}
+
+function renderWordCard(w, mini=false) {
+  const isBookmarked = bookmarks.includes(w.id);
+  return `
+  <div class="word-card ${isBookmarked ? 'bookmarked' : ''}" id="card-${w.id}">
+    <div class="card-header">
+      <div class="word-main">
+        <div class="word-english">${w.word}</div>
+        <div class="word-phonetic">${w.phonetic}</div>
+        <div class="word-meaning">${w.meaning}</div>
+      </div>
+      <div class="card-actions">
+        <button class="btn-icon ${isBookmarked ? 'active' : ''}" onclick="toggleBookmark(${w.id})" title="مارک کردن">
+          ${isBookmarked ? '⭐' : '☆'}
+        </button>
+        <button class="btn-icon" onclick="speakWord('${w.word}', '${w.phonetic}')" title="تلفظ">
+          🔊
+        </button>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="example-block">
+        <div class="example-en">${w.example_en}</div>
+        <div class="example-fa">${w.example_fa}</div>
+      </div>
+      <button class="quiz-toggle" onclick="toggleQuiz(${w.id})">
+        📝 نمایش سوالات تستی (${w.quiz.length} سوال)
+      </button>
+      <div class="quiz-container" id="quiz-${w.id}">
+        ${w.quiz.map((q,qi) => `
+        <div class="quiz-item" id="qitem-${w.id}-${qi}">
+          <div class="quiz-q-en">${qi+1}. ${q.q}</div>
+          ${q.q_fa ? `<div class="quiz-q-fa">${q.q_fa}</div>` : ''}
+          <div class="quiz-options">
+            ${q.opts.map((o,oi) => `
+            <button class="quiz-option" onclick="answerQuiz(this, ${oi}, ${q.ans}, ${w.id}, ${qi})">
+              <span class="quiz-option-en">${String.fromCharCode(65+oi)}) ${o}</span>
+              ${q.opts_fa && q.opts_fa[oi] ? `<span class="quiz-option-fa">${q.opts_fa[oi]}</span>` : ''}
+            </button>`).join('')}
+          </div>
+          <div class="quiz-explanation" id="qexp-${w.id}-${qi}">
+            <div class="quiz-exp-header" id="qexp-hdr-${w.id}-${qi}"></div>
+            <div class="quiz-exp-body" id="qexp-body-${w.id}-${qi}"></div>
+          </div>
+        </div>`).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+
+function toggleQuiz(id) {
+  const c = document.getElementById('quiz-'+id);
+  c.classList.toggle('open');
+  const btn = c.previousElementSibling;
+  btn.textContent = c.classList.contains('open') ? '📝 بستن سوالات' : `📝 نمایش سوالات تستی`;
+}
+
+function answerQuiz(btn, selected, correct, wordId, qi) {
+  const opts = btn.parentElement.querySelectorAll('.quiz-option');
+  opts.forEach((o, i) => {
+    o.disabled = true;
+    if (i === correct) o.classList.add('correct');
+    else if (i === selected && selected !== correct) o.classList.add('wrong');
+  });
+
+  const expBox = document.getElementById(`qexp-${wordId}-${qi}`);
+  const expHdr = document.getElementById(`qexp-hdr-${wordId}-${qi}`);
+  const expBody = document.getElementById(`qexp-body-${wordId}-${qi}`);
+  const isCorrect = selected === correct;
+  const correctLabel = String.fromCharCode(65 + correct);
+  const correctText = opts[correct].textContent.trim();
+  const w = WORDS.find(x => x.id === wordId);
+
+  expHdr.className = 'quiz-exp-header ' + (isCorrect ? 'correct-exp' : 'wrong-exp');
+  expHdr.innerHTML = isCorrect
+    ? `✅ پاسخ شما درست بود!`
+    : `❌ پاسخ اشتباه — گزینه صحیح: <strong>${correctLabel}) ${correctText}</strong>`;
+
+  const qObj = w && w.quiz ? w.quiz[qi] : null;
+  if (qObj && qObj.exp) {
+    expBody.innerHTML = `
+      <span class="exp-fa">📌 ${qObj.exp}</span>
+    `;
+  } else {
+    expBody.innerHTML = `
+      <span class="exp-en">📌 Key word: "${w ? w.word : ''}" — ${w ? w.meaning : ''}</span>
+      <span style="color:var(--text-muted); font-size:12px;">💡 توضیح تشریحی این سوال به زودی اضافه می‌شود.</span>
+    `;
   }
 
-  grid.innerHTML = pageItems.map(item => {
-    const isBookmarked = bookmarks.includes(item.id);
-    return `
-      <div class="word-card ${isBookmarked ? 'bookmarked' : ''}" id="card-${item.id}">
-        <div class="card-header">
-          <div class="word-main">
-            <div class="word-english">${item.word}</div>
-            <div class="word-phonetic">${item.phonetic || ''}</div>
-            <div class="word-meaning">${item.meaning}</div>
-          </div>
-          <div class="card-actions">
-            <button class="btn-icon ${isBookmarked ? 'active' : ''}" onclick="toggleBookmark(${item.id})">⭐</button>
-            <button class="btn-icon" onclick="playAudio('${item.word}')">🔊</button>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="example-block">
-            <div class="example-en">${item.example_en}</div>
-            <div class="example-fa">${item.example_fa}</div>
-          </div>
-          ${item.quiz && item.quiz.length > 0 ? `
-            <div class="quiz-section">
-              <button class="quiz-toggle" onclick="toggleQuizContainer(${item.id})">📝 مشاهده تست‌های این واژه (${item.quiz.length})</button>
-              <div class="quiz-container" id="quiz-box-${item.id}">
-                ${item.quiz.map((q, qIdx) => `
-                  <div class="quiz-item">
-                    <div class="quiz-q-en">${q.q}</div>
-                    <div class="quiz-q-fa">${q.q_fa || ''}</div>
-                    <div class="quiz-options">
-                      ${q.opts.map((opt, oIdx) => `
-                        <button class="quiz-option" onclick="answerCardQuiz(${item.id}, ${qIdx}, ${oIdx}, ${q.ans}, this)">
-                          <span class="quiz-option-en">${opt}</span>
-                          <span class="quiz-option-fa">${q.opts_fa ? q.opts_fa[oIdx] : ''}</span>
-                        </button>
-                      `).join('')}
-                    </div>
-                    <div class="quiz-explanation" id="exp-${item.id}-${qIdx}">
-                      <div class="quiz-exp-header">پاسخ تشریحی</div>
-                      <div class="quiz-exp-body">${q.exp}</div>
-                    </div>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-          ` : ''}
-        </div>
-      </div>
-    `;
-  }).join('');
-
-  document.getElementById('pageInfo').innerText = `صفحه ${currentPage} از ${Math.ceil(filteredWordsList.length / pageSize) || 1}`;
-  document.getElementById('prevBtn').disabled = currentPage === 1;
-  document.getElementById('nextBtn').disabled = end >= filteredWordsList.length;
-}
-
-function changePage(delta) {
-  currentPage += delta;
-  renderWordPage();
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  expBox.classList.add('show');
 }
 
 function toggleBookmark(id) {
   if (bookmarks.includes(id)) {
-    bookmarks = bookmarks.filter(x => x !== id);
+    bookmarks = bookmarks.filter(b => b !== id);
   } else {
     bookmarks.push(id);
   }
-  localStorage.setItem('med_bookmarks', JSON.stringify(bookmarks));
-  document.getElementById('bookmarked-count').innerText = bookmarks.length;
-  renderWordPage();
+  localStorage.setItem('medBookmarks', JSON.stringify(bookmarks));
+  document.getElementById('bookmarked-count').textContent = bookmarks.length;
+  
+  const card = document.getElementById('card-' + id);
+  if (card) {
+    card.classList.toggle('bookmarked', bookmarks.includes(id));
+    const btn = card.querySelector('.btn-icon');
+    btn.textContent = bookmarks.includes(id) ? '⭐' : '☆';
+    btn.classList.toggle('active', bookmarks.includes(id));
+  }
+  
+  if (document.getElementById('tab-bookmarks').classList.contains('active')) {
+    renderBookmarks();
+  }
 }
 
 function renderBookmarks() {
   const grid = document.getElementById('bookmarkGrid');
-  const bList = WORDS.filter(w => bookmarks.includes(w.id));
-  if (bList.length === 0) {
-    grid.innerHTML = '<div class="empty-state"><div class="icon">⭐</div><h3>هنوز واژه‌ای مارک نشده است</h3></div>';
+  const bWords = WORDS.filter(w => bookmarks.includes(w.id));
+  if (bWords.length === 0) {
+    grid.innerHTML = `<div class="empty-state">
+      <div class="icon">⭐</div>
+      <h3>هنوز واژه‌ای مارک نشده</h3>
+      <p>روی آیکون ستاره در هر کارت واژه کلیک کنید تا آن را برای مرور بعدی ذخیره کنید</p>
+    </div>`;
+  } else {
+    grid.innerHTML = bWords.map(w => renderWordCard(w)).join('');
+  }
+}
+
+function changePage(dir) {
+  const totalPages = Math.ceil(filteredWords.length / ITEMS_PER_PAGE);
+  currentPage = Math.max(0, Math.min(currentPage + dir, totalPages - 1));
+  renderPage();
+  document.querySelector('.content-area').scrollTop = 0;
+}
+
+function speakText(text, labelText) {
+  stopAudio();
+
+  const bar = document.getElementById('audioBar');
+  document.getElementById('audioText').textContent = labelText || ('در حال پخش...');
+  bar.classList.add('show');
+  isSpeaking = true;
+
+  // Native Android TTS bridge (injected by the WebView app via JavascriptInterface).
+  // If present, use it — it's far more reliable than the browser's speechSynthesis
+  // inside a WebView. Falls back to speechSynthesis for normal browser testing.
+  if (window.AndroidTTS && typeof window.AndroidTTS.speak === 'function') {
+    try {
+      window.AndroidTTS.speak(text);
+    } catch (e) {
+      bar.classList.remove('show');
+      isSpeaking = false;
+    }
     return;
   }
-  grid.innerHTML = bList.map(item => `
-    <div class="word-card bookmarked">
-      <div class="card-header">
-        <div class="word-main">
-          <div class="word-english">${item.word}</div>
-          <div class="word-meaning">${item.meaning}</div>
-        </div>
-        <div class="card-actions">
-          <button class="btn-icon active" onclick="toggleBookmark(${item.id}); renderBookmarks();">⭐</button>
-        </div>
-      </div>
+
+  if (!('speechSynthesis' in window)) {
+    bar.classList.remove('show');
+    isSpeaking = false;
+    return;
+  }
+
+  // Android WebView & some browsers cut off long utterances.
+  // Split text into short chunks at sentence/comma boundaries.
+  const MAX_CHARS = 100;
+  const chunks = [];
+  if (text.length <= MAX_CHARS) {
+    chunks.push(text);
+  } else {
+    // split on '. ' or ', ' or just every MAX_CHARS chars
+    const parts = text.match(/[^.,!?]+[.,!?]?\s*/g) || [text];
+    let cur = '';
+    parts.forEach(p => {
+      if ((cur + p).length > MAX_CHARS && cur.length > 0) {
+        chunks.push(cur.trim());
+        cur = p;
+      } else {
+        cur += p;
+      }
+    });
+    if (cur.trim()) chunks.push(cur.trim());
+  }
+
+  let idx = 0;
+
+  function speakChunk() {
+    if (!isSpeaking || idx >= chunks.length) {
+      bar.classList.remove('show');
+      isSpeaking = false;
+      return;
+    }
+    utterance = new SpeechSynthesisUtterance(chunks[idx]);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.82;
+    utterance.pitch = 1;
+    utterance.volume = 1;
+    utterance.onend = () => { idx++; speakChunk(); };
+    utterance.onerror = () => { bar.classList.remove('show'); isSpeaking = false; };
+    speechSynthesis.speak(utterance);
+  }
+
+  // Android WebView fix: cancel any previous speech first, then small delay before speaking
+  speechSynthesis.cancel();
+  setTimeout(speakChunk, 80);
+}
+
+function speakWord(word, phonetic) {
+  speakText(word, `در حال پخش: ${word}  ${phonetic}`);
+}
+
+function stopAudio() {
+  if (window.AndroidTTS && typeof window.AndroidTTS.stop === 'function') {
+    try { window.AndroidTTS.stop(); } catch (e) {}
+  }
+  if ('speechSynthesis' in window) speechSynthesis.cancel();
+  document.getElementById('audioBar').classList.remove('show');
+  isSpeaking = false;
+}
+
+// Called from native Android code (TextToSpeech.OnUtteranceCompletedListener) when the
+// native TTS engine finishes speaking, so the audio bar hides itself correctly.
+function onAndroidTTSDone() {
+  document.getElementById('audioBar').classList.remove('show');
+  isSpeaking = false;
+}
+
+function renderPassage() {
+  const body = document.getElementById('passageBody');
+  body.innerHTML = PASSAGE.sentences.map((s, i) => {
+    // encode sentence safely for inline onclick attribute
+    const encodedEn = encodeURIComponent(s.en);
+    return `
+  <div class="passage-sentence" id="sent-${i}">
+    <div class="sent-header">
+      <span class="sent-number">${i+1}</span>
+      <div class="sent-en" style="margin-right:10px">${highlightKeywords(s.en, s.keywords)}</div>
+      <button class="sent-btn-audio" onclick="speakSentence(${i})" title="پخش این جمله">🔊</button>
+    </div>
+    <div class="sent-fa">${s.fa}</div>
+    <div class="sent-analysis">
+      🔍 تحلیل: ${s.analysis}<br>
+      ${s.keywords.map(k => `<span class="keyword-tag">${k}</span>`).join('')}
+    </div>
+  </div>`;
+  }).join('');
+}
+
+function speakSentence(idx) {
+  const s = PASSAGE.sentences[idx];
+  if (!s) return;
+  document.querySelectorAll('.passage-sentence').forEach((el, i) => {
+    el.classList.toggle('highlighted', i === idx);
+  });
+  speakText(s.en, `جمله ${idx+1} از ${PASSAGE.sentences.length}`);
+}
+
+function highlightKeywords(text, keywords) {
+  let result = text;
+  keywords.forEach(kw => {
+    const re = new RegExp(`(${kw})`, 'gi');
+    result = result.replace(re, '<strong style="color:var(--primary)">$1</strong>');
+  });
+  return result;
+}
+
+// ========== تله‌های کنکوری (TRAPS) ==========
+const TRAPS = [
+  { title: "اشتباه گرفتن واژه‌های شبیه به هم (Look-alike Words)", example: "<b>absorb</b> = جذب کردن\n<b>adsorb</b> = جذب روی سطح", explain: "طراح دو کلمه‌ی خیلی شبیه به هم را می‌آورد که ظاهر نوشتاری‌شان نزدیک است اما معنی متفاوتی دارند.", tip: "همیشه پسوند/پیشوند و حرف تفاوت‌دار را دقیق بخوانید." },
+  { title: "اشتباه گرفتن مترادف‌های ناقص", example: "<b>effective</b> = مؤثر\n<b>efficient</b> = کارآمد", explain: "همه گزینه‌ها نزدیک به هم هستند اما فقط یکی دقیقاً با بافت متن علمی سازگار است.", tip: "به هم‌نشینی کلمه با بقیه جمله (collocation) دقت کنید، نه فقط معنی کلی." },
+  { title: "تله تضادها (Opposites)", example: "acute ↔ chronic\nbenign ↔ malignant", explain: "طراح یک واژه را می‌دهد و گزینه درست را کنار متضادش می‌گذارد تا داوطلب اشتباه بزند.", tip: "قبل از انتخاب گزینه، جهت جمله (مثبت/منفی) را بررسی کنید." },
+  { title: "تله هم‌خانواده‌ها (Word Family)", example: "infect (فعل) = آلوده کردن\ninfection (اسم) = عفونت\ninfectious (صفت) = عفونی", explain: "اسم، فعل، صفت و قید یک ریشه را قاطی می‌کند تا داوطلب نقش دستوری را اشتباه بگیرد.", tip: "به جای جمله، خالی که باید پر شود را از نظر نقش دستوری (اسم/صفت/فعل) بررسی کنید." },
+  { title: "تله پیشوندها (Prefixes)", example: "hyperglycemia = قند خون بالا\nhypoglycemia = قند خون پایین", explain: "فقط یک پیشوند عوض شده اما معنی کاملاً برعکس شده است.", tip: "پیشوندهای پرتکرار پزشکی (hyper-/hypo-, hyper-/hyp-, poly-/oligo-) را حفظ کنید." },
+  { title: "تله پسوندها (Suffixes)", example: "cardiology = علم قلب\ncardiologist = متخصص قلب", explain: "پسوند معنی واژه را از «علم/رشته» به «فرد متخصص» یا برعکس تغییر می‌دهد.", tip: "پسوندهای -logy (علم)، -logist (متخصص)، -itis (التهاب)، -osis (وضعیت) را از هم تفکیک کنید." },
+  { title: "تله کلمات عمومی و تخصصی", example: "illness = بیماری به‌طور کلی\ndisease = بیماری مشخص پزشکی", explain: "یک گزینه معنی عمومی و روزمره دارد و دیگری اصطلاح دقیق و تخصصی پزشکی است.", tip: "در متون علمی، همیشه گزینه‌ی دقیق‌تر و تخصصی‌تر را در نظر بگیرید." },
+  { title: "تله علت و نتیجه (Cause & Effect)", example: "Smoking causes lung cancer.", explain: "داوطلب علت (cause) را با پیامد/نتیجه (effect) اشتباه می‌گیرد. اینجا smoking علت است نه نتیجه.", tip: "فعل‌های نشان‌دهنده علیت مثل cause, lead to, result in را علامت بزنید و جهت پیکان معنایی را مشخص کنید." },
+  { title: "تله کلمات مثبت و منفی (Negative Prefixes)", example: "un-, in-, im-, non-, dis-", explain: "وجود یک پیشوند منفی کوچک، کل معنی جمله را برعکس می‌کند و اغلب در تندخوانی از چشم می‌افتد.", tip: "قبل از انتخاب گزینه، حتماً بررسی کنید کلمه پیشوند منفی دارد یا نه." },
+  { title: "تله واحدهای زیستی (Biological Units)", example: "cell → tissue → organ → system", explain: "این چهار واحد به ترتیب از کوچک به بزرگ هستند و طراح ترتیب یا سطح آن‌ها را جابه‌جا می‌کند.", tip: "ترتیب سلسله‌مراتبی cell < tissue < organ < system را حفظ کنید." },
+  { title: "تله بروز و شیوع (Incidence vs Prevalence)", example: "incidence = موارد جدید در بازه زمانی\nprevalence = کل موارد موجود در یک نقطه زمانی", explain: "یکی از پرتکرارترین دام‌های آزمون‌های اپیدمیولوژی و علوم آزمایشگاهی است.", tip: "incidence = «جدید»، prevalence = «کل موجود» — این دو کلمه کلیدی را به خاطر بسپارید." },
+  { title: "تله مرگ و بیماری (Mortality vs Morbidity)", example: "mortality = نرخ مرگ‌ومیر\nmorbidity = نرخ بیماری/ابتلا", explain: "تقریباً هر سال در آزمون‌های وزارت بهداشت این دو واژه به‌عمد کنار هم می‌آیند.", tip: "mortality → mortal (فانی/مرگ)؛ morbidity → morbid (بیمارگون)." },
+  { title: "تله ترشح و دفع (Secrete vs Excrete)", example: "secrete = ترشح کردن (تولید درون‌بدنی، مثل هورمون)\nexcrete = دفع کردن (خروج مواد زائد از بدن)", explain: "هر دو با حرف ابتدایی نزدیک به هم اما فرایند بیولوژیکی کاملاً متفاوتی دارند.", tip: "secrete = تولید و آزادسازی؛ excrete = دفع نهایی از بدن." },
+  { title: "تله Sign و Symptom", example: "sign = علامت قابل مشاهده و اندازه‌گیری توسط پزشک\nsymptom = شکایت ذهنی بیمار", explain: "sign را پزشک عینی می‌بیند (مثل تب اندازه‌گیری‌شده)، symptom را فقط بیمار حس می‌کند (مثل درد).", tip: "sign = objective (عینی)؛ symptom = subjective (ذهنی)." },
+  { title: "تله Sensitivity و Specificity", example: "sensitivity = توانایی تست در شناسایی درست بیماران\nspecificity = توانایی تست در شناسایی درست افراد سالم", explain: "این دو مفهوم مخصوص مباحث آزمایشگاهی و ارزیابی تست‌های تشخیصی هستند و اغلب جای هم اشتباه گرفته می‌شوند.", tip: "sensitivity = مثبت واقعی در بیماران؛ specificity = منفی واقعی در افراد سالم." },
+  { title: "تله فعل و اسم (effect vs affect)", example: "effect (اسم) = اثر، پیامد\naffect (فعل) = تأثیر گذاشتن", explain: "یکی از رایج‌ترین اشتباهات گرامری-واژگانی در متون علمی انگلیسی است.", tip: "اگر بعد از to/an/the آمده بود اسم (effect) است؛ اگر فاعل مستقیم به آن عمل می‌کرد فعل (affect) است." },
+  { title: "تله واژه‌های علمی با معنی روزمره", example: "culture در پزشکی = کشت میکروبی (نه فرهنگ)", explain: "برخی کلمات معنی رایج روزمره دارند اما در بافت پزشکی/آزمایشگاهی معنی کاملاً متفاوتی می‌گیرند.", tip: "همیشه بافت جمله (context) را در نظر بگیرید، نه فقط معنی لغوی رایج کلمه." },
+  { title: "تله هم‌نشینی واژگان (Collocation)", example: "administer a drug ✅ | give a drug ✅ | perform a drug ❌", explain: "برخی کلمات فقط با افعال یا صفت‌های خاصی می‌آیند و ترکیب‌های نادرست از نظر بافت زبانی غلط‌اند.", tip: "به‌جای حفظ تک‌کلمه، عبارات پرکاربرد (perform a test, administer a drug, run a test) را با هم یاد بگیرید." },
+  { title: "تله حذف گزینه‌های کاملاً غلط", example: "دو گزینه از نظر علمی غیرممکن‌اند حتی اگر معنی دقیق کلمه را ندانید.", explain: "این تکنیک به‌ویژه در آزمون‌های علوم آزمایشگاهی بسیار کاربردی است؛ می‌توان با دانش عمومی زیستی/پزشکی دو گزینه را حذف کرد.", tip: "همیشه ابتدا گزینه‌های علمی نامعقول را حذف کنید تا شانس خود را از ۲۵٪ به ۵۰٪ برسانید." },
+  { title: "تله کلمات آکادمیک پرتکرار", example: "dissemination, manifestation, impairment, susceptibility, intervention", explain: "این واژه‌ها بارها در Readingهای وزارت بهداشت تکرار شده‌اند و داوطلبان معمولاً معنی تقریبی آن‌ها را با هم اشتباه می‌گیرند.", tip: "این ۵ واژه را جداگانه با مثال جمله حفظ کنید؛ در چند دوره اخیر آزمون تکرار شده‌اند." },
+  { title: "تله واژه‌های عمومی-تخصصی مکمل", example: "illness (عمومی) vs disease (تخصصی)", explain: "طراح گاهی هر دو کلمه را در یک گزینه با هم می‌آورد تا دقت داوطلب به تفاوت ظریف را بسنجد.", tip: "لیستی از جفت‌واژه‌های «عمومی/تخصصی» پرتکرار (sick/ill → disease/illness → symptom/sign) تهیه کنید." },
+  { title: "تله Congenital, Hereditary, Acquired", example: "congenital = مادرزادی (لزوماً ژنتیکی نیست)\nhereditary = ارثی (ژنتیکی، از والدین)\nacquired = اکتسابی (پس از تولد ایجاد می‌شود)", explain: "این سه‌گانه بسیار در سؤالات اتیولوژی بیماری‌ها تکرار می‌شود و داوطلبان congenital را با hereditary یکی می‌گیرند.", tip: "congenital یعنی «از بدو تولد وجود دارد»، نه لزوماً «ارثی»." },
+  { title: "تله Acute, Subacute, Chronic", example: "acute = حاد و ناگهانی\nsubacute = نیمه‌حاد (بینابین)\nchronic = مزمن و طولانی‌مدت", explain: "طراح این سه‌گانه‌ی زمانی را کنار هم می‌آورد تا سرعت پیشرفت بیماری اشتباه گرفته شود.", tip: "به قید زمانی جمله (روزها/هفته‌ها/ماه‌ها) دقت کنید تا بین این سه واژه تمایز بگذارید." },
+  { title: "تله In Vitro و In Vivo", example: "in vitro = آزمایش خارج از بدن (مثل لوله آزمایش)\nin vivo = آزمایش درون بدن موجود زنده", explain: "این دو اصطلاح لاتین در متون آزمایشگاهی و پژوهشی بسیار پرتکرارند و ظاهر مشابهی دارند.", tip: "vitro از vitrum (شیشه) می‌آید → آزمایشگاه؛ vivo از vivus (زنده) می‌آید → بدن موجود زنده." },
+  { title: "تله Etiology و Pathology", example: "etiology = علم بررسی علت بیماری\npathology = علم بررسی ماهیت و اثرات بیماری", explain: "هر دو کلمه با علم بیماری مرتبط‌اند اما یکی به «چرایی» و دیگری به «چیستی» بیماری می‌پردازد.", tip: "etiology = علت‌شناسی (Why)؛ pathology = آسیب‌شناسی (What)." },
+  { title: "تله Contagious و Infectious", example: "infectious = ناشی از عامل بیماری‌زا (میکروب/ویروس)\ncontagious = قابل انتقال مستقیم از فردی به فرد دیگر", explain: "هر بیماری contagious قطعاً infectious است، اما هر بیماری infectious لزوماً contagious نیست (مثل کزاز).", tip: "contagious زیرمجموعه‌ی infectious است، نه مترادف کامل آن." },
+  { title: "تله Vaccine, Vaccination, Immunization", example: "vaccine = خودِ ماده‌ی بیولوژیک\nvaccination = عمل تزریق واکسن\nimmunization = فرایند کلی ایجاد ایمنی (شامل نتیجه)", explain: "این سه واژه هم‌خانواده‌اند اما نقش دستوری و بار معنایی متفاوتی دارند.", tip: "vaccine = چیز؛ vaccination = عمل؛ immunization = نتیجه/فرایند نهایی ایمنی‌سازی." },
+  { title: "تله Dose و Dosage", example: "dose = مقدار مصرف در یک نوبت\ndosage = برنامه و رژیم مصرف دارو (مقدار + تناوب)", explain: "dose یک عدد مشخص است، dosage به کل برنامه‌ی زمان‌بندی‌شده‌ی مصرف دارو اشاره دارد.", tip: "اگر سؤال درباره «یک بار مصرف» بود dose، اگر درباره «برنامه‌ی کلی درمان» بود dosage صحیح است." },
+  { title: "تله Side Effect و Adverse Effect", example: "side effect = هر اثر جانبی (می‌تواند خنثی یا حتی مفید باشد)\nadverse effect = اثر جانبی مضر و ناخواسته", explain: "هر adverse effect یک side effect است، اما هر side effect لزوماً adverse (مضر) نیست.", tip: "adverse effect همیشه بار منفی دارد؛ side effect می‌تواند خنثی هم باشد." },
+  { title: "تله Biopsy و Autopsy", example: "biopsy = نمونه‌برداری از بافت فرد زنده برای تشخیص\nautopsy = کالبدشکافی روی جسد برای تعیین علت مرگ", explain: "شباهت ظاهری بالای این دو کلمه باعث اشتباه رایج داوطلبان می‌شود.", tip: "بیمار زنده → biopsy؛ جسد و علت مرگ → autopsy." },
+  { title: "تله Homogeneous و Heterogeneous", example: "homogeneous = یکنواخت، از یک نوع (مثلاً جمعیت سلولی یکسان)\nheterogeneous = ناهمگون، ترکیبی از انواع مختلف", explain: "در توصیف نمونه‌های آزمایشگاهی و جمعیت‌های سلولی بسیار به‌کار می‌رود و پیشوندهایشان (homo-/hetero-) کلیدی است.", tip: "homo- = یکسان؛ hetero- = متفاوت — این دو پیشوند یونانی را در کل متون علمی به خاطر بسپارید." },
+  { title: "تله Screening و Diagnostic Test", example: "screening test = غربالگری افراد بدون علامت برای شناسایی افراد در معرض خطر\ndiagnostic test = تست تأییدی برای تشخیص قطعی بیماری در فرد دارای علامت یا نتیجه غربالگری مثبت", explain: "screening همیشه گام اول و diagnostic معمولاً گام دوم و تأییدی است؛ طراح جای این دو را عوض می‌کند.", tip: "screening = برای «کشف احتمال» در جمعیت سالم؛ diagnostic = برای «تأیید قطعی» در فرد مشکوک." }
+];
+
+let trapIndex = 0;
+let trapOrder = TRAPS.map((_, i) => i);
+
+function multilineToHtml(str) {
+  return str.split('\n').join('<br>');
+}
+
+function renderTrapCard() {
+  const realIdx = trapOrder[trapIndex];
+  const t = TRAPS[realIdx];
+  document.getElementById('trapFront').innerHTML =
+    `<div class="trap-num">تله ${trapIndex + 1} از ${TRAPS.length}</div>
+     <div class="trap-title">${t.title}</div>
+     <div class="trap-example">${multilineToHtml(t.example)}</div>`;
+  document.getElementById('trapBack').innerHTML =
+    `<div class="trap-back-title">💡 توضیح</div>
+     <div class="trap-explain">${t.explain}</div>
+     <div class="trap-tip"><b>نکته کنکوری:</b> ${t.tip}</div>`;
+  document.getElementById('trapCard').classList.remove('flipped');
+  document.getElementById('trapCounter').textContent = (trapIndex + 1) + ' / ' + TRAPS.length;
+  document.getElementById('trap-range').textContent = 'فلش‌کارت ' + (trapIndex + 1) + ' از ' + TRAPS.length;
+  document.querySelectorAll('.trap-list-item').forEach(el => el.classList.remove('active'));
+  const activeItem = document.getElementById('trap-list-item-' + realIdx);
+  if (activeItem) activeItem.classList.add('active');
+}
+
+function flipTrap() {
+  document.getElementById('trapCard').classList.toggle('flipped');
+}
+
+function changeTrap(dir) {
+  trapIndex = (trapIndex + dir + TRAPS.length) % TRAPS.length;
+  renderTrapCard();
+}
+
+function goToTrap(idx) {
+  const pos = trapOrder.indexOf(idx);
+  trapIndex = pos === -1 ? 0 : pos;
+  renderTrapCard();
+}
+
+function shuffleTraps() {
+  for (let i = trapOrder.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [trapOrder[i], trapOrder[j]] = [trapOrder[j], trapOrder[i]];
+  }
+  trapIndex = 0;
+  renderTrapCard();
+}
+
+function resetTraps() {
+  trapOrder = TRAPS.map((_, i) => i);
+  trapIndex = 0;
+  renderTrapCard();
+}
+
+function renderTrapList() {
+  const grid = document.getElementById('trapList');
+  grid.innerHTML = TRAPS.map((t, i) => `
+    <div class="trap-list-item" id="trap-list-item-${i}" onclick="goToTrap(${i})">
+      <span class="trap-list-num">${i + 1}</span>
+      <span class="trap-list-title">${t.title}</span>
     </div>
   `).join('');
 }
 
-function toggleQuizContainer(id) {
-  const el = document.getElementById('quiz-box-' + id);
-  if (el) el.classList.toggle('open');
+function initTraps() {
+  renderTrapList();
+  renderTrapCard();
+}
+// ========== پایان تله‌های کنکوری ==========
+
+// ========== چالش ۳۰ واژه ==========
+const CHALLENGE_DURATION = 180; // seconds
+let challengeState = null; // {words, index, correctCount, wrongList, timeLeft, timerId, answered}
+
+function faDigits(n) {
+  const map = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+  return String(n).replace(/[0-9]/g, d => map[d]);
 }
 
-function answerCardQuiz(wId, qIdx, oIdx, correctIdx, btn) {
-  const parent = btn.parentElement;
-  parent.querySelectorAll('.quiz-option').forEach(b => b.disabled = true);
-  const expBox = document.getElementById(`exp-${wId}-${qIdx}`);
-  if (oIdx === correctIdx) {
-    btn.classList.add('correct');
-    if (expBox) { expBox.classList.add('show'); expBox.querySelector('.quiz-exp-header').className = 'quiz-exp-header correct-exp'; }
+function formatChallengeTime(sec) {
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  const pad = v => (v < 10 ? '0' + v : '' + v);
+  return faDigits(pad(m) + ':' + pad(s));
+}
+
+function pickRandomWords(count) {
+  const pool = WORDS.slice();
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  return pool.slice(0, count);
+}
+
+function buildChallengeOptions(word) {
+  const distractorPool = WORDS.filter(w => w.id !== word.id);
+  const shuffled = distractorPool.slice();
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  const distractors = shuffled.slice(0, 3).map(w => w.meaning);
+  const options = [word.meaning, ...distractors];
+  for (let i = options.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [options[i], options[j]] = [options[j], options[i]];
+  }
+  return options;
+}
+
+function startChallenge() {
+  if (challengeState && challengeState.timerId) clearInterval(challengeState.timerId);
+  const words = pickRandomWords(30);
+  challengeState = {
+    words,
+    index: 0,
+    correctCount: 0,
+    wrongList: [],
+    timeLeft: CHALLENGE_DURATION,
+    timerId: null,
+    answered: false
+  };
+  document.getElementById('challenge-intro').style.display = 'none';
+  document.getElementById('challenge-result').style.display = 'none';
+  document.getElementById('challenge-quiz').style.display = 'flex';
+  renderChallengeQuestion();
+  challengeState.timerId = setInterval(challengeTick, 1000);
+}
+
+function challengeTick() {
+  if (!challengeState) return;
+  challengeState.timeLeft--;
+  document.getElementById('challengeTimer').textContent = formatChallengeTime(Math.max(0, challengeState.timeLeft));
+  if (challengeState.timeLeft <= 0) {
+    endChallenge(true);
+  }
+}
+
+function renderChallengeQuestion() {
+  const st = challengeState;
+  if (!st) return;
+  st.answered = false;
+  const word = st.words[st.index];
+  const options = buildChallengeOptions(word);
+  st.currentOptions = options;
+
+  document.getElementById('challengeWord').textContent = word.word;
+  document.getElementById('challengePhonetic').textContent = word.phonetic || '';
+  document.getElementById('challengeProgress').textContent = faDigits(st.index + 1) + ' / ' + faDigits(st.words.length);
+  document.getElementById('challengeProgressFill').style.width = ((st.index) / st.words.length * 100) + '%';
+  document.getElementById('challengeTimer').textContent = formatChallengeTime(Math.max(0, st.timeLeft));
+
+  const optsEl = document.getElementById('challengeOptions');
+  optsEl.innerHTML = options.map((opt, i) =>
+    `<button class="challenge-option" onclick="selectChallengeAnswer(${i})">${opt}</button>`
+  ).join('');
+}
+
+function selectChallengeAnswer(idx) {
+  const st = challengeState;
+  if (!st || st.answered) return;
+  st.answered = true;
+  const word = st.words[st.index];
+  const correctText = word.meaning;
+  const chosenText = st.currentOptions[idx];
+  const isCorrect = chosenText === correctText;
+
+  if (isCorrect) {
+    st.correctCount++;
   } else {
-    btn.classList.add('wrong');
-    parent.querySelectorAll('.quiz-option')[correctIdx]?.classList.add('correct');
-    if (expBox) { expBox.classList.add('show'); expBox.querySelector('.quiz-exp-header').className = 'quiz-exp-header wrong-exp'; }
+    st.wrongList.push({ word: word.word, meaning: correctText, chosen: chosenText });
   }
-}
 
-// تلفظ صوتی واژه منفرد
-function playAudio(text) {
-  if ('speechSynthesis' in window) {
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = 'en-US';
-    u.rate = 0.88;
-    window.speechSynthesis.speak(u);
-  }
-}
-
-// تلفظ ترتیبی و پیوسته کل واژگان مترادف یک دسته
-function playAllSynonyms(wordsList) {
-  if (!('speechSynthesis' in window)) return;
-  window.speechSynthesis.cancel();
-  
-  wordsList.forEach((word, index) => {
-    const cleanWord = word.trim();
-    if (!cleanWord) return;
-    const utterance = new SpeechSynthesisUtterance(cleanWord);
-    utterance.lang = 'en-US';
-    utterance.rate = 0.85;
-    if (index < wordsList.length - 1) {
-      utterance.onend = () => {
-        window.speechSynthesis.pause();
-        setTimeout(() => window.speechSynthesis.resume(), 250);
-      };
-    }
-    window.speechSynthesis.speak(utterance);
+  const buttons = document.querySelectorAll('#challengeOptions .challenge-option');
+  buttons.forEach((btn, i) => {
+    btn.disabled = true;
+    if (st.currentOptions[i] === correctText) btn.classList.add('correct');
+    else if (i === idx) btn.classList.add('wrong');
   });
+
+  setTimeout(() => {
+    if (!challengeState) return;
+    st.index++;
+    if (st.index >= st.words.length) {
+      endChallenge(false);
+    } else {
+      renderChallengeQuestion();
+    }
+  }, 700);
 }
 
-// ================= عصاره لغات + سیستم لایتنر هوشمند =================
+function endChallenge(timedOut) {
+  const st = challengeState;
+  if (!st) return;
+  if (st.timerId) clearInterval(st.timerId);
+  st.timerId = null;
+
+  const total = st.words.length;
+  const answeredCount = st.index + (st.answered ? 1 : 0);
+  const percent = total > 0 ? Math.round((st.correctCount / total) * 100) : 0;
+
+  document.getElementById('challenge-quiz').style.display = 'none';
+  document.getElementById('challenge-result').style.display = 'flex';
+  document.getElementById('challengeResultTitle').textContent = timedOut ? 'زمان شما به پایان رسید' : 'نتیجه چالش';
+  document.getElementById('challengeResultScore').textContent =
+    faDigits(st.correctCount) + ' پاسخ صحیح از ' + faDigits(total) + (timedOut ? (' (' + faDigits(answeredCount) + ' پاسخ داده‌شده)') : '');
+  document.getElementById('challengeResultPercent').textContent = faDigits(percent) + '٪';
+
+  const wrongHeading = document.getElementById('challengeWrongHeading');
+  const wrongList = document.getElementById('challengeWrongList');
+  if (st.wrongList.length > 0) {
+    wrongHeading.style.display = 'block';
+    wrongList.innerHTML = st.wrongList.map(w =>
+      `<div class="challenge-wrong-item"><div class="cw-en">${w.word}</div><div class="cw-fa">معنی صحیح: ${w.meaning}</div></div>`
+    ).join('');
+  } else {
+    wrongHeading.style.display = 'none';
+    wrongList.innerHTML = '';
+  }
+}
+
+function initChallenge() {
+  if (challengeState && challengeState.timerId) {
+    clearInterval(challengeState.timerId);
+  }
+  challengeState = null;
+  document.getElementById('challenge-intro').style.display = 'flex';
+  document.getElementById('challenge-quiz').style.display = 'none';
+  document.getElementById('challenge-result').style.display = 'none';
+}
+// ========== پایان چالش ==========
+
+function switchTab(tab) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  var activeBtn = (typeof event !== 'undefined' && event && event.currentTarget)
+    ? event.currentTarget
+    : document.querySelector('.nav-tab[data-tab="' + tab + '"]');
+  if (activeBtn) activeBtn.classList.add('active');
+  stopAudio();
+  if (tab === 'bookmarks') renderBookmarks();
+  if (tab === 'traps') initTraps();
+  if (tab === 'challenge') initChallenge();
+}
+
+// ========== مدیریت صفحات و منو ==========
+var SCREENS = ['menu', 'app', 'about', 'contact'];
+
+function renderScreen(name) {
+  SCREENS.forEach(function(s) {
+    var el = document.getElementById('screen-' + s);
+    if (el) el.style.display = (s === name) ? '' : 'none';
+  });
+  if (name !== 'app') stopAudio();
+  window.scrollTo(0, 0);
+}
+
+function goToScreen(name) {
+  renderScreen(name);
+  history.pushState({ screen: name }, '', '#' + name);
+}
+
+function goToMenu() {
+  // اگر تاریخچه‌ای برای بازگشت وجود دارد از آن استفاده کن تا دکمه Back گوشی هم هماهنگ بماند
+  if (history.state && history.state.screen && history.state.screen !== 'menu') {
+    history.back();
+  } else {
+    goToScreen('menu');
+  }
+}
+
+function startLearning() {
+  goToScreen('app');
+  switchTab('vocab');
+}
+
+function showAbout() { goToScreen('about'); }
+function showContact() { goToScreen('contact'); }
+
+window.addEventListener('popstate', function(e) {
+  var screen = (e.state && e.state.screen) ? e.state.screen : 'menu';
+  renderScreen(screen);
+});
+
+function showToast(msg) {
+  var el = document.getElementById('appToast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(function() { el.classList.remove('show'); }, 2200);
+}
+
+function copyPhone(number, el) {
+  var done = function() {
+    showToast('شماره ' + number + ' کپی شد');
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(number).then(done).catch(function() { fallbackCopy(number, done); });
+  } else {
+    fallbackCopy(number, done);
+  }
+}
+
+function fallbackCopy(text, cb) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try { document.execCommand('copy'); } catch (e) {}
+  document.body.removeChild(ta);
+  if (cb) cb();
+}
+
+function openInstagram() {
+  // Native Android bridge (injected by the WebView app via JavascriptInterface).
+  // It opens the Instagram app directly if installed, otherwise falls back
+  // to a normal browser link. Falls back to a plain browser tab if the
+  // bridge isn't present (e.g. when testing this file in a desktop browser).
+  if (window.AndroidApp && typeof window.AndroidApp.openInstagram === 'function') {
+    try {
+      window.AndroidApp.openInstagram();
+      return;
+    } catch (e) {}
+  }
+  window.open('https://www.instagram.com/biochemistry_course', '_blank');
+}
+
+// راه‌اندازی اولیه ناوبری صفحات: صفحه منو ریشه تاریخچه است
+history.replaceState({ screen: 'menu' }, '', '#menu');
+renderScreen('menu');
+// ========== پایان مدیریت صفحات ==========
+
+
+// ================== بارگذاری واژگان مرجع از JSON ==================
+async function loadMainWordsData() {
+  try {
+    const res = await fetch('medical_vocab_data.json');
+    const data = await res.json();
+    if (data && data.length > 0) {
+      WORDS = data;
+      document.getElementById('total-words').textContent = WORDS.length;
+      updateCounts();
+      applyFilters();
+      if (typeof initChallenge === 'function') initChallenge();
+    }
+  } catch (err) {
+    console.error("خطا در بارگذاری medical_vocab_data.json:", err);
+  }
+}
+
+// ================== بخش عصاره لغات و لایتنر ==================
+const OSSAREH_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQsotmNaQnk65bd3Kgw_cAYwSztRDdnIlOVsLDkkuij8x6jdo6EUQ9zNgXNWNtiZfpgHYG778IE7rsu/pub?gid=2&single=true&output=csv";
+
 let ossarehData = [];
 let activeOssarehDay = 'all';
 let activeLeitnerBox = 'all';
@@ -944,7 +2686,7 @@ async function loadOssarehData() {
 
       if (words) {
         if (day) daysSet.add(day);
-        const itemKey = `k_${day}_${words.slice(0, 15)}`;
+        const itemKey = `k_${day}_${words.slice(0, 20)}`;
         if (!ossarehLeitner[itemKey]) {
           ossarehLeitner[itemKey] = 1; // شروع از جعبه ۱
         }
@@ -983,7 +2725,7 @@ function handleLeitnerAnswer(key, passed) {
   if (passed) {
     if (box < 5) box++;
   } else {
-    box = 1; // در صورت فراموشی بازگشت به جعبه ۱
+    box = 1; // در صورت بلد نبودن: برگشت به خانه ۱
   }
   ossarehLeitner[key] = box;
   saveLeitnerData();
@@ -1007,7 +2749,8 @@ function filterLeitnerBox(box) {
 }
 
 function updateLeitnerCounters() {
-  document.getElementById('cnt-box-all').innerText = ossarehData.length;
+  const allEl = document.getElementById('cnt-box-all');
+  if (allEl) allEl.innerText = ossarehData.length;
   for (let i = 1; i <= 5; i++) {
     const count = ossarehData.filter(x => (ossarehLeitner[x.key] || 1) === i).length;
     const el = document.getElementById(`cnt-box-${i}`);
@@ -1041,19 +2784,16 @@ function filterOssareh() {
   const q = (document.getElementById("ossarehSearch")?.value || "").toLowerCase().trim();
   let filtered = ossarehData;
 
-  // فیلتر جعبه لایتنر
   if (activeLeitnerBox === 'star') {
     filtered = filtered.filter(item => ossarehBookmarks.includes(item.key));
   } else if (activeLeitnerBox !== 'all') {
     filtered = filtered.filter(item => (ossarehLeitner[item.key] || 1) === Number(activeLeitnerBox));
   }
 
-  // فیلتر روز
   if (activeOssarehDay !== 'all') {
     filtered = filtered.filter(item => item.day === activeOssarehDay);
   }
 
-  // جستجو
   if (q) {
     filtered = filtered.filter(item => 
       item.words.toLowerCase().includes(q) || 
@@ -1063,6 +2803,27 @@ function filterOssareh() {
     );
   }
   renderOssarehCards(filtered);
+}
+
+// تلفظ ترتیبی و کامل همه لغات یک دسته
+function playAllSynonyms(wordsList) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  
+  wordsList.forEach((word, index) => {
+    const cleanWord = word.trim();
+    if (!cleanWord) return;
+    const utterance = new SpeechSynthesisUtterance(cleanWord);
+    utterance.lang = 'en-US';
+    utterance.rate = 0.85;
+    if (index < wordsList.length - 1) {
+      utterance.onend = () => {
+        window.speechSynthesis.pause();
+        setTimeout(() => window.speechSynthesis.resume(), 280);
+      };
+    }
+    window.speechSynthesis.speak(utterance);
+  });
 }
 
 function renderOssarehCards(list) {
@@ -1077,7 +2838,7 @@ function renderOssarehCards(list) {
     return;
   }
 
-  grid.innerHTML = list.map((item, idx) => {
+  grid.innerHTML = list.map((item) => {
     const synonyms = item.words.split('/').map(w => w.trim()).filter(Boolean);
     const isBookmarked = ossarehBookmarks.includes(item.key);
     const boxNum = ossarehLeitner[item.key] || 1;
@@ -1096,9 +2857,9 @@ function renderOssarehCards(list) {
               </div>
             </div>
             
-            <!-- تمام لغات کنار هم به صورت پیوسته -->
+            <!-- تمام لغات کنار هم با جداکننده اسلش و قابلیت تلفظ تک‌تک -->
             <div class="word-english" style="font-size:20px; line-height:1.6; color:var(--primary); direction:ltr; text-align:left;">
-              ${synonyms.map(s => `<span class="keyword-tag" title="کلیک برای پخش تلفظ" onclick="playAudio('${s.replace(/'/g, "\\'")}')">${s}</span>`).join(' <span style="color:#b0bec5; font-weight:400; padding:0 3px;">/</span> ')}
+              ${synonyms.map(s => `<span class="keyword-tag" title="کلیک برای پخش تلفظ" onclick="speakText('${s.replace(/'/g, "\\'")}')">${s}</span>`).join(' <span style="color:#b0bec5; font-weight:400; padding:0 3px;">/</span> ')}
             </div>
             
             <div class="word-meaning" style="font-size:16.5px; font-weight:700; color:var(--text); margin-top:10px;">
@@ -1119,15 +2880,15 @@ function renderOssarehCards(list) {
               <div class="example-fa">${formattedExFa}</div>
             </div>
             
-            <!-- کنترل لایتنر -->
+            <!-- دکمه‌های انتقال جعبه لایتنر -->
             <div class="leitner-action-bar">
-              <span style="font-size:12px; color:var(--text-muted);">وضعیت پاسخ شما:</span>
+              <span style="font-size:12px; color:var(--text-muted); font-weight:600;">وضعیت تسلط شما:</span>
               <div style="display:flex; gap:6px;">
                 <button class="btn-leitner btn-leitner-fail" onclick="handleLeitnerAnswer('${item.key}', false)">
                   ❌ بلد نبودم (جعبه ۱)
                 </button>
                 <button class="btn-leitner btn-leitner-pass" onclick="handleLeitnerAnswer('${item.key}', true)">
-                  ✔️ بلد بودم (${boxNum < 5 ? `انتقال به ${boxNum + 1}` : 'تکمیل شده'})
+                  ✔️ بلد بودم (${boxNum < 5 ? `انتقال به ${boxNum + 1}` : 'تسلط کامل'})
                 </button>
               </div>
             </div>
@@ -1138,12 +2899,16 @@ function renderOssarehCards(list) {
   }).join('');
 }
 
-// ================= ۳. بخش‌های ریدینگ، تله‌ها و چالش =================
-window.addEventListener("DOMContentLoaded", () => {
-  loadMainWords();
-  loadOssarehData();
-  document.getElementById('bookmarked-count').innerText = bookmarks.length;
-});
+
+
+// INIT
+loadMainWordsData();
+loadOssarehData();
+
+updateCounts();
+applyFilters();
+renderPassage();
+document.getElementById('bookmarked-count').textContent = bookmarks.length;
 </script>
 </body>
 </html>
