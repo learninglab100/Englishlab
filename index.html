@@ -965,13 +965,31 @@
     <button class="nav-tab" data-tab="bookmarks" onclick="switchTab('bookmarks')">⭐ مارک‌شده‌ها</button>
     <button class="nav-tab" data-tab="traps" onclick="switchTab('traps')">🧠 تله‌های کنکوری</button>
     <button class="nav-tab" data-tab="challenge" onclick="switchTab('challenge')">🏆 چالش</button>
+    <button class="nav-tab" data-tab="ossareh" onclick="switchTab('ossareh')">🧪 عصاره لغات</button>
   </div>
 </header>
 
 <div class="main-wrapper">
   <!-- CONTENT -->
   <div class="content-area" style="width:100%;">
+<!-- OSSAREH TAB (عصاره لغات شیت) -->
+<div id="tab-ossareh" class="tab-content">
+  <div class="section-heading">
+    <h2>🧪 عصاره لغات و دسته‌بندی مترادف‌ها</h2>
+    <div class="page-info" id="ossareh-count">در حال بارگذاری...</div>
+  </div>
 
+  <div class="alpha-bar-wrapper" style="margin-bottom: 18px;">
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;" id="ossarehDayFilters">
+      <button class="alpha-chip active" onclick="filterOssarehByDay('all')">همه روزها</button>
+    </div>
+    <div style="display:flex; justify-content:center; margin-top: 10px;">
+      <input type="text" class="search-box" id="ossarehSearch" placeholder="جستجو در عصاره لغات یا ترجمه..." oninput="filterOssareh()" style="max-width:320px;" />
+    </div>
+  </div>
+
+  <div class="word-grid" id="ossarehGrid"></div>
+</div>
     <!-- VOCAB TAB -->
     <div id="tab-vocab" class="tab-content active">
 
@@ -2547,5 +2565,160 @@ applyFilters();
 renderPassage();
 document.getElementById('bookmarked-count').textContent = bookmarks.length;
 </script>
+  // لینک اختصاصی خروجی CSV شیت عصاره لغات
+const OSSAREH_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQsotmNaQnk65bd3Kgw_cAYwSztRDdnIlOVsLDkkuij8x6jdo6EUQ9zNgXNWNtiZfpgHYG778IE7rsu/pub?gid=2&single=true&output=csv";
+
+let ossarehData = [];
+let activeDayFilter = 'all';
+
+// پارسر استاندارد CSV برای پشتیبانی از خطوط شکسته داخل سلول
+function parseCSV(text) {
+  const p = [];
+  let row = [''];
+  let inQuotes = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    const next = text[i + 1];
+    if (c === '"') {
+      if (inQuotes && next === '"') { row[row.length - 1] += '"'; i++; }
+      else { inQuotes = !inQuotes; }
+    } else if (c === ',' && !inQuotes) {
+      row.push('');
+    } else if ((c === '\r' || c === '\n') && !inQuotes) {
+      if (c === '\r' && next === '\n') { i++; }
+      p.push(row);
+      row = [''];
+    } else {
+      row[row.length - 1] += c;
+    }
+  }
+  if (row.length > 1 || row[0] !== '') p.push(row);
+  return p;
+}
+
+async function loadOssarehData() {
+  try {
+    const res = await fetch(OSSAREH_CSV_URL);
+    const csvText = await res.text();
+    const rows = parseCSV(csvText);
+    if (!rows || rows.length <= 1) return;
+
+    ossarehData = [];
+    const daysSet = new Set();
+
+    for (let i = 1; i < rows.length; i++) {
+      const r = rows[i];
+      const day = r[0] ? r[0].trim() : '';
+      const words = r[1] ? r[1].trim() : '';
+      const meaning = r[2] ? r[2].trim() : '';
+      const exEn = r[3] ? r[3].trim() : '';
+      const exFa = r[4] ? r[4].trim() : '';
+
+      if (words) {
+        if (day) daysSet.add(day);
+        ossarehData.push({ day, words, meaning, exEn, exFa });
+      }
+    }
+
+    renderOssarehDayFilters(Array.from(daysSet));
+    renderOssarehCards(ossarehData);
+  } catch (err) {
+    console.error("خطا در بارگذاری عصاره لغات:", err);
+    document.getElementById("ossareh-count").innerText = "خطا در برقراری ارتباط";
+  }
+}
+
+function renderOssarehDayFilters(days) {
+  const container = document.getElementById("ossarehDayFilters");
+  if (!container) return;
+  let html = `<button class="alpha-chip active" id="chip-day-all" onclick="filterOssarehByDay('all')">همه روزها <span class="count">${ossarehData.length}</span></button>`;
+  days.sort((a,b) => Number(a) - Number(b)).forEach(d => {
+    const count = ossarehData.filter(x => x.day === d).length;
+    html += `<button class="alpha-chip" id="chip-day-${d}" onclick="filterOssarehByDay('${d}')">روز ${d} <span class="count">${count}</span></button>`;
+  });
+  container.innerHTML = html;
+}
+
+function filterOssarehByDay(day) {
+  activeDayFilter = day;
+  document.querySelectorAll("#ossarehDayFilters .alpha-chip").forEach(el => el.classList.remove("active"));
+  const btn = document.getElementById(day === 'all' ? 'chip-day-all' : `chip-day-${day}`);
+  if (btn) btn.classList.add("active");
+  filterOssareh();
+}
+
+function filterOssareh() {
+  const q = (document.getElementById("ossarehSearch")?.value || "").toLowerCase().trim();
+  let filtered = ossarehData;
+
+  if (activeDayFilter !== 'all') {
+    filtered = filtered.filter(item => item.day === activeDayFilter);
+  }
+  if (q) {
+    filtered = filtered.filter(item => 
+      item.words.toLowerCase().includes(q) || 
+      item.meaning.toLowerCase().includes(q) || 
+      item.exEn.toLowerCase().includes(q) ||
+      item.exFa.toLowerCase().includes(q)
+    );
+  }
+  renderOssarehCards(filtered);
+}
+
+function renderOssarehCards(list) {
+  const grid = document.getElementById("ossarehGrid");
+  const countEl = document.getElementById("ossareh-count");
+  if (!grid) return;
+
+  if (countEl) countEl.innerText = `${list.length} دسته واژه`;
+
+  if (list.length === 0) {
+    grid.innerHTML = `<div class="empty-state"><div class="icon">🔍</div><h3>واژه‌ای یافت نشد</h3></div>`;
+    return;
+  }
+
+  grid.innerHTML = list.map((item, idx) => {
+    const synonyms = item.words.split('/').map(w => w.trim()).filter(Boolean);
+    const mainWord = synonyms[0] || item.words;
+    const formattedExEn = item.exEn.replace(/\n/g, '<br>');
+    const formattedExFa = item.exFa.replace(/\n/g, '<br>');
+
+    return `
+      <div class="word-card">
+        <div class="card-header">
+          <div class="word-main">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <span class="word-english" style="font-size:20px;">${mainWord}</span>
+              ${item.day ? `<span class="badge" style="background:#117a65; font-size:11px;">روز ${item.day}</span>` : ''}
+            </div>
+            
+            <div style="margin-top: 6px; display:flex; flex-wrap:wrap; gap:5px;">
+              ${synonyms.map(s => `<span class="keyword-tag" style="font-size:12px;">${s}</span>`).join('')}
+            </div>
+            
+            <div class="word-meaning" style="font-size:16px; margin-top:8px;">${item.meaning}</div>
+          </div>
+          <div class="card-actions">
+            <button class="btn-icon" title="پخش تلفظ" onclick="playAudio('${mainWord.replace(/'/g, "\\'")}')">🔊</button>
+          </div>
+        </div>
+        
+        ${item.exEn ? `
+          <div class="card-body" style="padding-top:10px;">
+            <div class="example-block">
+              <div class="example-en" style="line-height:1.8;">${formattedExEn}</div>
+              <div class="example-fa" style="line-height:1.8; margin-top:6px;">${formattedExFa}</div>
+            </div>
+          </div>
+        ` : ''}
+      </div>
+    `;
+  }).join('');
+}
+
+// لود خودکار عصاره لغات پس از بارگذاری صفحه
+window.addEventListener("DOMContentLoaded", () => {
+  loadOssarehData();
+});
 </body>
 </html>
