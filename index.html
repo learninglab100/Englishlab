@@ -2564,14 +2564,15 @@ updateCounts();
 applyFilters();
 renderPassage();
 document.getElementById('bookmarked-count').textContent = bookmarks.length;
-</script>
-  // لینک اختصاصی خروجی CSV شیت عصاره لغات
+  <script>
+// سایر کدهای قبلی برنامه...
+
+// ================== بخش عصاره لغات ==================
 const OSSAREH_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQsotmNaQnk65bd3Kgw_cAYwSztRDdnIlOVsLDkkuij8x6jdo6EUQ9zNgXNWNtiZfpgHYG778IE7rsu/pub?gid=2&single=true&output=csv";
 
 let ossarehData = [];
 let activeDayFilter = 'all';
 
-// پارسر استاندارد CSV برای پشتیبانی از خطوط شکسته داخل سلول
 function parseCSV(text) {
   const p = [];
   let row = [''];
@@ -2624,7 +2625,8 @@ async function loadOssarehData() {
     renderOssarehCards(ossarehData);
   } catch (err) {
     console.error("خطا در بارگذاری عصاره لغات:", err);
-    document.getElementById("ossareh-count").innerText = "خطا در برقراری ارتباط";
+    const countEl = document.getElementById("ossareh-count");
+    if (countEl) countEl.innerText = "خطا در برقراری ارتباط";
   }
 }
 
@@ -2677,7 +2679,7 @@ function renderOssarehCards(list) {
     return;
   }
 
-  grid.innerHTML = list.map((item, idx) => {
+  grid.innerHTML = list.map((item) => {
     const synonyms = item.words.split('/').map(w => w.trim()).filter(Boolean);
     const mainWord = synonyms[0] || item.words;
     const formattedExEn = item.exEn.replace(/\n/g, '<br>');
@@ -2716,9 +2718,14 @@ function renderOssarehCards(list) {
   }).join('');
 }
 
-// لود خودکار عصاره لغات پس از بارگذاری صفحه
+// لود داده‌ها پس از بارگذاری صفحه
 window.addEventListener("DOMContentLoaded", () => {
   loadOssarehData();
 });
+</script>
+</body>
+</html>
+</script>
+  
 </body>
 </html>
