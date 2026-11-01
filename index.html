@@ -1070,108 +1070,6 @@
       </div>
     </div>
 
-    <!-- PASSAGE TAB -->
-    <div id="tab-passage" class="tab-content">
-      <div class="passage-card">
-        <div class="passage-header">
-          <div>
-            <div class="passage-title">📚 Medical Laboratory Science Passages</div>
-            <div class="passage-meta">۱۰۰ متن کوتاه پزشکی | سطح: متوسط به بالا | منبع: واژگان اپلیکیشن (آزمون علوم آزمایشگاهی)</div>
-          </div>
-        </div>
-        <div class="passage-body" id="passageBody"></div>
-      </div>
-    </div>
-
-    <!-- BOOKMARKS TAB -->
-    <div id="tab-bookmarks" class="tab-content">
-      <div class="section-heading">
-        <h2>⭐ واژگان مارک‌شده برای مرور</h2>
-      </div>
-      <div id="bookmarkGrid" class="word-grid">
-        <div class="empty-state">
-          <div class="icon">⭐</div>
-          <h3>هنوز واژه‌ای مارک نشده</h3>
-          <p>روی آیکون ستاره در هر کارت واژه کلیک کنید تا آن را برای مرور بعدی ذخیره کنید</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- TRAPS (تله‌های کنکوری) TAB -->
-    <div id="tab-traps" class="tab-content">
-      <div class="section-heading">
-        <h2>🧠 تله‌های رایج کنکور، علوم آزمایشگاهی ۱، ۲، ۳ و زبان پزشکی وزارت بهداشت</h2>
-        <div class="page-info" id="trap-range">فلش‌کارت ۱ از ۳۲</div>
-      </div>
-
-      <div class="trap-toolbar">
-        <button class="btn-page" onclick="shuffleTraps()">🔀 پخش تصادفی</button>
-        <span class="trap-counter" id="trapCounter">۱ / ۳۲</span>
-        <button class="btn-page" onclick="resetTraps()">↺ ترتیب اصلی</button>
-      </div>
-
-      <div class="trap-stage">
-        <div class="trap-card" id="trapCard" onclick="flipTrap()">
-          <div class="trap-flip-inner" id="trapFlipInner">
-            <div class="trap-face trap-front" id="trapFront"></div>
-            <div class="trap-face trap-back" id="trapBack"></div>
-          </div>
-        </div>
-        <div class="trap-hint">برای دیدن توضیح، روی کارت کلیک کنید 👆</div>
-      </div>
-
-      <div class="page-controls">
-        <button class="btn-page" id="trapPrevBtn" onclick="changeTrap(-1)">← قبلی</button>
-        <button class="btn-page" id="trapNextBtn" onclick="changeTrap(1)">بعدی →</button>
-      </div>
-
-      <div class="trap-list-heading">فهرست همه تله‌ها</div>
-      <div class="trap-list" id="trapList"></div>
-    </div>
-
-    <!-- CHALLENGE TAB -->
-    <div id="tab-challenge" class="tab-content">
-      <div class="section-heading">
-        <h2>🏆 چالش ۳۰ واژه</h2>
-      </div>
-
-      <div id="challenge-intro" class="challenge-screen">
-        <div class="challenge-intro-card">
-          <div class="challenge-intro-icon">🏆</div>
-          <h3>چالش سرعت واژگان</h3>
-          <p>۳۰ واژه به‌صورت تصادفی از کل بانک واژگان انتخاب می‌شود. برای هر واژه باید معنی فارسی درست را از بین ۴ گزینه انتخاب کنی. کل چالش ۳ دقیقه زمان دارد.</p>
-          <button class="btn-start-challenge" onclick="startChallenge()">شروع چالش</button>
-        </div>
-      </div>
-
-      <div id="challenge-quiz" class="challenge-screen" style="display:none;">
-        <div class="challenge-topbar">
-          <div class="challenge-timer" id="challengeTimer">۰۳:۰۰</div>
-          <div class="challenge-progress" id="challengeProgress">۱ / ۳۰</div>
-        </div>
-        <div class="challenge-progress-bar"><div class="challenge-progress-fill" id="challengeProgressFill"></div></div>
-        <div class="challenge-card">
-          <div class="challenge-word-en" id="challengeWord"></div>
-          <div class="challenge-word-phonetic" id="challengePhonetic"></div>
-        </div>
-        <div class="challenge-options" id="challengeOptions"></div>
-      </div>
-
-      <div id="challenge-result" class="challenge-screen" style="display:none;">
-        <div class="challenge-result-card">
-          <div class="challenge-result-title" id="challengeResultTitle">نتیجه چالش</div>
-          <div class="challenge-result-score" id="challengeResultScore"></div>
-          <div class="challenge-result-percent" id="challengeResultPercent"></div>
-          <div class="challenge-wrong-heading" id="challengeWrongHeading" style="display:none;">واژه‌هایی که اشتباه پاسخ داده شد</div>
-          <div class="challenge-wrong-list" id="challengeWrongList"></div>
-          <button class="btn-start-challenge" onclick="startChallenge()">تلاش دوباره</button>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
     <!-- OSSAREH TAB (عصاره لغات + سیستم لایتنر هوشمند) -->
     <div id="tab-ossareh" class="tab-content">
       <div class="section-heading">
@@ -1207,6 +1105,119 @@
       </div>
 
       <div class="word-grid" id="ossarehGrid"></div>
+
+    <!-- PASSAGE TAB -->
+    <div id="tab-passage" class="tab-content">
+      <div class="passage-card">
+        <div class="passage-header">
+          <div>
+            <div class="passage-title">📚 Medical English Reading Passages</div>
+            <div class="passage-meta">۱۰۰ متن کوتاه تخصصی زبان پزشکی | سطح: متوسط به بالا | منبع: متون جامع زبان وزارت بهداشت</div>
+          </div>
+        </div>
+        <div class="passage-body" id="passageBody"></div>
+      </div>
+    </div>
+
+    <!-- BOOKMARKS TAB -->
+    <div id="tab-bookmarks" class="tab-content">
+      <div class="section-heading">
+        <h2>⭐ واژگان مارک‌شده برای مرور</h2>
+      </div>
+      <div id="bookmarkGrid" class="word-grid">
+        <div class="empty-state">
+          <div class="icon">⭐</div>
+          <h3>هنوز واژه‌ای مارک نشده</h3>
+          <p>روی آیکون ستاره در هر کارت واژه کلیک کنید تا آن را برای مرور بعدی ذخیره کنید</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRAPS (تله‌های کنکوری) TAB -->
+    <div id="tab-traps" class="tab-content">
+      <div class="section-heading">
+        <h2>🧠 تله‌های رایج کنکور، زبان پزشکی وزارت بهداشت</h2>
+        <div class="page-info" id="trap-range">فلش‌کارت ۱ از ۳۲</div>
+      </div>
+
+      <div class="trap-toolbar">
+        <button class="btn-page" onclick="shuffleTraps()">🔀 پخش تصادفی</button>
+        <span class="trap-counter" id="trapCounter">۱ / ۳۲</span>
+        <button class="btn-page" onclick="resetTraps()">↺ ترتیب اصلی</button>
+      </div>
+
+      <div class="trap-stage">
+        <div class="trap-card" id="trapCard" onclick="flipTrap()">
+          <div class="trap-flip-inner" id="trapFlipInner">
+            <div class="trap-face trap-front" id="trapFront"></div>
+            <div class="trap-face trap-back" id="trapBack"></div>
+          </div>
+        </div>
+        <div class="trap-hint">برای دیدن توضیح، روی کارت کلیک کنید 👆</div>
+      </div>
+
+      <div class="page-controls">
+        <button class="btn-page" id="trapPrevBtn" onclick="changeTrap(-1)">← قبلی</button>
+        <button class="btn-page" id="trapNextBtn" onclick="changeTrap(1)">بعدی →</button>
+      </div>
+
+      <div class="trap-list-heading">فهرست همه تله‌ها</div>
+      <div class="trap-list" id="trapList"></div>
+    </div>
+
+    <!-- CHALLENGE TAB -->
+    <div id="tab-challenge" class="tab-content">
+      <div class="section-heading">
+        <h2>🏆 چالش ۳۰ واژه</h2>
+      </div>
+
+            <div id="challenge-intro" class="challenge-screen">
+        <div class="challenge-intro-card">
+          <div class="challenge-intro-icon">🏆</div>
+          <h3>چالش سرعت و سنجش واژگان</h3>
+          <p>برای هر واژه، معنی فارسی صحیح را از میان ۴ گزینه انتخاب کنید. چالش شامل ۳۰ تست تصادفی در ۳ دقیقه است.</p>
+          
+          <div style="margin: 16px 0; text-align: right; background: var(--bg-secondary); padding: 12px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
+            <div style="font-size: 12px; font-weight: 700; color: var(--primary); margin-bottom: 8px;">🎯 منبع سوالات چالش:</div>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;" id="challengeSourceTabs">
+              <button class="alpha-chip active" id="src-btn-all" onclick="setChallengeSource('all')" style="flex:1; justify-content:center; color:var(--text);">🌐 ترکیبی (همه)</button>
+              <button class="alpha-chip" id="src-btn-ossareh" onclick="setChallengeSource('ossareh')" style="flex:1; justify-content:center; color:var(--text);">🧪 عصاره لغات</button>
+              <button class="alpha-chip" id="src-btn-vocab" onclick="setChallengeSource('vocab')" style="flex:1; justify-content:center; color:var(--text);">📚 واژگان مرجع</button>
+            </div>
+          </div>
+
+          <button class="btn-start-challenge" onclick="startChallenge()">شروع چالش</button>
+        </div>
+      </div>
+
+      <div id="challenge-quiz" class="challenge-screen" style="display:none;">
+        <div class="challenge-topbar">
+          <div class="challenge-timer" id="challengeTimer">۰۳:۰۰</div>
+          <div class="challenge-progress" id="challengeProgress">۱ / ۳۰</div>
+        </div>
+        <div class="challenge-progress-bar"><div class="challenge-progress-fill" id="challengeProgressFill"></div></div>
+        <div class="challenge-card">
+          <div class="challenge-word-en" id="challengeWord"></div>
+          <div class="challenge-word-phonetic" id="challengePhonetic"></div>
+        </div>
+        <div class="challenge-options" id="challengeOptions"></div>
+      </div>
+
+      <div id="challenge-result" class="challenge-screen" style="display:none;">
+        <div class="challenge-result-card">
+          <div class="challenge-result-title" id="challengeResultTitle">نتیجه چالش</div>
+          <div class="challenge-result-score" id="challengeResultScore"></div>
+          <div class="challenge-result-percent" id="challengeResultPercent"></div>
+          <div class="challenge-wrong-heading" id="challengeWrongHeading" style="display:none;">واژه‌هایی که اشتباه پاسخ داده شد</div>
+          <div class="challenge-wrong-list" id="challengeWrongList"></div>
+          <button class="btn-start-challenge" onclick="startChallenge()">تلاش دوباره</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
     </div>
 
     </div><!-- /screen-app -->
@@ -1239,9 +1250,9 @@
     <div class="subscreen-title">درباره اپلیکیشن</div>
   </div>
   <div class="subscreen-body">
-    <div class="about-text">
-      <p>این اپلیکیشن توسط Learning Lab Academy با هدف ارتقای سطح آمادگی داوطلبان آزمون‌های مختلف طراحی و توسعه یافته است. محتوای این برنامه با صرف زمان و تلاش فراوان تهیه شده تا به عنوان یک مرجع جامع و کاربردی، مسیر یادگیری شما را ساده‌تر و مؤثرتر کند.</p>
-      <p>از شما همراه گرامی خواهشمندیم با خرید و استفاده از نسخه اصلی، از ادامه توسعه و به‌روزرسانی این مجموعه آموزشی حمایت کنید. همچنین نظرات، پیشنهادها و انتقادات ارزشمند شما نقش مهمی در بهبود کیفیت اپلیکیشن دارد؛ بنابراین خوشحال می‌شویم دیدگاه‌های خود را با ما در میان بگذارید تا بتوانیم در آینده خدمات بهتری ارائه دهیم.</p>
+        <div class="about-text">
+      <p>این اپلیکیشن توسط Learning Lab Academy با هدف ارتقای جامع دانش زبانی، واژگان تخصصی و عمومی برای تمامی دانشجویان، داوطلبان آزمون‌ها و علاقه‌مندان به یادگیری زبان انگلیسی طراحی و توسعه یافته است. این سامانه با تلفیق تکنیک‌های نوین یادگیری، سیستم هوشمند جعبه لایتنر ۵ مرحله‌ای، متون درک مطلب، تحلیل تله‌های تستی و چالش‌های تعاملی، یادگیری پایدار و اثربخش را میسر می‌سازد.</p>
+      <p style="background:var(--primary-pale); border-right:3px solid var(--primary); padding:10px 14px; border-radius:6px; font-weight:600; color:var(--primary); margin:12px 0;">جهت پشتیبانی به <a href="https://t.me/iamsaber_azr" target="_blank" style="color:var(--primary); text-decoration:underline; direction:ltr; display:inline-block;">@iamsaber_azr</a> در تلگرام پیام دهید.</p>
       <p>از اعتماد و همراهی شما صمیمانه سپاسگزاریم و برایتان آرزوی موفقیت در تمامی آزمون‌های پیش رو داریم.</p>
     </div>
   </div>
@@ -1294,8 +1305,8 @@
 <script>
 let WORDS = [];
 const PASSAGE = {
-  title: "Medical Laboratory Science Passages",
-  source: "واژگان اپلیکیشن - آزمون علوم آزمایشگاهی",
+  title: "Medical English Reading Passages",
+  source: "واژگان اپلیکیشن - آزمون‌های جامع زبان پزشکی",
   sentences: [
     {
       en: "A complete blood count includes a white blood cell differential, which identifies the relative percentages of neutrophils, lymphocytes, monocytes, eosinophils, and basophils.",
@@ -2348,52 +2359,55 @@ function initTraps() {
 }
 // ========== پایان تله‌های کنکوری ==========
 
-// ========== چالش ۳۰ واژه ==========
-const CHALLENGE_DURATION = 180; // seconds
-let challengeState = null; // {words, index, correctCount, wrongList, timeLeft, timerId, answered}
 
-function faDigits(n) {
-  const map = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
-  return String(n).replace(/[0-9]/g, d => map[d]);
+// ========== چالش هوشمند واژگان (مرجع + عصاره لغات) ==========
+const CHALLENGE_DURATION = 180;
+let challengeState = null;
+let challengeSource = 'all';
+
+function setChallengeSource(source) {
+  challengeSource = source;
+  document.querySelectorAll('#challengeSourceTabs .alpha-chip').forEach(function(b) {
+    b.classList.remove('active');
+  });
+  document.getElementById('src-btn-' + source)?.classList.add('active');
 }
 
-function formatChallengeTime(sec) {
-  const m = Math.floor(sec / 60);
-  const s = sec % 60;
-  const pad = v => (v < 10 ? '0' + v : '' + v);
-  return faDigits(pad(m) + ':' + pad(s));
-}
-
-function pickRandomWords(count) {
-  const pool = WORDS.slice();
-  for (let i = pool.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [pool[i], pool[j]] = [pool[j], pool[i]];
+function getChallengePool() {
+  var pool = [];
+  if (challengeSource === 'vocab' || challengeSource === 'all') {
+    pool = pool.concat(WORDS.map(function(w) {
+      return { word: w.word, phonetic: w.phonetic || '', meaning: w.meaning, type: 'مرجع' };
+    }));
   }
-  return pool.slice(0, count);
-}
-
-function buildChallengeOptions(word) {
-  const distractorPool = WORDS.filter(w => w.id !== word.id);
-  const shuffled = distractorPool.slice();
-  for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  if (challengeSource === 'ossareh' || challengeSource === 'all') {
+    pool = pool.concat(ossarehData.map(function(o) {
+      return { word: o.words, phonetic: o.day ? ('روز ' + o.day) : '', meaning: o.meaning, type: 'عصاره لغات' };
+    }));
   }
-  const distractors = shuffled.slice(0, 3).map(w => w.meaning);
-  const options = [word.meaning, ...distractors];
-  for (let i = options.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [options[i], options[j]] = [options[j], options[i]];
-  }
-  return options;
+  return pool.filter(function(item) { return item.word && item.meaning; });
 }
 
 function startChallenge() {
   if (challengeState && challengeState.timerId) clearInterval(challengeState.timerId);
-  const words = pickRandomWords(30);
+  var pool = getChallengePool();
+  if (pool.length < 4) {
+    alert('در حال حاضر واژگان کافی بارگذاری نشده است. لطفاً چند لحظه صبر کنید.');
+    return;
+  }
+  
+  var shuffled = pool.slice();
+  for (var i = shuffled.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = shuffled[i];
+    shuffled[i] = shuffled[j];
+    shuffled[j] = temp;
+  }
+  
+  var selected = shuffled.slice(0, Math.min(30, shuffled.length));
   challengeState = {
-    words,
+    pool: pool,
+    words: selected,
     index: 0,
     correctCount: 0,
     wrongList: [],
@@ -2401,6 +2415,7 @@ function startChallenge() {
     timerId: null,
     answered: false
   };
+
   document.getElementById('challenge-intro').style.display = 'none';
   document.getElementById('challenge-result').style.display = 'none';
   document.getElementById('challenge-quiz').style.display = 'flex';
@@ -2408,33 +2423,42 @@ function startChallenge() {
   challengeState.timerId = setInterval(challengeTick, 1000);
 }
 
-function challengeTick() {
-  if (!challengeState) return;
-  challengeState.timeLeft--;
-  document.getElementById('challengeTimer').textContent = formatChallengeTime(Math.max(0, challengeState.timeLeft));
-  if (challengeState.timeLeft <= 0) {
-    endChallenge(true);
+function buildChallengeOptions(item, allPool) {
+  var distractors = allPool.filter(function(w) { return w.meaning !== item.meaning; });
+  for (var i = distractors.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = distractors[i];
+    distractors[i] = distractors[j];
+    distractors[j] = temp;
   }
+  var opts = [item.meaning].concat(distractors.slice(0, 3).map(function(w) { return w.meaning; }));
+  for (var k = opts.length - 1; k > 0; k--) {
+    var r = Math.floor(Math.random() * (k + 1));
+    var t = opts[k];
+    opts[k] = opts[r];
+    opts[r] = t;
+  }
+  return opts;
 }
 
 function renderChallengeQuestion() {
-  const st = challengeState;
+  var st = challengeState;
   if (!st) return;
   st.answered = false;
-  const word = st.words[st.index];
-  const options = buildChallengeOptions(word);
+  var item = st.words[st.index];
+  var options = buildChallengeOptions(item, st.pool);
   st.currentOptions = options;
 
-  document.getElementById('challengeWord').textContent = word.word;
-  document.getElementById('challengePhonetic').textContent = word.phonetic || '';
+  document.getElementById('challengeWord').textContent = item.word;
+  document.getElementById('challengePhonetic').textContent = item.phonetic ? ('[' + (item.type || '') + '] ' + item.phonetic) : ('[' + (item.type || '') + ']');
   document.getElementById('challengeProgress').textContent = faDigits(st.index + 1) + ' / ' + faDigits(st.words.length);
   document.getElementById('challengeProgressFill').style.width = ((st.index) / st.words.length * 100) + '%';
   document.getElementById('challengeTimer').textContent = formatChallengeTime(Math.max(0, st.timeLeft));
 
-  const optsEl = document.getElementById('challengeOptions');
-  optsEl.innerHTML = options.map((opt, i) =>
-    `<button class="challenge-option" onclick="selectChallengeAnswer(${i})">${opt}</button>`
-  ).join('');
+  var optsEl = document.getElementById('challengeOptions');
+  optsEl.innerHTML = options.map(function(opt, i) {
+    return '<button class="challenge-option" onclick="selectChallengeAnswer(' + i + ')">' + opt + '</button>';
+  }).join('');
 }
 
 function selectChallengeAnswer(idx) {
@@ -2512,17 +2536,21 @@ function initChallenge() {
 // ========== پایان چالش ==========
 
 function switchTab(tab) {
-  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('tab-' + tab).classList.add('active');
-  var activeBtn = (typeof event !== 'undefined' && event && event.currentTarget)
-    ? event.currentTarget
-    : document.querySelector('.nav-tab[data-tab="' + tab + '"]');
+  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+  
+  var targetTab = document.getElementById('tab-' + tab);
+  if (targetTab) targetTab.classList.add('active');
+  
+  var activeBtn = document.querySelector('.nav-tab[data-tab="' + tab + '"]');
   if (activeBtn) activeBtn.classList.add('active');
+  
   stopAudio();
+  if (tab === 'passage') renderPassage();
   if (tab === 'bookmarks') renderBookmarks();
   if (tab === 'traps') initTraps();
   if (tab === 'challenge') initChallenge();
+  if (tab === 'ossareh') filterOssareh();
 }
 
 // ========== مدیریت صفحات و منو ==========
