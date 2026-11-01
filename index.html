@@ -44,7 +44,6 @@
   .challenge-option, .word-card, .trap-list-item, .stat-pill, a, [onclick] {
     touch-action: manipulation;
   }
-  /* Apply Calibri to every LTR (English) element across the app */
   [dir="ltr"], .word-english, .word-phonetic, .example-en, .quiz-q,
   .quiz-q-en, .quiz-option-en, .sent-en, .quiz-exp-body .exp-en,
   .keyword-tag, #audioText, .passage-title {
@@ -100,48 +99,31 @@
     padding: 0 24px;
     gap: 4px;
     border-top: 1px solid rgba(255,255,255,0.15);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
+  .nav-tabs::-webkit-scrollbar { display: none; }
   .nav-tab {
-    padding: 11px 20px;
+    padding: 11px 18px;
     background: none;
     border: none;
     color: rgba(255,255,255,0.75);
     cursor: pointer;
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 500;
     border-bottom: 3px solid transparent;
     transition: all 0.2s;
     display: flex; align-items: center; gap: 6px;
     font-family: inherit;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
   .nav-tab.active { color: white; border-bottom-color: #1abc9c; font-weight: 700; }
 
   /* MAIN LAYOUT */
   .main-wrapper { display: flex; min-height: calc(100vh - 110px); }
-  
-  /* SIDEBAR */
-  .sidebar {
-    width: 240px;
-    min-width: 240px;
-    background: var(--bg);
-    border-left: 1px solid var(--border);
-    padding: 16px 12px;
-    overflow-y: auto;
-    max-height: calc(100vh - 110px);
-    position: sticky;
-    top: 110px;
-  }
-  .sidebar-section { margin-bottom: 20px; }
-  .sidebar-label {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    padding: 0 8px;
-    margin-bottom: 8px;
-  }
-  /* ALPHA BAR - prominent horizontal category bar at top of vocab tab */
+
   .alpha-bar-wrapper {
     background: linear-gradient(135deg, #2e6d92 0%, #1f5c4f 100%);
     border: 1px solid var(--border);
@@ -172,9 +154,8 @@
     justify-content: center;
     gap: 4px;
     direction: ltr;
-    min-width: 64px;
+    min-width: 60px;
   }
-  
   .alpha-chip.active {
     background: linear-gradient(135deg, #0d2e42 0%, #0a4d3f 100%);
     border-color: rgba(255,255,255,0.5);
@@ -189,21 +170,13 @@
     color: rgba(255,255,255,0.85);
     direction: ltr;
   }
-  .alpha-chip.active .count {
-    background: rgba(255,255,255,0.25);
-    color: white;
-  }
-  @media (max-width: 768px) {
-    .alpha-bar-wrapper { padding: 10px 12px; }
-    .alpha-chip { padding: 4px 10px; font-size: 10px; min-width: 52px; }
-  }
-  
+
   .search-box {
     width: 100%;
     padding: 10px 12px;
     border: 1.5px solid var(--border);
     border-radius: var(--radius-sm);
-    font-size: 16px;
+    font-size: 15px;
     font-family: inherit;
     direction: rtl;
     text-align: right;
@@ -214,16 +187,14 @@
   }
   .search-box:focus { border-color: var(--primary-light); }
 
-  /* CONTENT AREA */
   .content-area {
     flex: 1;
     padding: 20px 24px;
     overflow-y: auto;
   }
 
-  /* WORD CARDS */
   .word-grid { display: flex; flex-direction: column; gap: 16px; }
-  
+
   .word-card {
     background: var(--bg);
     border: 1px solid var(--border);
@@ -243,7 +214,7 @@
   }
   .word-main { flex: 1; }
   .word-english {
-    font-size: 22px;
+    font-size: 21px;
     font-weight: 700;
     color: var(--primary);
     letter-spacing: 0.3px;
@@ -258,7 +229,7 @@
     font-style: italic;
   }
   .word-meaning {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 600;
     color: var(--text);
     margin-top: 6px;
@@ -284,7 +255,7 @@
   .btn-icon.active { background: #fef3c7; border-color: #f39c12; color: #d97706; }
 
   .card-body { padding: 14px 20px; }
-  
+
   .example-block {
     background: var(--bg-secondary);
     border-right: 3px solid var(--primary-light);
@@ -293,652 +264,19 @@
     margin-bottom: 14px;
   }
   .example-en {
-    font-size: 14px;
+    font-size: 14.5px;
     direction: ltr;
     text-align: left;
     color: var(--text);
     font-weight: 500;
-    line-height: 1.6;
+    line-height: 1.75;
   }
   .example-fa {
-    font-size: 13px;
-    color: var(--text-secondary);
-    margin-top: 5px;
-    line-height: 1.6;
-  }
-
-  /* Quiz section */
-  .quiz-section { margin-top: 12px; }
-  .quiz-toggle {
-    background: none;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 7px 14px;
-    font-size: 12px;
-    cursor: pointer;
-    color: var(--text-secondary);
-    font-family: inherit;
-    display: flex; align-items: center; gap: 6px;
-    transition: all 0.15s;
-  }
-  
-  .quiz-container { display: none; margin-top: 12px; }
-  .quiz-container.open { display: block; }
-  
-  .quiz-item {
-    background: var(--bg-secondary);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    padding: 14px 16px;
-    margin-bottom: 10px;
-  }
-  .quiz-q {
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    direction: ltr;
-    text-align: left;
-    color: var(--text);
-    line-height: 1.6;
-  }
-  .quiz-options { display: flex; flex-direction: column; gap: 6px; }
-  .quiz-option {
-    padding: 9px 14px;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    font-size: 13px;
-    direction: ltr;
-    text-align: left;
-    color: var(--text);
-    background: var(--bg);
-    transition: all 0.15s;
-    font-family: inherit;
-    width: 100%;
-  }
-  .quiz-option.correct { border-color: #27ae60; background: #eafaf1; color: #1e8449; font-weight: 600; }
-  .quiz-option.wrong { border-color: #e74c3c; background: #fdedec; color: #c0392b; }
-  .quiz-option:disabled { cursor: default; }
-
-  .quiz-explanation {
-    display: none;
-    margin-top: 10px;
-    border-radius: var(--radius-sm);
-    overflow: hidden;
-    border: 1px solid var(--border);
-  }
-  .quiz-explanation.show { display: block; }
-  .quiz-exp-header {
-    display: flex; align-items: center; gap: 8px;
-    padding: 8px 14px;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-  }
-  .quiz-exp-header.correct-exp { background: #eafaf1; color: #1e8449; border-bottom: 1px solid #a9dfbf; }
-  .quiz-exp-header.wrong-exp { background: #fdedec; color: #c0392b; border-bottom: 1px solid #f5b7b1; }
-  .quiz-exp-body {
-    padding: 10px 14px;
-    font-size: 13px;
-    color: var(--text-secondary);
-    background: var(--bg);
-    line-height: 1.7;
-    direction: rtl;
-    text-align: right;
-  }
-  .quiz-exp-body .exp-fa {
-    direction: rtl;
-    text-align: right;
-    color: var(--primary);
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 1.8;
-    display: block;
-    font-family: var(--font-fa);
-  }
-  .quiz-exp-body .exp-en {
-    direction: ltr;
-    text-align: left;
-    color: var(--primary);
-    font-weight: 500;
-    font-size: 13px;
-    margin-bottom: 6px;
-    display: block;
-  }
-
-  /* Question + option translation styles */
-  .quiz-q-en {
-    font-size: 13px;
-    font-weight: 600;
-    direction: ltr;
-    text-align: left;
-    color: var(--text);
-    line-height: 1.6;
-  }
-  .quiz-q-fa {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-top: 4px;
-    margin-bottom: 10px;
-    direction: rtl;
-    text-align: right;
-    line-height: 1.5;
-    padding-right: 4px;
-    border-right: 2px solid var(--border);
-  }
-  .quiz-option-en {
-    display: block;
-    font-size: 13px;
-    direction: ltr;
-    text-align: left;
-  }
-  .quiz-option-fa {
-    display: block;
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-top: 2px;
-    direction: rtl;
-    text-align: right;
-  }
-  .quiz-option.correct .quiz-option-fa,
-  .quiz-option.wrong .quiz-option-fa { color: inherit; opacity: 0.8; }
-  .quiz-option { padding: 8px 14px; }
-
-  /* PASSAGE TAB */
-  .passage-card {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    overflow: hidden;
-  }
-  .passage-header {
-    background: linear-gradient(135deg, #0d2e42 0%, #14507a 55%, #0a4d3f 100%);
-    color: white;
-    padding: 18px 24px;
-  }
-  .passage-title { font-size: 18px; font-weight: 700; }
-  .passage-meta { font-size: 12px; opacity: 0.8; margin-top: 4px; }
-  .passage-body { padding: 24px; }
-  .passage-sentence {
-    margin-bottom: 20px;
-    padding: 14px 16px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    transition: background 0.15s;
-    cursor: default;
-  }
-  .passage-sentence.highlighted { background: var(--primary-pale); border-color: var(--primary-light); }
-  
-  .sent-number {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 22px; height: 22px;
-    background: var(--primary);
-    color: white;
-    border-radius: 50%;
-    font-size: 11px;
-    font-weight: 700;
-    margin-left: 8px;
-    flex-shrink: 0;
-  }
-  .sent-header { display: flex; align-items: flex-start; gap: 0; margin-bottom: 8px; }
-  .sent-en {
-    font-size: 15px;
-    direction: ltr;
-    text-align: left;
-    line-height: 1.7;
-    color: var(--text);
-    flex: 1;
-  }
-  .sent-btn-audio {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    cursor: pointer;
-    font-size: 16px;
-    padding: 2px 6px;
-    flex-shrink: 0;
-  }
-  .sent-fa {
-    font-size: 14px;
-    color: var(--text-secondary);
-    padding-right: 30px;
-    line-height: 1.7;
-  }
-  .sent-analysis {
-    margin-top: 8px;
-    padding: 8px 12px;
-    background: #fffde7;
-    border-right: 3px solid #f39c12;
-    border-radius: 0 4px 4px 0;
-    font-size: 12px;
-    color: #7d6608;
-    line-height: 1.6;
-  }
-  .keyword-tag {
-    display: inline-block;
-    background: var(--primary-pale);
-    color: var(--primary);
-    padding: 1px 7px;
-    border-radius: 10px;
-    font-size: 11px;
-    font-weight: 600;
-    margin: 1px;
-    direction: ltr;
-  }
-
-  /* PAGE CONTROLS */
-  .page-controls {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 0;
-    border-top: 1px solid var(--border);
-    margin-top: 8px;
-  }
-  .btn-page {
-    padding: 8px 20px;
-    border: 1.5px solid var(--border);
-    border-radius: var(--radius-sm);
-    background: var(--bg);
-    cursor: pointer;
-    font-size: 13px;
-    color: var(--text);
-    font-family: inherit;
-    transition: all 0.15s;
-    display: flex; align-items: center; gap: 6px;
-  }
-  .btn-page:disabled { opacity: 0.4; cursor: default; }
-  .page-info { font-size: 13px; color: var(--text-secondary); }
-
-  /* BOOKMARK TAB */
-  .empty-state {
-    text-align: center;
-    padding: 60px 20px;
-    color: var(--text-muted);
-  }
-  .empty-state .icon { font-size: 48px; margin-bottom: 16px; }
-  .empty-state h3 { font-size: 18px; color: var(--text-secondary); margin-bottom: 8px; }
-  .empty-state p { font-size: 14px; }
-
-  /* TABS CONTENT */
-  .tab-content { display: none; }
-  .tab-content.active { display: block; }
-
-  /* TRAPS (تله‌های کنکوری) TAB */
-  .trap-toolbar {
-    display: flex; align-items: center; justify-content: center; gap: 16px;
-    margin: 4px 0 18px;
-  }
-  .trap-counter { font-size: 13px; color: var(--text-secondary); font-weight: 600; min-width: 60px; text-align: center; }
-  .trap-stage { display: flex; flex-direction: column; align-items: center; gap: 10px; }
-  .trap-card {
-    width: 100%; max-width: 620px; height: 260px;
-    perspective: 1400px;
-    cursor: pointer;
-  }
-  .trap-flip-inner {
-    position: relative; width: 100%; height: 100%;
-    transition: transform 0.55s cubic-bezier(.4,.2,.2,1);
-    transform-style: preserve-3d;
-  }
-  .trap-card.flipped .trap-flip-inner { transform: rotateY(180deg); }
-  .trap-face {
-    position: absolute; inset: 0;
-    backface-visibility: hidden;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 24px 28px;
-    display: flex; flex-direction: column; justify-content: center;
-    overflow-y: auto;
-  }
-  .trap-front {
-    background: linear-gradient(135deg, #0d2e42 0%, #14507a 55%, #0a4d3f 100%);
-    color: #fff;
-    text-align: center;
-  }
-  .trap-back {
-    background: var(--accent-pale);
-    border: 1px solid var(--accent-light);
-    transform: rotateY(180deg);
-    direction: rtl;
-    text-align: right;
-  }
-  .trap-front .trap-num {
-    font-size: 12px; opacity: 0.75; margin-bottom: 10px; letter-spacing: 0.5px;
-  }
-  .trap-front .trap-title {
-    font-size: 19px; font-weight: 700; margin-bottom: 14px;
-  }
-  .trap-front .trap-example {
-    font-family: var(--font-en); font-size: 15px; line-height: 1.9; opacity: 0.95;
-  }
-  .trap-front .trap-example b { color: #ffd76a; }
-  .trap-back .trap-back-title {
-    font-size: 15px; font-weight: 700; color: var(--primary); margin-bottom: 10px;
-  }
-  .trap-back .trap-explain {
-    font-size: 14px; line-height: 2; color: var(--text);
-  }
-  .trap-back .trap-explain b { color: var(--accent); }
-  .trap-back .trap-tip {
-    margin-top: 12px; padding: 10px 12px;
-    background: var(--primary-pale);
-    border-right: 3px solid var(--primary-light);
-    border-radius: 6px;
-    font-size: 13px; color: var(--primary);
-  }
-  .trap-hint { font-size: 12px; color: var(--text-muted); }
-  .trap-list-heading {
-    margin: 30px 0 12px; font-size: 15px; font-weight: 700; color: var(--primary);
-    text-align: right;
-  }
-  .trap-list { display: flex; flex-direction: column; gap: 6px; }
-  .trap-list-item {
-    display: flex; align-items: center; gap: 10px;
-    padding: 10px 14px;
-    background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm);
-    cursor: pointer; text-align: right; direction: rtl;
-    transition: background 0.15s, border-color 0.15s;
-  }
-  .trap-list-item.active { border-color: var(--primary); background: var(--primary-pale); }
-  .trap-list-item .trap-list-num {
-    flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
-    background: var(--primary); color: #fff; font-size: 11px; font-weight: 700;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .trap-list-item .trap-list-title { font-size: 13px; font-weight: 600; color: var(--text); }
-  @media (max-width: 640px) {
-    .trap-card { height: 320px; }
-  }
-
-  /* CHALLENGE TAB */
-  .challenge-screen { display: flex; flex-direction: column; align-items: center; }
-  .challenge-intro-card, .challenge-result-card {
-    max-width: 480px; width: 100%;
-    background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 32px 26px;
-    text-align: center;
-  }
-  .challenge-intro-icon { font-size: 42px; margin-bottom: 10px; }
-  .challenge-intro-card h3 { font-size: 18px; color: var(--primary); margin-bottom: 10px; }
-  .challenge-intro-card p { font-size: 13.5px; color: var(--text-secondary); line-height: 2; margin-bottom: 22px; }
-  .btn-start-challenge {
-    background: linear-gradient(135deg, #0d2e42 0%, #14507a 55%, #0a4d3f 100%);
-    color: #fff; border: none; border-radius: var(--radius-sm);
-    padding: 12px 30px; font-size: 14.5px; font-weight: 700; cursor: pointer;
-    font-family: var(--font-fa);
-  }
-  .challenge-topbar {
-    width: 100%; max-width: 520px;
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 8px;
-  }
-  .challenge-timer {
-    font-size: 20px; font-weight: 700; color: var(--danger);
-    font-family: var(--font-en);
-  }
-  .challenge-progress { font-size: 13px; color: var(--text-secondary); font-weight: 600; }
-  .challenge-progress-bar {
-    width: 100%; max-width: 520px; height: 6px; border-radius: 3px;
-    background: var(--bg-tertiary); overflow: hidden; margin-bottom: 22px;
-  }
-  .challenge-progress-fill {
-    height: 100%; background: var(--accent-light);
-    width: 0%; transition: width 0.25s ease;
-  }
-  .challenge-card {
-    width: 100%; max-width: 520px;
-    background: linear-gradient(135deg, #0d2e42 0%, #14507a 55%, #0a4d3f 100%);
-    color: #fff; border-radius: var(--radius);
-    padding: 30px 24px; text-align: center; margin-bottom: 20px;
-    box-shadow: var(--shadow);
-  }
-  .challenge-word-en { font-family: var(--font-en); font-size: 28px; font-weight: 700; }
-  .challenge-word-phonetic { font-family: var(--font-en); font-size: 14px; opacity: 0.85; margin-top: 6px; }
-  .challenge-options {
-    width: 100%; max-width: 520px;
-    display: flex; flex-direction: column; gap: 10px;
-  }
-  .challenge-option {
-    padding: 13px 16px;
-    background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm);
-    text-align: right; direction: rtl; font-size: 14.5px; cursor: pointer;
-    transition: background 0.15s, border-color 0.15s;
-  }
-  .challenge-option.correct { border-color: #27ae60; background: #eafaf1; color: #1e8449; font-weight: 700; }
-  .challenge-option.wrong { border-color: #e74c3c; background: #fdedec; color: #c0392b; }
-  .challenge-option:disabled { cursor: default; }
-  .challenge-result-title { font-size: 17px; font-weight: 700; color: var(--primary); margin-bottom: 14px; }
-  .challenge-result-score { font-size: 15px; color: var(--text-secondary); margin-bottom: 4px; }
-  .challenge-result-percent { font-size: 40px; font-weight: 800; color: var(--accent); margin-bottom: 20px; }
-  .challenge-wrong-heading { font-size: 13.5px; font-weight: 700; color: var(--danger); margin: 4px 0 10px; text-align: right; }
-  .challenge-wrong-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 22px; text-align: right; direction: rtl; }
-  .challenge-wrong-item {
-    padding: 10px 14px; background: var(--bg-secondary); border: 1px solid var(--border);
-    border-radius: var(--radius-sm); font-size: 13px;
-  }
-  .challenge-wrong-item .cw-en { font-family: var(--font-en); font-weight: 700; color: var(--primary); }
-  .challenge-wrong-item .cw-fa { color: var(--text-secondary); margin-top: 2px; }
-
-  /* section heading */
-  .section-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
-  }
-  .section-heading h2 {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--primary);
-    display: flex; align-items: center; gap: 8px;
-  }
-  .badge {
-    background: var(--primary);
-    color: white;
-    padding: 2px 10px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
-  }
-
-  .audio-playing-bar {
-    display: none;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 16px;
-    background: var(--accent-pale);
-    border-radius: var(--radius-sm);
-    margin-bottom: 12px;
-    font-size: 13px;
-    color: var(--accent);
-  }
-  .audio-playing-bar.show { display: flex; }
-  .audio-wave { display: flex; gap: 3px; align-items: center; }
-  .audio-wave span {
-    display: block; width: 3px; background: var(--accent);
-    border-radius: 2px; animation: wave 0.8s ease-in-out infinite;
-  }
-  .audio-wave span:nth-child(1) { height: 8px; animation-delay: 0s; }
-  .audio-wave span:nth-child(2) { height: 16px; animation-delay: 0.15s; }
-  .audio-wave span:nth-child(3) { height: 12px; animation-delay: 0.3s; }
-  .audio-wave span:nth-child(4) { height: 20px; animation-delay: 0.45s; }
-  .audio-wave span:nth-child(5) { height: 8px; animation-delay: 0.6s; }
-  @keyframes wave {
-    0%, 100% { transform: scaleY(0.5); }
-    50% { transform: scaleY(1.3); }
-  }
-
-  /* SCROLL */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: var(--bg-tertiary); }
-  ::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
-
-  @media (max-width: 768px) {
-    .sidebar { display: none; }
-    .header-stats { display: none; }
-    .content-area { padding: 12px 14px; }
-    .header-top { padding: 12px 14px; }
-    .brand-text h1 { font-size: 15px; }
-    .brand-icon { width: 38px; height: 38px; font-size: 19px; }
-    .btn-back { padding: 7px 10px; font-size: 12px; }
-    .nav-tabs {
-      padding: 0 8px;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-    }
-    .nav-tabs::-webkit-scrollbar { display: none; }
-    .nav-tab {
-      padding: 10px 12px;
-      font-size: 13px;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-  }
-  /* Hover-only states: avoid sticky hover after tap on touch devices */
-  @media (hover: hover) and (pointer: fine) {
-  .nav-tab:hover { color: white; background: rgba(255,255,255,0.08); }
-  .word-card:hover { box-shadow: 0 4px 18px rgba(26,82,118,0.12); }
-  .btn-icon:hover { border-color: var(--primary-light); color: var(--primary); }
-  .quiz-toggle:hover { border-color: var(--accent); color: var(--accent); }
-  .quiz-option:hover:not(:disabled) { border-color: var(--primary-light); background: var(--primary-pale); }
-  .passage-sentence:hover { background: var(--bg-secondary); }
-  .btn-page:hover:not(:disabled) { border-color: var(--primary-light); background: var(--primary-pale); color: var(--primary); }
-  .trap-list-item:hover { background: var(--bg-secondary); border-color: var(--primary-light); }
-  .btn-start-challenge:hover { opacity: 0.92; }
-  .challenge-option:hover:not(:disabled) { border-color: var(--primary-light); background: var(--primary-pale); }
-  .alpha-chip:hover {
-    border-color: rgba(255,255,255,0.6);
-    background: rgba(255,255,255,0.22);
-    color: white;
-    transform: translateY(-1px);
-  }
-  }
-
-  /* ===== MAIN MENU ===== */
-  .screen-menu {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #0d2e42 0%, #14507a 55%, #0a4d3f 100%);
-    padding: 32px 22px;
-    text-align: center;
-  }
-  .menu-icon {
-    width: 74px; height: 74px;
-    background: rgba(255,255,255,0.15);
-    border: 1.5px solid rgba(255,255,255,0.3);
-    border-radius: 18px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 36px;
-    margin-bottom: 18px;
-  }
-  .menu-title { color: #fff; font-size: 20px; font-weight: 700; margin-bottom: 6px; }
-  .menu-subtitle { color: rgba(255,255,255,0.75); font-size: 13.5px; margin-bottom: 34px; }
-  .menu-buttons { display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 380px; }
-  .menu-btn {
-    background: rgba(255,255,255,0.1);
-    border: 1.5px solid rgba(255,255,255,0.28);
-    color: #fff;
-    padding: 17px 20px;
-    border-radius: var(--radius);
-    font-size: 15.5px;
-    font-weight: 700;
-    font-family: var(--font-fa);
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: space-between;
-    transition: all 0.15s;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .menu-btn:active { transform: scale(0.97); background: rgba(255,255,255,0.2); }
-  .menu-btn.menu-btn-primary { background: rgba(26,188,156,0.25); border-color: rgba(26,188,156,0.6); }
-  .menu-btn-icon { font-size: 19px; }
-
-  /* ===== SUBSCREENS (about / contact) ===== */
-  .subscreen {
-    min-height: 100vh;
-    background: var(--bg-tertiary);
-  }
-  .subscreen-topbar {
-    background: linear-gradient(135deg, #0d2e42 0%, #14507a 55%, #0a4d3f 100%);
-    color: #fff;
-    padding: 14px 18px;
-    display: flex; align-items: center; gap: 12px;
-    position: sticky; top: 0; z-index: 100;
-    box-shadow: 0 3px 15px rgba(0,0,0,0.2);
-  }
-  .btn-back {
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.3);
-    color: #fff;
-    border-radius: 8px;
-    padding: 8px 14px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    font-family: var(--font-fa);
-    display: flex; align-items: center; gap: 6px;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-    flex-shrink: 0;
-  }
-  .btn-back:active { background: rgba(255,255,255,0.28); }
-  .subscreen-title { font-size: 15.5px; font-weight: 700; }
-  .subscreen-body { padding: 26px 20px 40px; max-width: 640px; margin: 0 auto; }
-  .about-text { font-size: 15px; line-height: 2.3; color: var(--text); }
-  .about-text p { margin-bottom: 16px; }
-  .contact-list { display: flex; flex-direction: column; gap: 14px; margin-top: 6px; }
-  .contact-item {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 16px 18px;
-    display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    cursor: pointer;
-    transition: all 0.15s;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
-  }
-  .contact-item:active { transform: scale(0.98); background: var(--bg-secondary); }
-  .contact-item-main { display: flex; align-items: center; gap: 14px; flex: 1; min-width: 0; }
-  .contact-item-icon {
-    width: 42px; height: 42px; flex-shrink: 0;
-    background: var(--primary-pale); color: var(--primary);
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 20px;
-  }
-  .contact-item-info { flex: 1; min-width: 0; }
-  .contact-item-label { font-size: 12.5px; color: var(--text-muted); margin-bottom: 3px; line-height: 1.6; }
-  .contact-item-value { font-size: 14.5px; font-weight: 700; color: var(--text); font-family: var(--font-en); direction: ltr; text-align: right; unicode-bidi: isolate; }
-  .contact-item-action { font-size: 11.5px; color: var(--text-muted); flex-shrink: 0; }
-
-  /* TOAST */
-  .app-toast {
-    position: fixed;
-    bottom: 26px; left: 50%;
-    transform: translateX(-50%) translateY(20px);
-    background: #1c1c1c; color: #fff;
-    padding: 11px 20px;
-    border-radius: 24px;
     font-size: 13.5px;
-    font-family: var(--font-fa);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
-    z-index: 999;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s, transform 0.25s;
+    color: var(--text-secondary);
+    margin-top: 6px;
+    line-height: 1.75;
   }
-  .app-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
   /* Leitner Action Bar */
   .leitner-action-bar {
@@ -976,10 +314,141 @@
     border: 1px solid var(--border);
   }
 
+  /* Quiz section */
+  .quiz-section { margin-top: 12px; }
+  .quiz-toggle {
+    background: none;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 7px 14px;
+    font-size: 12px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-family: inherit;
+    display: flex; align-items: center; gap: 6px;
+    transition: all 0.15s;
+  }
+  .quiz-container { display: none; margin-top: 12px; }
+  .quiz-container.open { display: block; }
+  .quiz-item {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .quiz-q-en { font-size: 13px; font-weight: 600; direction: ltr; text-align: left; color: var(--text); line-height: 1.6; }
+  .quiz-q-fa { font-size: 12px; color: var(--text-muted); margin-top: 4px; margin-bottom: 10px; direction: rtl; text-align: right; line-height: 1.5; padding-right: 4px; border-right: 2px solid var(--border); }
+  .quiz-options { display: flex; flex-direction: column; gap: 6px; }
+  .quiz-option {
+    padding: 8px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    color: var(--text);
+    background: var(--bg);
+    transition: all 0.15s;
+    width: 100%;
+  }
+  .quiz-option-en { display: block; font-size: 13px; direction: ltr; text-align: left; }
+  .quiz-option-fa { display: block; font-size: 11px; color: var(--text-muted); margin-top: 2px; direction: rtl; text-align: right; }
+  .quiz-option.correct { border-color: #27ae60; background: #eafaf1; color: #1e8449; font-weight: 600; }
+  .quiz-option.wrong { border-color: #e74c3c; background: #fdedec; color: #c0392b; }
+  .quiz-explanation { display: none; margin-top: 10px; border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border); }
+  .quiz-explanation.show { display: block; }
+  .quiz-exp-header { padding: 8px 14px; font-size: 12px; font-weight: 700; }
+  .quiz-exp-header.correct-exp { background: #eafaf1; color: #1e8449; }
+  .quiz-exp-header.wrong-exp { background: #fdedec; color: #c0392b; }
+  .quiz-exp-body { padding: 10px 14px; font-size: 13px; color: var(--text-secondary); background: var(--bg); line-height: 1.7; }
+
+  /* PASSAGE */
+  .passage-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
+  .passage-header { background: linear-gradient(135deg, #0d2e42 0%, #14507a 55%, #0a4d3f 100%); color: white; padding: 18px 24px; }
+  .passage-title { font-size: 18px; font-weight: 700; }
+  .passage-meta { font-size: 12px; opacity: 0.8; margin-top: 4px; }
+  .passage-body { padding: 24px; }
+  .passage-sentence { margin-bottom: 20px; padding: 14px 16px; border: 1px solid var(--border); border-radius: var(--radius-sm); }
+  .sent-number { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; background: var(--primary); color: white; border-radius: 50%; font-size: 11px; font-weight: 700; margin-left: 8px; flex-shrink: 0; }
+  .sent-header { display: flex; align-items: flex-start; margin-bottom: 8px; }
+  .sent-en { font-size: 15px; direction: ltr; text-align: left; line-height: 1.7; color: var(--text); flex: 1; }
+  .sent-btn-audio { background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 16px; padding: 2px 6px; }
+  .sent-fa { font-size: 14px; color: var(--text-secondary); padding-right: 30px; line-height: 1.7; }
+  .keyword-tag { display: inline-block; background: var(--primary-pale); color: var(--primary); padding: 2px 8px; border-radius: 10px; font-size: 12px; font-weight: 600; margin: 2px; direction: ltr; cursor: pointer; }
+  .keyword-tag:hover { background: #bfe2f7; }
+
+  /* CONTROLS */
+  .page-controls { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; border-top: 1px solid var(--border); margin-top: 8px; }
+  .btn-page { padding: 8px 18px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); background: var(--bg); cursor: pointer; font-size: 13px; color: var(--text); font-family: inherit; }
+  .btn-page:disabled { opacity: 0.4; cursor: default; }
+  .page-info { font-size: 13px; color: var(--text-secondary); }
+
+  .empty-state { text-align: center; padding: 60px 20px; color: var(--text-muted); }
+  .empty-state .icon { font-size: 44px; margin-bottom: 14px; }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* TRAPS */
+  .trap-toolbar { display: flex; align-items: center; justify-content: center; gap: 16px; margin: 4px 0 18px; }
+  .trap-counter { font-size: 13px; color: var(--text-secondary); font-weight: 600; }
+  .trap-stage { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .trap-card { width: 100%; max-width: 620px; height: 260px; perspective: 1400px; cursor: pointer; }
+  .trap-flip-inner { position: relative; width: 100%; height: 100%; transition: transform 0.55s cubic-bezier(.4,.2,.2,1); transform-style: preserve-3d; }
+  .trap-card.flipped .trap-flip-inner { transform: rotateY(180deg); }
+  .trap-face { position: absolute; inset: 0; backface-visibility: hidden; border-radius: var(--radius); box-shadow: var(--shadow); padding: 24px 28px; display: flex; flex-direction: column; justify-content: center; overflow-y: auto; }
+  .trap-front { background: linear-gradient(135deg, #0d2e42 0%, #14507a 55%, #0a4d3f 100%); color: #fff; text-align: center; }
+  .trap-back { background: var(--accent-pale); border: 1px solid var(--accent-light); transform: rotateY(180deg); direction: rtl; text-align: right; }
+  .trap-hint { font-size: 12px; color: var(--text-muted); }
+  .trap-list-heading { margin: 30px 0 12px; font-size: 15px; font-weight: 700; color: var(--primary); text-align: right; }
+  .trap-list { display: flex; flex-direction: column; gap: 6px; }
+  .trap-list-item { display: flex; align-items: center; gap: 10px; padding: 10px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; text-align: right; direction: rtl; }
+  .trap-list-item.active { border-color: var(--primary); background: var(--primary-pale); }
+  .trap-list-item .trap-list-num { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: var(--primary); color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+
+  /* CHALLENGE */
+  .challenge-screen { display: flex; flex-direction: column; align-items: center; }
+  .challenge-intro-card, .challenge-result-card { max-width: 480px; width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); padding: 32px 26px; text-align: center; }
+  .challenge-intro-icon { font-size: 42px; margin-bottom: 10px; }
+  .btn-start-challenge { background: linear-gradient(135deg, #0d2e42 0%, #14507a 55%, #0a4d3f 100%); color: #fff; border: none; border-radius: var(--radius-sm); padding: 12px 30px; font-size: 14.5px; font-weight: 700; cursor: pointer; font-family: var(--font-fa); }
+  .challenge-topbar { width: 100%; max-width: 520px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .challenge-timer { font-size: 20px; font-weight: 700; color: var(--danger); font-family: var(--font-en); }
+  .challenge-progress-bar { width: 100%; max-width: 520px; height: 6px; border-radius: 3px; background: var(--bg-tertiary); overflow: hidden; margin-bottom: 22px; }
+  .challenge-progress-fill { height: 100%; background: var(--accent-light); width: 0%; transition: width 0.25s ease; }
+  .challenge-card { width: 100%; max-width: 520px; background: linear-gradient(135deg, #0d2e42 0%, #14507a 55%, #0a4d3f 100%); color: #fff; border-radius: var(--radius); padding: 30px 24px; text-align: center; margin-bottom: 20px; box-shadow: var(--shadow); }
+  .challenge-word-en { font-family: var(--font-en); font-size: 28px; font-weight: 700; }
+  .challenge-options { width: 100%; max-width: 520px; display: flex; flex-direction: column; gap: 10px; }
+  .challenge-option { padding: 13px 16px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-sm); text-align: right; direction: rtl; font-size: 14.5px; cursor: pointer; }
+  .challenge-option.correct { border-color: #27ae60; background: #eafaf1; color: #1e8449; font-weight: 700; }
+  .challenge-option.wrong { border-color: #e74c3c; background: #fdedec; color: #c0392b; }
+
+  .section-heading { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+  .section-heading h2 { font-size: 16px; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 8px; }
+  .badge { background: var(--primary); color: white; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+
+  /* MENU & SUBSCREENS */
+  .screen-menu { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; background: linear-gradient(135deg, #0d2e42 0%, #14507a 55%, #0a4d3f 100%); padding: 32px 22px; text-align: center; }
+  .menu-icon { width: 74px; height: 74px; background: rgba(255,255,255,0.15); border: 1.5px solid rgba(255,255,255,0.3); border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 36px; margin-bottom: 18px; }
+  .menu-title { color: #fff; font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+  .menu-subtitle { color: rgba(255,255,255,0.75); font-size: 13.5px; margin-bottom: 34px; }
+  .menu-buttons { display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 380px; }
+  .menu-btn { background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.28); color: #fff; padding: 17px 20px; border-radius: var(--radius); font-size: 15.5px; font-weight: 700; font-family: var(--font-fa); cursor: pointer; display: flex; align-items: center; justify-content: space-between; transition: all 0.15s; }
+  .menu-btn.menu-btn-primary { background: rgba(26,188,156,0.25); border-color: rgba(26,188,156,0.6); }
+
+  .subscreen { min-height: 100vh; background: var(--bg-tertiary); }
+  .subscreen-topbar { background: linear-gradient(135deg, #0d2e42 0%, #14507a 55%, #0a4d3f 100%); color: #fff; padding: 14px 18px; display: flex; align-items: center; gap: 12px; position: sticky; top: 0; z-index: 100; box-shadow: 0 3px 15px rgba(0,0,0,0.2); }
+  .btn-back { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: #fff; border-radius: 8px; padding: 8px 14px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: var(--font-fa); display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  .subscreen-title { font-size: 15.5px; font-weight: 700; }
+  .subscreen-body { padding: 26px 20px 40px; max-width: 640px; margin: 0 auto; }
+  .about-text { font-size: 15px; line-height: 2.3; color: var(--text); }
+  .about-text p { margin-bottom: 16px; }
+
+  .app-toast { position: fixed; bottom: 26px; left: 50%; transform: translateX(-50%) translateY(20px); background: #1c1c1c; color: #fff; padding: 11px 20px; border-radius: 24px; font-size: 13.5px; font-family: var(--font-fa); z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.25s, transform 0.25s; }
+  .app-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 </style>
 </head>
 <body>
 
+<!-- ===== MAIN APP SCREEN ===== -->
 <div id="screen-app" style="display:none;">
 <header>
   <div class="header-top">
@@ -992,85 +461,52 @@
       </div>
     </div>
     <div class="header-stats">
-      <div class="stat-pill"><strong id="total-words">1000</strong>واژه</div>
+      <div class="stat-pill"><strong id="total-words">1000</strong>واژه مرجع</div>
       <div class="stat-pill"><strong id="bookmarked-count">0</strong>مارک شده</div>
     </div>
   </div>
   <div class="nav-tabs">
-    <button class="nav-tab active" data-tab="vocab" onclick="switchTab('vocab')">📚 واژگان</button>
+    <button class="nav-tab active" data-tab="vocab" onclick="switchTab('vocab')">📚 واژگان مرجع</button>
     <button class="nav-tab" data-tab="ossareh" onclick="switchTab('ossareh')">🧪 عصاره لغات و لایتنر</button>
     <button class="nav-tab" data-tab="passage" onclick="switchTab('passage')">📄 Passage</button>
     <button class="nav-tab" data-tab="bookmarks" onclick="switchTab('bookmarks')">⭐ مارک‌شده‌ها</button>
     <button class="nav-tab" data-tab="traps" onclick="switchTab('traps')">🧠 تله‌های کنکوری</button>
-    <button class="nav-tab" data-tab="challenge" onclick="switchTab('challenge')">🏆 چالش</button>
+    <button class="nav-tab" data-tab="challenge" onclick="switchTab('challenge')">🏆 چالش هوشمند</button>
   </div>
 </header>
 
 <div class="main-wrapper">
-  <!-- CONTENT -->
   <div class="content-area" style="width:100%;">
 
-    <!-- VOCAB TAB -->
+    <!-- 1. VOCAB TAB -->
     <div id="tab-vocab" class="tab-content active">
-
       <div class="alpha-bar-wrapper">
         <div class="alpha-bar" id="alphaBar">
-          <button class="alpha-chip active" onclick="filterAlpha('all')" id="filter-all">
-            همه <span class="count" id="cnt-all">20</span>
-          </button>
-          <button class="alpha-chip" onclick="filterAlpha('AC')" id="filter-AC">
-            A–C <span class="count" id="cnt-AC">0</span>
-          </button>
-          <button class="alpha-chip" onclick="filterAlpha('DF')" id="filter-DF">
-            D–F <span class="count" id="cnt-DF">0</span>
-          </button>
-          <button class="alpha-chip" onclick="filterAlpha('GI')" id="filter-GI">
-            G–I <span class="count" id="cnt-GI">0</span>
-          </button>
-          <button class="alpha-chip" onclick="filterAlpha('JL')" id="filter-JL">
-            J–L <span class="count" id="cnt-JL">0</span>
-          </button>
-          <button class="alpha-chip" onclick="filterAlpha('MO')" id="filter-MO">
-            M–O <span class="count" id="cnt-MO">0</span>
-          </button>
-          <button class="alpha-chip" onclick="filterAlpha('PR')" id="filter-PR">
-            P–R <span class="count" id="cnt-PR">0</span>
-          </button>
-          <button class="alpha-chip" onclick="filterAlpha('SU')" id="filter-SU">
-            S–U <span class="count" id="cnt-SU">0</span>
-          </button>
-          <button class="alpha-chip" onclick="filterAlpha('VZ')" id="filter-VZ">
-            V–Z <span class="count" id="cnt-VZ">0</span>
-          </button>
+          <button class="alpha-chip active" onclick="filterAlpha('all')" id="filter-all">همه <span class="count" id="cnt-all">...</span></button>
+          <button class="alpha-chip" onclick="filterAlpha('AC')" id="filter-AC">A–C <span class="count" id="cnt-AC">0</span></button>
+          <button class="alpha-chip" onclick="filterAlpha('DF')" id="filter-DF">D–F <span class="count" id="cnt-DF">0</span></button>
+          <button class="alpha-chip" onclick="filterAlpha('GI')" id="filter-GI">G–I <span class="count" id="cnt-GI">0</span></button>
+          <button class="alpha-chip" onclick="filterAlpha('JL')" id="filter-JL">J–L <span class="count" id="cnt-JL">0</span></button>
+          <button class="alpha-chip" onclick="filterAlpha('MO')" id="filter-MO">M–O <span class="count" id="cnt-MO">0</span></button>
+          <button class="alpha-chip" onclick="filterAlpha('PR')" id="filter-PR">P–R <span class="count" id="cnt-PR">0</span></button>
+          <button class="alpha-chip" onclick="filterAlpha('SU')" id="filter-SU">S–U <span class="count" id="cnt-SU">0</span></button>
+          <button class="alpha-chip" onclick="filterAlpha('VZ')" id="filter-VZ">V–Z <span class="count" id="cnt-VZ">0</span></button>
         </div>
-        <div style="display:flex; justify-content:center;">
-          <input type="text" class="search-box" id="searchBox" placeholder="جستجو واژه..." oninput="filterWords()" style="margin-top:12px; max-width:320px;" />
+        <div style="display:flex; justify-content:center; margin-top:12px;">
+          <input type="text" class="search-box" id="searchBox" placeholder="جستجو در ۱۰۰۰ واژه مرجع..." oninput="filterWords()" style="max-width:320px;" />
         </div>
-      </div>
-
-      <div class="section-heading" style="display:none;">
-        <h2 id="showing-count-wrapper">📖 واژگان تخصصی پزشکی <span class="badge" id="showing-count">20 واژه</span></h2>
-        <div class="page-info" id="current-range">A – C</div>
-      </div>
-      
-      <div class="audio-playing-bar" id="audioBar">
-        <div class="audio-wave">
-          <span></span><span></span><span></span><span></span><span></span>
-        </div>
-        <span id="audioText">در حال پخش...</span>
-        <button onclick="stopAudio()" style="margin-right:auto; background:none; border:none; cursor:pointer; color:var(--accent); font-size:13px;">✕ توقف</button>
       </div>
 
       <div class="word-grid" id="wordGrid"></div>
 
       <div class="page-controls">
         <button class="btn-page" id="prevBtn" onclick="changePage(-1)" disabled>← صفحه قبل</button>
-        <span class="page-info" id="pageInfo">صفحه 1 از 1</span>
+        <span class="page-info" id="pageInfo">صفحه 1</span>
         <button class="btn-page" id="nextBtn" onclick="changePage(1)">صفحه بعد →</button>
       </div>
     </div>
 
-    <!-- OSSAREH TAB (عصاره لغات + سیستم لایتنر هوشمند) -->
+    <!-- 2. OSSAREH TAB (عصاره لغات + سیستم لایتنر هوشمند) -->
     <div id="tab-ossareh" class="tab-content">
       <div class="section-heading">
         <h2>🧪 عصاره لغات و سیستم لایتنر هوشمند</h2>
@@ -1107,76 +543,59 @@
       <div class="word-grid" id="ossarehGrid"></div>
     </div>
 
-    <!-- PASSAGE TAB -->
+    <!-- 3. PASSAGE TAB -->
     <div id="tab-passage" class="tab-content">
       <div class="passage-card">
         <div class="passage-header">
-          <div>
-            <div class="passage-title">📚 Medical English Reading Passages</div>
-            <div class="passage-meta">۱۰۰ متن کوتاه تخصصی زبان پزشکی | سطح: متوسط به بالا | منبع: متون جامع زبان وزارت بهداشت</div>
-          </div>
+          <div class="passage-title">📚 Medical English Reading Passages</div>
+          <div class="passage-meta">متون تخصصی و درک مطلب جامع زبان پزشکی وزارت بهداشت</div>
         </div>
         <div class="passage-body" id="passageBody"></div>
       </div>
     </div>
 
-    <!-- BOOKMARKS TAB -->
+    <!-- 4. BOOKMARKS TAB -->
     <div id="tab-bookmarks" class="tab-content">
-      <div class="section-heading">
-        <h2>⭐ واژگان مارک‌شده برای مرور</h2>
-      </div>
-      <div id="bookmarkGrid" class="word-grid">
-        <div class="empty-state">
-          <div class="icon">⭐</div>
-          <h3>هنوز واژه‌ای مارک نشده</h3>
-          <p>روی آیکون ستاره در هر کارت واژه کلیک کنید تا آن را برای مرور بعدی ذخیره کنید</p>
-        </div>
-      </div>
+      <div class="section-heading"><h2>⭐ واژگان مرجع مارک‌شده</h2></div>
+      <div id="bookmarkGrid" class="word-grid"></div>
     </div>
 
-    <!-- TRAPS (تله‌های کنکوری) TAB -->
+    <!-- 5. TRAPS TAB -->
     <div id="tab-traps" class="tab-content">
       <div class="section-heading">
-        <h2>🧠 تله‌های رایج کنکور، زبان پزشکی وزارت بهداشت</h2>
-        <div class="page-info" id="trap-range">فلش‌کارت ۱ از ۳۲</div>
+        <h2>🧠 تله‌های کنکوری و زبان پزشکی وزارت بهداشت</h2>
+        <div class="page-info" id="trapCounter">۱ / ۳۲</div>
       </div>
-
       <div class="trap-toolbar">
         <button class="btn-page" onclick="shuffleTraps()">🔀 پخش تصادفی</button>
-        <span class="trap-counter" id="trapCounter">۱ / ۳۲</span>
         <button class="btn-page" onclick="resetTraps()">↺ ترتیب اصلی</button>
       </div>
-
       <div class="trap-stage">
         <div class="trap-card" id="trapCard" onclick="flipTrap()">
-          <div class="trap-flip-inner" id="trapFlipInner">
+          <div class="trap-flip-inner">
             <div class="trap-face trap-front" id="trapFront"></div>
             <div class="trap-face trap-back" id="trapBack"></div>
           </div>
         </div>
-        <div class="trap-hint">برای دیدن توضیح، روی کارت کلیک کنید 👆</div>
+        <div class="trap-hint">برای دیدن نکته تله، روی کارت کلیک کنید 👆</div>
       </div>
-
       <div class="page-controls">
-        <button class="btn-page" id="trapPrevBtn" onclick="changeTrap(-1)">← قبلی</button>
-        <button class="btn-page" id="trapNextBtn" onclick="changeTrap(1)">بعدی →</button>
+        <button class="btn-page" onclick="changeTrap(-1)">← قبلی</button>
+        <button class="btn-page" onclick="changeTrap(1)">بعدی →</button>
       </div>
-
       <div class="trap-list-heading">فهرست همه تله‌ها</div>
       <div class="trap-list" id="trapList"></div>
     </div>
 
-    <!-- CHALLENGE TAB -->
+    <!-- 6. CHALLENGE TAB -->
     <div id="tab-challenge" class="tab-content">
-      <div class="section-heading">
-        <h2>🏆 چالش ۳۰ واژه</h2>
-      </div>
-
-            <div id="challenge-intro" class="challenge-screen">
+      <div class="section-heading"><h2>🏆 چالش واژگان سرعتی</h2></div>
+      
+      <div id="challenge-intro" class="challenge-screen">
         <div class="challenge-intro-card">
           <div class="challenge-intro-icon">🏆</div>
           <h3>چالش سرعت و سنجش واژگان</h3>
-          <p>برای هر واژه، معنی فارسی صحیح را از میان ۴ گزینه انتخاب کنید. چالش شامل ۳۰ تست تصادفی در ۳ دقیقه است.</p>
+          <p>برای هر واژه، معنی فارسی صحیح را از میان ۴ گزینه انتخاب کنید. چالش شامل ۳۰ تست در ۳ دقیقه است.</p>
           
           <div style="margin: 16px 0; text-align: right; background: var(--bg-secondary); padding: 12px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border);">
             <div style="font-size: 12px; font-weight: 700; color: var(--primary); margin-bottom: 8px;">🎯 منبع سوالات چالش:</div>
@@ -1199,19 +618,16 @@
         <div class="challenge-progress-bar"><div class="challenge-progress-fill" id="challengeProgressFill"></div></div>
         <div class="challenge-card">
           <div class="challenge-word-en" id="challengeWord"></div>
-          <div class="challenge-word-phonetic" id="challengePhonetic"></div>
+          <div class="challenge-word-phonetic" id="challengePhonetic" style="margin-top:6px; font-size:13px; opacity:0.85;"></div>
         </div>
         <div class="challenge-options" id="challengeOptions"></div>
       </div>
 
       <div id="challenge-result" class="challenge-screen" style="display:none;">
         <div class="challenge-result-card">
-          <div class="challenge-result-title" id="challengeResultTitle">نتیجه چالش</div>
-          <div class="challenge-result-score" id="challengeResultScore"></div>
+          <div class="challenge-result-title">نتیجه چالش</div>
           <div class="challenge-result-percent" id="challengeResultPercent"></div>
-          <div class="challenge-wrong-heading" id="challengeWrongHeading" style="display:none;">واژه‌هایی که اشتباه پاسخ داده شد</div>
-          <div class="challenge-wrong-list" id="challengeWrongList"></div>
-          <button class="btn-start-challenge" onclick="startChallenge()">تلاش دوباره</button>
+          <button class="btn-start-challenge" onclick="startChallenge()">تلاش مجدد</button>
         </div>
       </div>
     </div>
@@ -1220,7 +636,7 @@
 </div>
 </div><!-- /screen-app -->
 
-<!-- ===== MAIN MENU ===== -->
+<!-- ===== MAIN MENU SCREEN ===== -->
 <div id="screen-menu" class="screen-menu">
   <div class="menu-icon">🔬</div>
   <div class="menu-title">اپلیکیشن جامع زبان پزشکی</div>
@@ -1244,7 +660,7 @@
     <div class="subscreen-title">درباره اپلیکیشن</div>
   </div>
   <div class="subscreen-body">
-        <div class="about-text">
+    <div class="about-text">
       <p>این اپلیکیشن توسط Learning Lab Academy با هدف ارتقای جامع دانش زبانی، واژگان تخصصی و عمومی برای تمامی دانشجویان، داوطلبان آزمون‌ها و علاقه‌مندان به یادگیری زبان انگلیسی طراحی و توسعه یافته است. این سامانه با تلفیق تکنیک‌های نوین یادگیری، سیستم هوشمند جعبه لایتنر ۵ مرحله‌ای، متون درک مطلب، تحلیل تله‌های تستی و چالش‌های تعاملی، یادگیری پایدار و اثربخش را میسر می‌سازد.</p>
       <p style="background:var(--primary-pale); border-right:3px solid var(--primary); padding:10px 14px; border-radius:6px; font-weight:600; color:var(--primary); margin:12px 0;">جهت پشتیبانی به <a href="https://t.me/iamsaber_azr" target="_blank" style="color:var(--primary); text-decoration:underline; direction:ltr; display:inline-block;">@iamsaber_azr</a> در تلگرام پیام دهید.</p>
       <p>از اعتماد و همراهی شما صمیمانه سپاسگزاریم و برایتان آرزوی موفقیت در تمامی آزمون‌های پیش رو داریم.</p>
@@ -1254,6 +670,7 @@
 
 <div id="appToast" class="app-toast"></div>
 
+<!-- ================= JAVASCRIPT ================= -->
 <script>
 let WORDS = [];
 const PASSAGE = {
@@ -1928,31 +1345,24 @@ function renderPage() {
   document.getElementById('prevBtn').disabled = currentPage === 0;
   document.getElementById('nextBtn').disabled = currentPage >= totalPages - 1;
   
-  const rangeLabel = currentAlpha === 'all' ? 'همه واژه‌ها' :
-    currentAlpha === 'AC' ? 'A تا C' : currentAlpha === 'DF' ? 'D تا F' :
-    currentAlpha === 'GI' ? 'G تا I' : currentAlpha === 'JL' ? 'J تا L' :
-    currentAlpha === 'MO' ? 'M تا O' : currentAlpha === 'PR' ? 'P تا R' :
-    currentAlpha === 'SU' ? 'S تا U' : 'V تا Z';
-  document.getElementById('current-range').textContent = rangeLabel;
-
   grid.innerHTML = pageWords.map(w => renderWordCard(w)).join('');
 }
 
-function renderWordCard(w, mini=false) {
+function renderWordCard(w) {
   const isBookmarked = bookmarks.includes(w.id);
   return `
   <div class="word-card ${isBookmarked ? 'bookmarked' : ''}" id="card-${w.id}">
     <div class="card-header">
       <div class="word-main">
         <div class="word-english">${w.word}</div>
-        <div class="word-phonetic">${w.phonetic}</div>
+        <div class="word-phonetic">${w.phonetic || ''}</div>
         <div class="word-meaning">${w.meaning}</div>
       </div>
       <div class="card-actions">
         <button class="btn-icon ${isBookmarked ? 'active' : ''}" onclick="toggleBookmark(${w.id})" title="مارک کردن">
           ${isBookmarked ? '⭐' : '☆'}
         </button>
-        <button class="btn-icon" onclick="speakWord('${w.word}', '${w.phonetic}')" title="تلفظ">
+        <button class="btn-icon" onclick="speakWord('${w.word}', '${w.phonetic || ''}')" title="تلفظ">
           🔊
         </button>
       </div>
@@ -1963,10 +1373,10 @@ function renderWordCard(w, mini=false) {
         <div class="example-fa">${w.example_fa}</div>
       </div>
       <button class="quiz-toggle" onclick="toggleQuiz(${w.id})">
-        📝 نمایش سوالات تستی (${w.quiz.length} سوال)
+        📝 نمایش سوالات تستی (${w.quiz ? w.quiz.length : 0} سوال)
       </button>
       <div class="quiz-container" id="quiz-${w.id}">
-        ${w.quiz.map((q,qi) => `
+        ${(w.quiz || []).map((q,qi) => `
         <div class="quiz-item" id="qitem-${w.id}-${qi}">
           <div class="quiz-q-en">${qi+1}. ${q.q}</div>
           ${q.q_fa ? `<div class="quiz-q-fa">${q.q_fa}</div>` : ''}
@@ -2017,14 +1427,9 @@ function answerQuiz(btn, selected, correct, wordId, qi) {
 
   const qObj = w && w.quiz ? w.quiz[qi] : null;
   if (qObj && qObj.exp) {
-    expBody.innerHTML = `
-      <span class="exp-fa">📌 ${qObj.exp}</span>
-    `;
+    expBody.innerHTML = `<span class="exp-fa">📌 ${qObj.exp}</span>`;
   } else {
-    expBody.innerHTML = `
-      <span class="exp-en">📌 Key word: "${w ? w.word : ''}" — ${w ? w.meaning : ''}</span>
-      <span style="color:var(--text-muted); font-size:12px;">💡 توضیح تشریحی این سوال به زودی اضافه می‌شود.</span>
-    `;
+    expBody.innerHTML = `<span class="exp-en">📌 Key word: "${w ? w.word : ''}" — ${w ? w.meaning : ''}</span>`;
   }
 
   expBox.classList.add('show');
@@ -2073,125 +1478,40 @@ function changePage(dir) {
   document.querySelector('.content-area').scrollTop = 0;
 }
 
-function speakText(text, labelText) {
-  stopAudio();
-
-  const bar = document.getElementById('audioBar');
-  document.getElementById('audioText').textContent = labelText || ('در حال پخش...');
-  bar.classList.add('show');
-  isSpeaking = true;
-
-  // Native Android TTS bridge (injected by the WebView app via JavascriptInterface).
-  // If present, use it — it's far more reliable than the browser's speechSynthesis
-  // inside a WebView. Falls back to speechSynthesis for normal browser testing.
-  if (window.AndroidTTS && typeof window.AndroidTTS.speak === 'function') {
-    try {
-      window.AndroidTTS.speak(text);
-    } catch (e) {
-      bar.classList.remove('show');
-      isSpeaking = false;
-    }
-    return;
-  }
-
-  if (!('speechSynthesis' in window)) {
-    bar.classList.remove('show');
-    isSpeaking = false;
-    return;
-  }
-
-  // Android WebView & some browsers cut off long utterances.
-  // Split text into short chunks at sentence/comma boundaries.
-  const MAX_CHARS = 100;
-  const chunks = [];
-  if (text.length <= MAX_CHARS) {
-    chunks.push(text);
-  } else {
-    // split on '. ' or ', ' or just every MAX_CHARS chars
-    const parts = text.match(/[^.,!?]+[.,!?]?\s*/g) || [text];
-    let cur = '';
-    parts.forEach(p => {
-      if ((cur + p).length > MAX_CHARS && cur.length > 0) {
-        chunks.push(cur.trim());
-        cur = p;
-      } else {
-        cur += p;
-      }
-    });
-    if (cur.trim()) chunks.push(cur.trim());
-  }
-
-  let idx = 0;
-
-  function speakChunk() {
-    if (!isSpeaking || idx >= chunks.length) {
-      bar.classList.remove('show');
-      isSpeaking = false;
-      return;
-    }
-    utterance = new SpeechSynthesisUtterance(chunks[idx]);
-    utterance.lang = 'en-US';
-    utterance.rate = 0.82;
-    utterance.pitch = 1;
-    utterance.volume = 1;
-    utterance.onend = () => { idx++; speakChunk(); };
-    utterance.onerror = () => { bar.classList.remove('show'); isSpeaking = false; };
-    speechSynthesis.speak(utterance);
-  }
-
-  // Android WebView fix: cancel any previous speech first, then small delay before speaking
-  speechSynthesis.cancel();
-  setTimeout(speakChunk, 80);
+function speakText(text) {
+  if (!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'en-US';
+  u.rate = 0.88;
+  window.speechSynthesis.speak(u);
 }
 
-function speakWord(word, phonetic) {
-  speakText(word, `در حال پخش: ${word}  ${phonetic}`);
+function speakWord(word) {
+  speakText(word);
 }
 
 function stopAudio() {
-  if (window.AndroidTTS && typeof window.AndroidTTS.stop === 'function') {
-    try { window.AndroidTTS.stop(); } catch (e) {}
-  }
-  if ('speechSynthesis' in window) speechSynthesis.cancel();
-  document.getElementById('audioBar').classList.remove('show');
-  isSpeaking = false;
-}
-
-// Called from native Android code (TextToSpeech.OnUtteranceCompletedListener) when the
-// native TTS engine finishes speaking, so the audio bar hides itself correctly.
-function onAndroidTTSDone() {
-  document.getElementById('audioBar').classList.remove('show');
-  isSpeaking = false;
+  if ('speechSynthesis' in window) window.speechSynthesis.cancel();
 }
 
 function renderPassage() {
   const body = document.getElementById('passageBody');
-  body.innerHTML = PASSAGE.sentences.map((s, i) => {
-    // encode sentence safely for inline onclick attribute
-    const encodedEn = encodeURIComponent(s.en);
-    return `
-  <div class="passage-sentence" id="sent-${i}">
-    <div class="sent-header">
-      <span class="sent-number">${i+1}</span>
-      <div class="sent-en" style="margin-right:10px">${highlightKeywords(s.en, s.keywords)}</div>
-      <button class="sent-btn-audio" onclick="speakSentence(${i})" title="پخش این جمله">🔊</button>
+  if (!body) return;
+  body.innerHTML = PASSAGE.sentences.map((s, i) => `
+    <div class="passage-sentence" id="sent-${i}">
+      <div class="sent-header">
+        <span class="sent-number">${i+1}</span>
+        <div class="sent-en" style="margin-right:10px">${highlightKeywords(s.en, s.keywords)}</div>
+        <button class="sent-btn-audio" onclick="speakText('${s.en.replace(/'/g, "\\'")}')" title="پخش این جمله">🔊</button>
+      </div>
+      <div class="sent-fa">${s.fa}</div>
+      <div class="sent-analysis">
+        🔍 تحلیل: ${s.analysis}<br>
+        ${s.keywords.map(k => `<span class="keyword-tag">${k}</span>`).join('')}
+      </div>
     </div>
-    <div class="sent-fa">${s.fa}</div>
-    <div class="sent-analysis">
-      🔍 تحلیل: ${s.analysis}<br>
-      ${s.keywords.map(k => `<span class="keyword-tag">${k}</span>`).join('')}
-    </div>
-  </div>`;
-  }).join('');
-}
-
-function speakSentence(idx) {
-  const s = PASSAGE.sentences[idx];
-  if (!s) return;
-  document.querySelectorAll('.passage-sentence').forEach((el, i) => {
-    el.classList.toggle('highlighted', i === idx);
-  });
-  speakText(s.en, `جمله ${idx+1} از ${PASSAGE.sentences.length}`);
+  `).join('');
 }
 
 function highlightKeywords(text, keywords) {
@@ -2215,28 +1535,27 @@ const TRAPS = [
   { title: "تله علت و نتیجه (Cause & Effect)", example: "Smoking causes lung cancer.", explain: "داوطلب علت (cause) را با پیامد/نتیجه (effect) اشتباه می‌گیرد. اینجا smoking علت است نه نتیجه.", tip: "فعل‌های نشان‌دهنده علیت مثل cause, lead to, result in را علامت بزنید و جهت پیکان معنایی را مشخص کنید." },
   { title: "تله کلمات مثبت و منفی (Negative Prefixes)", example: "un-, in-, im-, non-, dis-", explain: "وجود یک پیشوند منفی کوچک، کل معنی جمله را برعکس می‌کند و اغلب در تندخوانی از چشم می‌افتد.", tip: "قبل از انتخاب گزینه، حتماً بررسی کنید کلمه پیشوند منفی دارد یا نه." },
   { title: "تله واحدهای زیستی (Biological Units)", example: "cell → tissue → organ → system", explain: "این چهار واحد به ترتیب از کوچک به بزرگ هستند و طراح ترتیب یا سطح آن‌ها را جابه‌جا می‌کند.", tip: "ترتیب سلسله‌مراتبی cell < tissue < organ < system را حفظ کنید." },
-  { title: "تله بروز و شیوع (Incidence vs Prevalence)", example: "incidence = موارد جدید در بازه زمانی\nprevalence = کل موارد موجود در یک نقطه زمانی", explain: "یکی از پرتکرارترین دام‌های آزمون‌های اپیدمیولوژی و علوم آزمایشگاهی است.", tip: "incidence = «جدید»، prevalence = «کل موجود» — این دو کلمه کلیدی را به خاطر بسپارید." },
+  { title: "تله بروز و شیوع (Incidence vs Prevalence)", example: "incidence = موارد جدید در بازه زمانی\nprevalence = کل موارد موجود در یک نقطه زمانی", explain: "یکی از پرتکرارترین دام‌های آزمون‌های اپیدمیولوژی است.", tip: "incidence = «جدید»، prevalence = «کل موجود» — این دو کلمه کلیدی را به خاطر بسپارید." },
   { title: "تله مرگ و بیماری (Mortality vs Morbidity)", example: "mortality = نرخ مرگ‌ومیر\nmorbidity = نرخ بیماری/ابتلا", explain: "تقریباً هر سال در آزمون‌های وزارت بهداشت این دو واژه به‌عمد کنار هم می‌آیند.", tip: "mortality → mortal (فانی/مرگ)؛ morbidity → morbid (بیمارگون)." },
   { title: "تله ترشح و دفع (Secrete vs Excrete)", example: "secrete = ترشح کردن (تولید درون‌بدنی، مثل هورمون)\nexcrete = دفع کردن (خروج مواد زائد از بدن)", explain: "هر دو با حرف ابتدایی نزدیک به هم اما فرایند بیولوژیکی کاملاً متفاوتی دارند.", tip: "secrete = تولید و آزادسازی؛ excrete = دفع نهایی از بدن." },
   { title: "تله Sign و Symptom", example: "sign = علامت قابل مشاهده و اندازه‌گیری توسط پزشک\nsymptom = شکایت ذهنی بیمار", explain: "sign را پزشک عینی می‌بیند (مثل تب اندازه‌گیری‌شده)، symptom را فقط بیمار حس می‌کند (مثل درد).", tip: "sign = objective (عینی)؛ symptom = subjective (ذهنی)." },
-  { title: "تله Sensitivity و Specificity", example: "sensitivity = توانایی تست در شناسایی درست بیماران\nspecificity = توانایی تست در شناسایی درست افراد سالم", explain: "این دو مفهوم مخصوص مباحث آزمایشگاهی و ارزیابی تست‌های تشخیصی هستند و اغلب جای هم اشتباه گرفته می‌شوند.", tip: "sensitivity = مثبت واقعی در بیماران؛ specificity = منفی واقعی در افراد سالم." },
+  { title: "تله Sensitivity و Specificity", example: "sensitivity = توانایی تست در شناسایی درست بیماران\nspecificity = توانایی تست در شناسایی درست افراد سالم", explain: "این دو مفهوم مخصوص مباحث ارزیابی تست‌های تشخیصی هستند و اغلب جای هم اشتباه گرفته می‌شوند.", tip: "sensitivity = مثبت واقعی در بیماران؛ specificity = منفی واقعی در افراد سالم." },
   { title: "تله فعل و اسم (effect vs affect)", example: "effect (اسم) = اثر، پیامد\naffect (فعل) = تأثیر گذاشتن", explain: "یکی از رایج‌ترین اشتباهات گرامری-واژگانی در متون علمی انگلیسی است.", tip: "اگر بعد از to/an/the آمده بود اسم (effect) است؛ اگر فاعل مستقیم به آن عمل می‌کرد فعل (affect) است." },
-  { title: "تله واژه‌های علمی با معنی روزمره", example: "culture در پزشکی = کشت میکروبی (نه فرهنگ)", explain: "برخی کلمات معنی رایج روزمره دارند اما در بافت پزشکی/آزمایشگاهی معنی کاملاً متفاوتی می‌گیرند.", tip: "همیشه بافت جمله (context) را در نظر بگیرید، نه فقط معنی لغوی رایج کلمه." },
-  { title: "تله هم‌نشینی واژگان (Collocation)", example: "administer a drug ✅ | give a drug ✅ | perform a drug ❌", explain: "برخی کلمات فقط با افعال یا صفت‌های خاصی می‌آیند و ترکیب‌های نادرست از نظر بافت زبانی غلط‌اند.", tip: "به‌جای حفظ تک‌کلمه، عبارات پرکاربرد (perform a test, administer a drug, run a test) را با هم یاد بگیرید." },
-  { title: "تله حذف گزینه‌های کاملاً غلط", example: "دو گزینه از نظر علمی غیرممکن‌اند حتی اگر معنی دقیق کلمه را ندانید.", explain: "این تکنیک به‌ویژه در آزمون‌های علوم آزمایشگاهی بسیار کاربردی است؛ می‌توان با دانش عمومی زیستی/پزشکی دو گزینه را حذف کرد.", tip: "همیشه ابتدا گزینه‌های علمی نامعقول را حذف کنید تا شانس خود را از ۲۵٪ به ۵۰٪ برسانید." },
-  { title: "تله کلمات آکادمیک پرتکرار", example: "dissemination, manifestation, impairment, susceptibility, intervention", explain: "این واژه‌ها بارها در Readingهای وزارت بهداشت تکرار شده‌اند و داوطلبان معمولاً معنی تقریبی آن‌ها را با هم اشتباه می‌گیرند.", tip: "این ۵ واژه را جداگانه با مثال جمله حفظ کنید؛ در چند دوره اخیر آزمون تکرار شده‌اند." },
-  { title: "تله واژه‌های عمومی-تخصصی مکمل", example: "illness (عمومی) vs disease (تخصصی)", explain: "طراح گاهی هر دو کلمه را در یک گزینه با هم می‌آورد تا دقت داوطلب به تفاوت ظریف را بسنجد.", tip: "لیستی از جفت‌واژه‌های «عمومی/تخصصی» پرتکرار (sick/ill → disease/illness → symptom/sign) تهیه کنید." },
-  { title: "تله Congenital, Hereditary, Acquired", example: "congenital = مادرزادی (لزوماً ژنتیکی نیست)\nhereditary = ارثی (ژنتیکی، از والدین)\nacquired = اکتسابی (پس از تولد ایجاد می‌شود)", explain: "این سه‌گانه بسیار در سؤالات اتیولوژی بیماری‌ها تکرار می‌شود و داوطلبان congenital را با hereditary یکی می‌گیرند.", tip: "congenital یعنی «از بدو تولد وجود دارد»، نه لزوماً «ارثی»." },
-  { title: "تله Acute, Subacute, Chronic", example: "acute = حاد و ناگهانی\nsubacute = نیمه‌حاد (بینابین)\nchronic = مزمن و طولانی‌مدت", explain: "طراح این سه‌گانه‌ی زمانی را کنار هم می‌آورد تا سرعت پیشرفت بیماری اشتباه گرفته شود.", tip: "به قید زمانی جمله (روزها/هفته‌ها/ماه‌ها) دقت کنید تا بین این سه واژه تمایز بگذارید." },
-  { title: "تله In Vitro و In Vivo", example: "in vitro = آزمایش خارج از بدن (مثل لوله آزمایش)\nin vivo = آزمایش درون بدن موجود زنده", explain: "این دو اصطلاح لاتین در متون آزمایشگاهی و پژوهشی بسیار پرتکرارند و ظاهر مشابهی دارند.", tip: "vitro از vitrum (شیشه) می‌آید → آزمایشگاه؛ vivo از vivus (زنده) می‌آید → بدن موجود زنده." },
-  { title: "تله Etiology و Pathology", example: "etiology = علم بررسی علت بیماری\npathology = علم بررسی ماهیت و اثرات بیماری", explain: "هر دو کلمه با علم بیماری مرتبط‌اند اما یکی به «چرایی» و دیگری به «چیستی» بیماری می‌پردازد.", tip: "etiology = علت‌شناسی (Why)؛ pathology = آسیب‌شناسی (What)." },
-  { title: "تله Contagious و Infectious", example: "infectious = ناشی از عامل بیماری‌زا (میکروب/ویروس)\ncontagious = قابل انتقال مستقیم از فردی به فرد دیگر", explain: "هر بیماری contagious قطعاً infectious است، اما هر بیماری infectious لزوماً contagious نیست (مثل کزاز).", tip: "contagious زیرمجموعه‌ی infectious است، نه مترادف کامل آن." },
-  { title: "تله Vaccine, Vaccination, Immunization", example: "vaccine = خودِ ماده‌ی بیولوژیک\nvaccination = عمل تزریق واکسن\nimmunization = فرایند کلی ایجاد ایمنی (شامل نتیجه)", explain: "این سه واژه هم‌خانواده‌اند اما نقش دستوری و بار معنایی متفاوتی دارند.", tip: "vaccine = چیز؛ vaccination = عمل؛ immunization = نتیجه/فرایند نهایی ایمنی‌سازی." },
-  { title: "تله Dose و Dosage", example: "dose = مقدار مصرف در یک نوبت\ndosage = برنامه و رژیم مصرف دارو (مقدار + تناوب)", explain: "dose یک عدد مشخص است، dosage به کل برنامه‌ی زمان‌بندی‌شده‌ی مصرف دارو اشاره دارد.", tip: "اگر سؤال درباره «یک بار مصرف» بود dose، اگر درباره «برنامه‌ی کلی درمان» بود dosage صحیح است." },
-  { title: "تله Side Effect و Adverse Effect", example: "side effect = هر اثر جانبی (می‌تواند خنثی یا حتی مفید باشد)\nadverse effect = اثر جانبی مضر و ناخواسته", explain: "هر adverse effect یک side effect است، اما هر side effect لزوماً adverse (مضر) نیست.", tip: "adverse effect همیشه بار منفی دارد؛ side effect می‌تواند خنثی هم باشد." },
-  { title: "تله Biopsy و Autopsy", example: "biopsy = نمونه‌برداری از بافت فرد زنده برای تشخیص\nautopsy = کالبدشکافی روی جسد برای تعیین علت مرگ", explain: "شباهت ظاهری بالای این دو کلمه باعث اشتباه رایج داوطلبان می‌شود.", tip: "بیمار زنده → biopsy؛ جسد و علت مرگ → autopsy." },
-  { title: "تله Homogeneous و Heterogeneous", example: "homogeneous = یکنواخت، از یک نوع (مثلاً جمعیت سلولی یکسان)\nheterogeneous = ناهمگون، ترکیبی از انواع مختلف", explain: "در توصیف نمونه‌های آزمایشگاهی و جمعیت‌های سلولی بسیار به‌کار می‌رود و پیشوندهایشان (homo-/hetero-) کلیدی است.", tip: "homo- = یکسان؛ hetero- = متفاوت — این دو پیشوند یونانی را در کل متون علمی به خاطر بسپارید." },
-  { title: "تله Screening و Diagnostic Test", example: "screening test = غربالگری افراد بدون علامت برای شناسایی افراد در معرض خطر\ndiagnostic test = تست تأییدی برای تشخیص قطعی بیماری در فرد دارای علامت یا نتیجه غربالگری مثبت", explain: "screening همیشه گام اول و diagnostic معمولاً گام دوم و تأییدی است؛ طراح جای این دو را عوض می‌کند.", tip: "screening = برای «کشف احتمال» در جمعیت سالم؛ diagnostic = برای «تأیید قطعی» در فرد مشکوک." }
+  { title: "تله واژه‌های علمی با معنی روزمره", example: "culture در پزشکی = کشت میکروبی (نه فرهنگ)", explain: "برخی کلمات معنی رایج روزمره دارند اما در بافت پزشکی معنی کاملاً متفاوتی می‌گیرند.", tip: "همیشه بافت جمله (context) را در نظر بگیرید، نه فقط معنی لغوی رایج کلمه." },
+  { title: "تله هم‌نشینی واژگان (Collocation)", example: "administer a drug ✅ | give a drug ✅ | perform a drug ❌", explain: "برخی کلمات فقط با افعال یا صفت‌های خاصی می‌آیند و ترکیب‌های نادرست از نظر بافت زبانی غلط‌اند.", tip: "به‌جای حفظ تک‌کلمه، عبارات پرکاربرد (perform a test, administer a drug) را با هم یاد بگیرید." },
+  { title: "تله حذف گزینه‌های کاملاً غلط", example: "دو گزینه از نظر علمی غیرممکن‌اند حتی اگر معنی دقیق کلمه را ندانید.", explain: "می‌توان با دانش عمومی زیستی/پزشکی دو گزینه را به راحتی حذف کرد.", tip: "همیشه ابتدا گزینه‌های علمی نامعقول را حذف کنید تا شانس خود را بالا ببرید." },
+  { title: "تله کلمات آکادمیک پرتکرار", example: "dissemination, manifestation, impairment, susceptibility, intervention", explain: "این واژه‌ها بارها در ریدینگ‌های ارشد تکرار شده‌اند و داوطلبان معمولاً معنی تقریبی آن‌ها را با هم اشتباه می‌گیرند.", tip: "این ۵ واژه را جداگانه با مثال جمله حفظ کنید." },
+  { title: "تله Congenital, Hereditary, Acquired", example: "congenital = مادرزادی (لزوماً ژنتیکی نیست)\nhereditary = ارثی (ژنتیکی، از والدین)\nacquired = اکتسابی (پس از تولد ایجاد می‌شود)", explain: "این سه‌گانه بسیار در سؤالات اتیولوژی بیماری‌ها تکرار می‌شود.", tip: "congenital یعنی «از بدو تولد وجود دارد»، نه لزوماً «ارثی»." },
+  { title: "تله Acute, Subacute, Chronic", example: "acute = حاد و ناگهانی\nsubacute = نیمه‌حاد (بینابین)\nchronic = مزمن و طولانی‌مدت", explain: "طراح این سه‌گانه‌ی زمانی را کنار هم می‌آورد تا سرعت پیشرفت بیماری اشتباه گرفته شود.", tip: "به قید زمانی جمله دقت کنید تا بین این سه واژه تمایز بگذارید." },
+  { title: "تله In Vitro و In Vivo", example: "in vitro = آزمایش خارج از بدن (مثل لوله آزمایش)\nin vivo = آزمایش درون بدن موجود زنده", explain: "این دو اصطلاح لاتین در متون پژوهشی بسیار پرتکرارند و ظاهر مشابهی دارند.", tip: "vitro یعنی شیشه (آزمایشگاه)؛ vivo یعنی موجود زنده." },
+  { title: "تله Etiology و Pathology", example: "etiology = علم بررسی علت بیماری\npathology = علم بررسی ماهیت و اثرات بیماری", explain: "هر دو کلمه با علم بیماری مرتبط‌اند اما یکی به «چرایی» و دیگری به «چیستی» می‌پردازد.", tip: "etiology = علت‌شناسی؛ pathology = آسیب‌شناسی." },
+  { title: "تله Contagious و Infectious", example: "infectious = ناشی از عامل بیماری‌زا (میکروب/ویروس)\ncontagious = قابل انتقال مستقیم از فردی به فرد دیگر", explain: "هر بیماری contagious قطعاً infectious است، اما برعکس آن لزوماً درست نیست.", tip: "contagious زیرمجموعه‌ی infectious است." },
+  { title: "تله Vaccine, Vaccination, Immunization", example: "vaccine = خودِ ماده‌ی بیولوژیک\nvaccination = عمل تزریق واکسن\nimmunization = فرایند کلی ایجاد ایمنی", explain: "این سه واژه هم‌خانواده‌اند اما نقش دستوری و بار معنایی متفاوتی دارند.", tip: "vaccine ماده، vaccination عمل، و immunization فرایند کلی ایجاد ایمنی است." },
+  { title: "تله Dose و Dosage", example: "dose = مقدار مصرف در یک نوبت\ndosage = برنامه و رژیم مصرف دارو", explain: "dose یک عدد مشخص است، dosage به کل برنامه‌ی زمان‌بندی‌شده اشاره دارد.", tip: "برای یک بار مصرف dose، و برای رژیم درمانی dosage به کار می‌رود." },
+  { title: "تله Side Effect و Adverse Effect", example: "side effect = هر اثر جانبی (می‌تواند خنثی باشد)\nadverse effect = اثر جانبی مضر و ناخواسته", explain: "adverse effect همیشه بار منفی دارد؛ side effect می‌تواند خنثی هم باشد.", tip: "به بار معنایی منفی کلمه adverse دقت کنید." },
+  { title: "تله Biopsy و Autopsy", example: "biopsy = نمونه‌برداری از بافت فرد زنده\nautopsy = کالبدشکافی روی جسد", explain: "شباهت ظاهری بالای این دو کلمه باعث اشتباه رایج می‌شود.", tip: "بیمار زنده → biopsy؛ جسد و تعیین علت مرگ → autopsy." },
+  { title: "تله Homogeneous و Heterogeneous", example: "homogeneous = یکنواخت، از یک نوع\nheterogeneous = ناهمگون، ترکیبی از انواع مختلف", explain: "پیشوندهای homo (یکسان) و hetero (متفاوت) تفکیک‌کننده معنای این دو لغت هستند.", tip: "پیشوندهای یونانی homo و hetero را همیشه به خاطر بسپارید." },
+  { title: "تله Screening و Diagnostic Test", example: "screening test = غربالگری افراد بدون علامت\ndiagnostic test = تست تأییدی برای تشخیص قطعی", explain: "screening همیشه گام اول و diagnostic معمولاً گام دوم و تأییدی است.", tip: "screening کشف احتمال است؛ diagnostic تأیید قطعی بیماری." }
 ];
 
 let trapIndex = 0;
@@ -2249,24 +1568,28 @@ function multilineToHtml(str) {
 function renderTrapCard() {
   const realIdx = trapOrder[trapIndex];
   const t = TRAPS[realIdx];
-  document.getElementById('trapFront').innerHTML =
-    `<div class="trap-num">تله ${trapIndex + 1} از ${TRAPS.length}</div>
-     <div class="trap-title">${t.title}</div>
-     <div class="trap-example">${multilineToHtml(t.example)}</div>`;
-  document.getElementById('trapBack').innerHTML =
-    `<div class="trap-back-title">💡 توضیح</div>
-     <div class="trap-explain">${t.explain}</div>
-     <div class="trap-tip"><b>نکته کنکوری:</b> ${t.tip}</div>`;
-  document.getElementById('trapCard').classList.remove('flipped');
-  document.getElementById('trapCounter').textContent = (trapIndex + 1) + ' / ' + TRAPS.length;
-  document.getElementById('trap-range').textContent = 'فلش‌کارت ' + (trapIndex + 1) + ' از ' + TRAPS.length;
+  const front = document.getElementById('trapFront');
+  const back = document.getElementById('trapBack');
+  if (!front || !back) return;
+  front.innerHTML = `
+    <div style="font-size:12px; opacity:0.75; margin-bottom:10px;">تله ${trapIndex + 1} از ${TRAPS.length}</div>
+    <div style="font-size:18px; font-weight:700; margin-bottom:14px;">${t.title}</div>
+    <div style="font-size:15px; line-height:1.9;">${multilineToHtml(t.example)}</div>
+  `;
+  back.innerHTML = `
+    <div style="font-size:15px; font-weight:700; color:var(--primary); margin-bottom:10px;">💡 توضیح</div>
+    <div style="font-size:14px; line-height:2;">${t.explain}</div>
+    <div style="margin-top:12px; padding:10px 12px; background:var(--primary-pale); border-right:3px solid var(--primary-light); border-radius:6px; font-size:13px; color:var(--primary);"><b>نکته کنکوری:</b> ${t.tip}</div>
+  `;
+  document.getElementById('trapCard')?.classList.remove('flipped');
+  const counter = document.getElementById('trapCounter');
+  if (counter) counter.textContent = (trapIndex + 1) + ' / ' + TRAPS.length;
   document.querySelectorAll('.trap-list-item').forEach(el => el.classList.remove('active'));
-  const activeItem = document.getElementById('trap-list-item-' + realIdx);
-  if (activeItem) activeItem.classList.add('active');
+  document.getElementById('trap-list-item-' + realIdx)?.classList.add('active');
 }
 
 function flipTrap() {
-  document.getElementById('trapCard').classList.toggle('flipped');
+  document.getElementById('trapCard')?.classList.toggle('flipped');
 }
 
 function changeTrap(dir) {
@@ -2297,10 +1620,11 @@ function resetTraps() {
 
 function renderTrapList() {
   const grid = document.getElementById('trapList');
+  if (!grid) return;
   grid.innerHTML = TRAPS.map((t, i) => `
     <div class="trap-list-item" id="trap-list-item-${i}" onclick="goToTrap(${i})">
       <span class="trap-list-num">${i + 1}</span>
-      <span class="trap-list-title">${t.title}</span>
+      <span class="trap-list-title" style="font-size:13px; font-weight:600;">${t.title}</span>
     </div>
   `).join('');
 }
@@ -2309,57 +1633,46 @@ function initTraps() {
   renderTrapList();
   renderTrapCard();
 }
-// ========== پایان تله‌های کنکوری ==========
 
-
-// ========== چالش هوشمند واژگان (مرجع + عصاره لغات) ==========
+// ========== چالش هوشمند واژگان ==========
 const CHALLENGE_DURATION = 180;
 let challengeState = null;
 let challengeSource = 'all';
 
 function setChallengeSource(source) {
   challengeSource = source;
-  document.querySelectorAll('#challengeSourceTabs .alpha-chip').forEach(function(b) {
-    b.classList.remove('active');
-  });
+  document.querySelectorAll('#challengeSourceTabs .alpha-chip').forEach(b => b.classList.remove('active'));
   document.getElementById('src-btn-' + source)?.classList.add('active');
 }
 
 function getChallengePool() {
-  var pool = [];
+  let pool = [];
   if (challengeSource === 'vocab' || challengeSource === 'all') {
-    pool = pool.concat(WORDS.map(function(w) {
-      return { word: w.word, phonetic: w.phonetic || '', meaning: w.meaning, type: 'مرجع' };
-    }));
+    pool = pool.concat(WORDS.map(w => ({ word: w.word, phonetic: w.phonetic || '', meaning: w.meaning, type: 'مرجع' })));
   }
   if (challengeSource === 'ossareh' || challengeSource === 'all') {
-    pool = pool.concat(ossarehData.map(function(o) {
-      return { word: o.words, phonetic: o.day ? ('روز ' + o.day) : '', meaning: o.meaning, type: 'عصاره لغات' };
-    }));
+    pool = pool.concat(ossarehData.map(o => ({ word: o.words, phonetic: o.day ? ('روز ' + o.day) : '', meaning: o.meaning, type: 'عصاره لغات' })));
   }
-  return pool.filter(function(item) { return item.word && item.meaning; });
+  return pool.filter(item => item.word && item.meaning);
 }
 
 function startChallenge() {
   if (challengeState && challengeState.timerId) clearInterval(challengeState.timerId);
-  var pool = getChallengePool();
+  const pool = getChallengePool();
   if (pool.length < 4) {
     alert('در حال حاضر واژگان کافی بارگذاری نشده است. لطفاً چند لحظه صبر کنید.');
     return;
   }
   
-  var shuffled = pool.slice();
-  for (var i = shuffled.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
-    var temp = shuffled[i];
-    shuffled[i] = shuffled[j];
-    shuffled[j] = temp;
+  const shuffled = pool.slice();
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
   
-  var selected = shuffled.slice(0, Math.min(30, shuffled.length));
   challengeState = {
     pool: pool,
-    words: selected,
+    words: shuffled.slice(0, Math.min(30, shuffled.length)),
     index: 0,
     correctCount: 0,
     wrongList: [],
@@ -2375,57 +1688,62 @@ function startChallenge() {
   challengeState.timerId = setInterval(challengeTick, 1000);
 }
 
+function challengeTick() {
+  if (!challengeState) return;
+  challengeState.timeLeft--;
+  const m = Math.floor(Math.max(0, challengeState.timeLeft) / 60);
+  const s = Math.max(0, challengeState.timeLeft) % 60;
+  const pad = v => (v < 10 ? '0' + v : '' + v);
+  document.getElementById('challengeTimer').textContent = pad(m) + ':' + pad(s);
+  if (challengeState.timeLeft <= 0) endChallenge(true);
+}
+
 function buildChallengeOptions(item, allPool) {
-  var distractors = allPool.filter(function(w) { return w.meaning !== item.meaning; });
-  for (var i = distractors.length - 1; i > 0; i--) {
-    var j = Math.floor(Math.random() * (i + 1));
-    var temp = distractors[i];
-    distractors[i] = distractors[j];
-    distractors[j] = temp;
+  const distractors = allPool.filter(w => w.meaning !== item.meaning);
+  for (let i = distractors.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [distractors[i], distractors[j]] = [distractors[j], distractors[i]];
   }
-  var opts = [item.meaning].concat(distractors.slice(0, 3).map(function(w) { return w.meaning; }));
-  for (var k = opts.length - 1; k > 0; k--) {
-    var r = Math.floor(Math.random() * (k + 1));
-    var t = opts[k];
-    opts[k] = opts[r];
-    opts[r] = t;
+  const opts = [item.meaning].concat(distractors.slice(0, 3).map(w => w.meaning));
+  for (let k = opts.length - 1; k > 0; k--) {
+    const r = Math.floor(Math.random() * (k + 1));
+    [opts[k], opts[r]] = [opts[r], opts[k]];
   }
   return opts;
 }
 
 function renderChallengeQuestion() {
-  var st = challengeState;
+  const st = challengeState;
   if (!st) return;
   st.answered = false;
-  var item = st.words[st.index];
-  var options = buildChallengeOptions(item, st.pool);
+  const item = st.words[st.index];
+  const options = buildChallengeOptions(item, st.pool);
   st.currentOptions = options;
 
   document.getElementById('challengeWord').textContent = item.word;
   document.getElementById('challengePhonetic').textContent = item.phonetic ? ('[' + (item.type || '') + '] ' + item.phonetic) : ('[' + (item.type || '') + ']');
-  document.getElementById('challengeProgress').textContent = faDigits(st.index + 1) + ' / ' + faDigits(st.words.length);
+  document.getElementById('challengeProgress').textContent = (st.index + 1) + ' / ' + st.words.length;
   document.getElementById('challengeProgressFill').style.width = ((st.index) / st.words.length * 100) + '%';
-  document.getElementById('challengeTimer').textContent = formatChallengeTime(Math.max(0, st.timeLeft));
 
-  var optsEl = document.getElementById('challengeOptions');
-  optsEl.innerHTML = options.map(function(opt, i) {
-    return '<button class="challenge-option" onclick="selectChallengeAnswer(' + i + ')">' + opt + '</button>';
-  }).join('');
+  const optsEl = document.getElementById('challengeOptions');
+  optsEl.innerHTML = options.map((opt, i) =>
+    `<button class="challenge-option" onclick="selectChallengeAnswer(${i})">${opt}</button>`
+  ).join('');
 }
 
 function selectChallengeAnswer(idx) {
   const st = challengeState;
   if (!st || st.answered) return;
   st.answered = true;
-  const word = st.words[st.index];
-  const correctText = word.meaning;
+  const item = st.words[st.index];
+  const correctText = item.meaning;
   const chosenText = st.currentOptions[idx];
   const isCorrect = chosenText === correctText;
 
   if (isCorrect) {
     st.correctCount++;
   } else {
-    st.wrongList.push({ word: word.word, meaning: correctText, chosen: chosenText });
+    st.wrongList.push({ word: item.word, meaning: correctText, chosen: chosenText });
   }
 
   const buttons = document.querySelectorAll('#challengeOptions .challenge-option');
@@ -2453,48 +1771,30 @@ function endChallenge(timedOut) {
   st.timerId = null;
 
   const total = st.words.length;
-  const answeredCount = st.index + (st.answered ? 1 : 0);
   const percent = total > 0 ? Math.round((st.correctCount / total) * 100) : 0;
 
   document.getElementById('challenge-quiz').style.display = 'none';
   document.getElementById('challenge-result').style.display = 'flex';
-  document.getElementById('challengeResultTitle').textContent = timedOut ? 'زمان شما به پایان رسید' : 'نتیجه چالش';
-  document.getElementById('challengeResultScore').textContent =
-    faDigits(st.correctCount) + ' پاسخ صحیح از ' + faDigits(total) + (timedOut ? (' (' + faDigits(answeredCount) + ' پاسخ داده‌شده)') : '');
-  document.getElementById('challengeResultPercent').textContent = faDigits(percent) + '٪';
-
-  const wrongHeading = document.getElementById('challengeWrongHeading');
-  const wrongList = document.getElementById('challengeWrongList');
-  if (st.wrongList.length > 0) {
-    wrongHeading.style.display = 'block';
-    wrongList.innerHTML = st.wrongList.map(w =>
-      `<div class="challenge-wrong-item"><div class="cw-en">${w.word}</div><div class="cw-fa">معنی صحیح: ${w.meaning}</div></div>`
-    ).join('');
-  } else {
-    wrongHeading.style.display = 'none';
-    wrongList.innerHTML = '';
-  }
+  document.getElementById('challengeResultPercent').textContent = percent + '٪';
 }
 
 function initChallenge() {
-  if (challengeState && challengeState.timerId) {
-    clearInterval(challengeState.timerId);
-  }
+  if (challengeState && challengeState.timerId) clearInterval(challengeState.timerId);
   challengeState = null;
   document.getElementById('challenge-intro').style.display = 'flex';
   document.getElementById('challenge-quiz').style.display = 'none';
   document.getElementById('challenge-result').style.display = 'none';
 }
-// ========== پایان چالش ==========
 
+// ========== مدیریت تب‌ها و صفحات ==========
 function switchTab(tab) {
-  document.querySelectorAll('.tab-content').forEach(function(t) { t.classList.remove('active'); });
-  document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
   
-  var targetTab = document.getElementById('tab-' + tab);
+  const targetTab = document.getElementById('tab-' + tab);
   if (targetTab) targetTab.classList.add('active');
   
-  var activeBtn = document.querySelector('.nav-tab[data-tab="' + tab + '"]');
+  const activeBtn = document.querySelector(`.nav-tab[data-tab="${tab}"]`);
   if (activeBtn) activeBtn.classList.add('active');
   
   stopAudio();
@@ -2505,96 +1805,27 @@ function switchTab(tab) {
   if (tab === 'ossareh') filterOssareh();
 }
 
-// ========== مدیریت صفحات و منو ==========
-var SCREENS = ['menu', 'app', 'about'];
-
 function renderScreen(name) {
-  SCREENS.forEach(function(s) {
-    var el = document.getElementById('screen-' + s);
-    if (el) el.style.display = (s === name) ? '' : 'none';
+  ['menu', 'app', 'about'].forEach(s => {
+    const el = document.getElementById('screen-' + s);
+    if (el) el.style.display = (s === name) ? ((s === 'menu') ? 'flex' : 'block') : 'none';
   });
   if (name !== 'app') stopAudio();
   window.scrollTo(0, 0);
 }
 
-function goToScreen(name) {
-  renderScreen(name);
-  history.pushState({ screen: name }, '', '#' + name);
-}
-
 function goToMenu() {
-  // اگر تاریخچه‌ای برای بازگشت وجود دارد از آن استفاده کن تا دکمه Back گوشی هم هماهنگ بماند
-  if (history.state && history.state.screen && history.state.screen !== 'menu') {
-    history.back();
-  } else {
-    goToScreen('menu');
-  }
+  renderScreen('menu');
 }
 
 function startLearning() {
-  goToScreen('app');
+  renderScreen('app');
   switchTab('vocab');
 }
 
-function showAbout() { goToScreen('about'); }
-function showContact() { goToScreen('contact'); }
-
-window.addEventListener('popstate', function(e) {
-  var screen = (e.state && e.state.screen) ? e.state.screen : 'menu';
-  renderScreen(screen);
-});
-
-function showToast(msg) {
-  var el = document.getElementById('appToast');
-  el.textContent = msg;
-  el.classList.add('show');
-  clearTimeout(showToast._t);
-  showToast._t = setTimeout(function() { el.classList.remove('show'); }, 2200);
+function showAbout() {
+  renderScreen('about');
 }
-
-function copyPhone(number, el) {
-  var done = function() {
-    showToast('شماره ' + number + ' کپی شد');
-  };
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(number).then(done).catch(function() { fallbackCopy(number, done); });
-  } else {
-    fallbackCopy(number, done);
-  }
-}
-
-function fallbackCopy(text, cb) {
-  var ta = document.createElement('textarea');
-  ta.value = text;
-  ta.style.position = 'fixed';
-  ta.style.opacity = '0';
-  document.body.appendChild(ta);
-  ta.focus();
-  ta.select();
-  try { document.execCommand('copy'); } catch (e) {}
-  document.body.removeChild(ta);
-  if (cb) cb();
-}
-
-function openInstagram() {
-  // Native Android bridge (injected by the WebView app via JavascriptInterface).
-  // It opens the Instagram app directly if installed, otherwise falls back
-  // to a normal browser link. Falls back to a plain browser tab if the
-  // bridge isn't present (e.g. when testing this file in a desktop browser).
-  if (window.AndroidApp && typeof window.AndroidApp.openInstagram === 'function') {
-    try {
-      window.AndroidApp.openInstagram();
-      return;
-    } catch (e) {}
-  }
-  window.open('https://www.instagram.com/biochemistry_course', '_blank');
-}
-
-// راه‌اندازی اولیه ناوبری صفحات: صفحه منو ریشه تاریخچه است
-history.replaceState({ screen: 'menu' }, '', '#menu');
-renderScreen('menu');
-// ========== پایان مدیریت صفحات ==========
-
 
 // ================== بارگذاری واژگان مرجع از JSON ==================
 async function loadMainWordsData() {
@@ -2603,10 +1834,10 @@ async function loadMainWordsData() {
     const data = await res.json();
     if (data && data.length > 0) {
       WORDS = data;
-      document.getElementById('total-words').textContent = WORDS.length;
+      const el = document.getElementById('total-words');
+      if (el) el.textContent = WORDS.length;
       updateCounts();
       applyFilters();
-      if (typeof initChallenge === 'function') initChallenge();
     }
   } catch (err) {
     console.error("خطا در بارگذاری medical_vocab_data.json:", err);
@@ -2668,7 +1899,7 @@ async function loadOssarehData() {
         if (day) daysSet.add(day);
         const itemKey = `k_${day}_${words.slice(0, 20)}`;
         if (!ossarehLeitner[itemKey]) {
-          ossarehLeitner[itemKey] = 1; // شروع از جعبه ۱
+          ossarehLeitner[itemKey] = 1;
         }
         ossarehData.push({ key: itemKey, day, words, meaning, exEn, exFa });
       }
@@ -2705,7 +1936,7 @@ function handleLeitnerAnswer(key, passed) {
   if (passed) {
     if (box < 5) box++;
   } else {
-    box = 1; // در صورت بلد نبودن: برگشت به خانه ۱
+    box = 1;
   }
   ossarehLeitner[key] = box;
   saveLeitnerData();
@@ -2785,7 +2016,6 @@ function filterOssareh() {
   renderOssarehCards(filtered);
 }
 
-// تلفظ ترتیبی و کامل همه لغات یک دسته
 function playAllSynonyms(wordsList) {
   if (!('speechSynthesis' in window)) return;
   window.speechSynthesis.cancel();
@@ -2837,7 +2067,6 @@ function renderOssarehCards(list) {
               </div>
             </div>
             
-            <!-- تمام لغات کنار هم با جداکننده اسلش و قابلیت تلفظ تک‌تک -->
             <div class="word-english" style="font-size:20px; line-height:1.6; color:var(--primary); direction:ltr; text-align:left;">
               ${synonyms.map(s => `<span class="keyword-tag" title="کلیک برای پخش تلفظ" onclick="speakText('${s.replace(/'/g, "\\'")}')">${s}</span>`).join(' <span style="color:#b0bec5; font-weight:400; padding:0 3px;">/</span> ')}
             </div>
@@ -2860,7 +2089,6 @@ function renderOssarehCards(list) {
               <div class="example-fa">${formattedExFa}</div>
             </div>
             
-            <!-- دکمه‌های انتقال جعبه لایتنر -->
             <div class="leitner-action-bar">
               <span style="font-size:12px; color:var(--text-muted); font-weight:600;">وضعیت تسلط شما:</span>
               <div style="display:flex; gap:6px;">
@@ -2879,15 +2107,12 @@ function renderOssarehCards(list) {
   }).join('');
 }
 
-
-
 // INIT
 loadMainWordsData();
 loadOssarehData();
-
-updateCounts();
-applyFilters();
 renderPassage();
+initTraps();
+initChallenge();
 document.getElementById('bookmarked-count').textContent = bookmarks.length;
 </script>
 </body>
